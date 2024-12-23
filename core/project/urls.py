@@ -17,8 +17,11 @@ Including another URLconf
     https://django.fun/docs/django/5.0/topics/http/urls/ - на русском.
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path
 
+
+# include позволяет ссылаться на urlpatterns в других файлах
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('core.apps.main.urls')),
 ]
