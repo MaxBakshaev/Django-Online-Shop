@@ -6,8 +6,7 @@ def index(request):
     
     # контекстные переменные, передаются в шаблон
     context = {
-        'title': 'MultiShop - товары на все случаи жизни',
-        'content': 'Page content'
+        'title': 'MultiShop - Главная'
     }
     
     # функция render отрисовывает страницу
@@ -16,4 +15,10 @@ def index(request):
 
 def about(request):
     
-    return HttpResponse('Информация о сайте')
+    context = {
+        'title': 'MultiShop - О нас',
+        'content': 'MultiShop - Товары на все случаи жизни',
+        'text_on_page': 'Лучший магазин во вселенной'
+    }
+    
+    return render(request, 'main/about.html', context)
