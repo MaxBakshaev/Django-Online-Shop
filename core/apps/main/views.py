@@ -6,7 +6,7 @@ def index(request):
     
     # контекстные переменные, передаются в шаблон
     context = {
-        'title': 'Home',
+        'title': 'MultiShop - товары на все случаи жизни',
         'content': 'Page content'
     }
     
