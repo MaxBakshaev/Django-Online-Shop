@@ -72,16 +72,16 @@
                                 <a href="" class="dropdown-item">Baby's Dresses</a>
                             </div>
                         </div>
-                        <a href="{% url "goods:index" %}" class="nav-item nav-link">Shirts</a>
-                        <a href="{% url "goods:index" %}" class="nav-item nav-link">Jeans</a>
-                        <a href="{% url "goods:index" %}" class="nav-item nav-link">Swimwear</a>
-                        <a href="{% url "goods:index" %}" class="nav-item nav-link">Sleepwear</a>
-                        <a href="{% url "goods:index" %}" class="nav-item nav-link">Sportswear</a>
-                        <a href="{% url "goods:index" %}" class="nav-item nav-link">Jumpsuits</a>
-                        <a href="{% url "goods:index" %}" class="nav-item nav-link">Blazers</a>
-                        <a href="{% url "goods:index" %}" class="nav-item nav-link">Jackets</a>
-                        <a href="{% url "goods:index" %}" class="nav-item nav-link">Shoes</a>
-                        <a href="{% url "goods:index" %}" class="nav-item nav-link">Dresses</a>
+                        <a href="{% url "catalog:index" %}" class="nav-item nav-link">Shirts</a>
+                        <a href="{% url "catalog:index" %}" class="nav-item nav-link">Jeans</a>
+                        <a href="{% url "catalog:index" %}" class="nav-item nav-link">Swimwear</a>
+                        <a href="{% url "catalog:index" %}" class="nav-item nav-link">Sleepwear</a>
+                        <a href="{% url "catalog:index" %}" class="nav-item nav-link">Sportswear</a>
+                        <a href="{% url "catalog:index" %}" class="nav-item nav-link">Jumpsuits</a>
+                        <a href="{% url "catalog:index" %}" class="nav-item nav-link">Blazers</a>
+                        <a href="{% url "catalog:index" %}" class="nav-item nav-link">Jackets</a>
+                        <a href="{% url "catalog:index" %}" class="nav-item nav-link">Shoes</a>
+                        <a href="{% url "catalog:index" %}" class="nav-item nav-link">Dresses</a>
                     </div>
                 </nav>
             </div>
@@ -123,11 +123,30 @@
     </div>
     <!-- Navbar End -->
 
+
     {% block content %}{% endblock%}
 
     <!-- Footer Start -->
     {% block footer %}{% endblock %}
     <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+
+    <script src="{% static "lib/easing/easing.min.js" %}"></script>
+    <script src="{% static "lib/owlcarousel/owl.carousel.min.js" %}"></script>
+
+    <!-- Contact Javascript File -->
+    <script src="{% static "mail/jqBootstrapValidation.min.js" %}"></script>
+    <script src="{% static "mail/contact.js" %}"></script>
+
+    <!-- Template Javascript -->
+    <script src="{% static "js/main.js" %}"></script>
 
 </body>
 </html>
