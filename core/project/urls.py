@@ -21,8 +21,9 @@ from django.urls import include, path
 
 
 # include позволяет ссылаться на urlpatterns в других файлах
-# namespace - указывает с какого приложения брать маршрут для name в шаблоне
+# namespace (приложение/urls.py - app_name) - указывает с какого приложения брать маршрут для name в шаблоне
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('core.apps.main.urls', namespace='main')),
+    path('catalog/', include('core.apps.goods.urls', namespace='goods')),
 ]
