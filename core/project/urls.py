@@ -18,6 +18,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from django.conf.urls.static import static
+
+from core.project.settings import DEBUG, MEDIA_URL, MEDIA_ROOT
 
 
 # include позволяет ссылаться на urlpatterns в других файлах
@@ -27,3 +30,10 @@ urlpatterns = [
     path('', include('core.apps.main.urls', namespace='main')),
     path('catalog/', include('core.apps.goods.urls', namespace='catalog')),
 ]
+
+if DEBUG:
+    import debug_toolbar
+    urlpatterns += [
+        path('__debug__/', include(debug_toolbar.urls)),
+    ]
+    urlpatterns += static(MEDIA_URL, document_root=MEDIA_ROOT)
