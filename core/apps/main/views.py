@@ -1,12 +1,18 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
+from goods.models import Categories
+
 
 def index(request):
     
+    # список из всех категорий
+    categories = Categories.objects.all()
+    
     # контекстные переменные, передаются в шаблон
     context = {
-        'title': 'MultiShop - Главная'
+        'title': 'MultiShop - Главная',
+        'categories': categories
     }
     
     # функция render отрисовывает страницу
