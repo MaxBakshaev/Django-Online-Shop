@@ -22,7 +22,7 @@ class Products(models.Model):
     description = models.TextField(blank=True, null=True, verbose_name='Описание')
     image = models.ImageField(upload_to='goods_images', blank=True, null=True, verbose_name='Изображение')
     # max_digits и decimal_places - количество знаков до и после запятой
-    price = models.DecimalField(default=0.00, max_digits=20, decimal_places=2, verbose_name='Цена')
+    price = models.DecimalField(default=0.00, max_digits=20, decimal_places=0, verbose_name='Цена')
     discount = models.DecimalField(default=0.00, max_digits=20, decimal_places=2, verbose_name='Скидка в %')
     # PositiveIntegerField не может содержать отрицательное чисто в отличие от IntegerField
     quantity = models.PositiveIntegerField(default=0, verbose_name='Количество')
