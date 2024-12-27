@@ -1,4 +1,5 @@
 {% load static %}
+{% load goods_tags %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -64,6 +65,7 @@
                 </a>
                 <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 bg-light" id="navbar-vertical" style="width: calc(100% - 30px); z-index: 999;">
                     <div class="navbar-nav w-100">
+                        {% tag_categories as categories %}
                         {% for category in categories %}
                             <a href="{% url "catalog:index" %}" class="nav-item nav-link">{{ category.name }}</a>
                         {% endfor %}
