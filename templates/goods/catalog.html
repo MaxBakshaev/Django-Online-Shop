@@ -95,7 +95,7 @@
                                 </div>
                         </div>
                         <div class="text-center py-3">
-                            <a class="h4 text-decoration-none text-truncate" href="">{{ product.name }}</a>
+                            <a class="h4 text-decoration-none text-truncate" href="{% url "catalog:product" product.slug %}">{{ product.name }}</a>
                             <p class="product_id">id: {{ product.display_id }}</p>
                             <div class="d-flex align-items-center justify-content-center mt-1">
                                 {% if product.discount %}
