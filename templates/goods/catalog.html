@@ -87,12 +87,12 @@
                             {% else %}
                                 <img class="img-fluid w-100" src="{% static "img/Not found image.png" %}" alt="">
                             {% endif %}
-                            <div class="product-action">
-                                <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                                <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                                <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                                <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
-                            </div>
+                                <div class="product-action">
+                                    <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
+                                    <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
+                                    <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
+                                    <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
+                                </div>
                         </div>
                         <div class="text-center py-3">
                             <a class="h4 text-decoration-none text-truncate" href="">{{ product.name }}</a>
@@ -100,9 +100,10 @@
                             <div class="d-flex align-items-center justify-content-center mt-1">
                                 {% if product.discount %}
                                     <h5>{{ product.sell_price }} ₽</h5>
-                                    <h6 class="text-muted ml-3"><del>{{ product.price }} ₽</del></h6>
+                                    <h6 class="text-muted ml-3"><del>{{ product.price }}</del> ₽</h6>
+                                    <h5 class="badge bg-warning text-dark ml-3">-{{ product.discount }} %</h5>
                                 {% else %}
-                                <h5>{{ product.price }} ₽</h5>
+                                    <h5>{{ product.price }} ₽</h5>
                                 {% endif %}
                             </div>
                             <div class="d-flex align-items-center justify-content-center">
