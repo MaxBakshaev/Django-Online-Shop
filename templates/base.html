@@ -67,7 +67,7 @@
                     <div class="navbar-nav w-100">
                         {% tag_categories as categories %}
                         {% for category in categories %}
-                            <a href="{% url "catalog:index" %}" class="nav-item nav-link">{{ category.name }}</a>
+                            <a class="nav-item nav-link" href="{% url "catalog:index" category.slug %}">{{ category.name }}</a>
                         {% endfor %}
                         {% comment %} <div class="nav-item dropdown dropright">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Dresses <i class="fa fa-angle-right float-right mt-1"></i></a>
@@ -102,7 +102,7 @@
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto py-0">
                             <a href="{% url "main:index" %}" class="nav-item nav-link active">Главная страница</a>
-                            <a href="{% url "goods:index" %}" class="nav-item nav-link">Каталог</a>
+                            <a href="{% url "main:all_categories" %}" class="nav-item nav-link">Каталог</a>
                             <a href="detail.html" class="nav-item nav-link">Избранное</a>
                             <a href="detail.html" class="nav-item nav-link">Войти</a>
                             <div class="nav-item dropdown">

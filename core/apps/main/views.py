@@ -22,3 +22,12 @@ def about(request):
     }
     
     return render(request, 'main/about.html', context)
+
+
+def all_categories(request):
+    
+    context = {
+        'title': 'MultiShop - О нас',
+    }
+    
+    return render(request, 'main/all_categories.html', context)

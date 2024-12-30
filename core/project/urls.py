@@ -27,8 +27,8 @@ from core.project.settings import DEBUG, MEDIA_URL, MEDIA_ROOT
 # namespace указывает маршрут для name в шаблоне
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('core.apps.main.urls', namespace='main')),
-    path('catalog/', include('core.apps.goods.urls', namespace='catalog')),
+    path('', include('main.urls', namespace='main')),
+    path('catalog/', include('goods.urls', namespace='catalog')),
 ]
 
 if DEBUG:
