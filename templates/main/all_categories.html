@@ -23,6 +23,16 @@
                                     <img class="img-fluid" src="{% static "img/Диван.png" %}" alt="">
                                 {% elif category.name == 'Музыкальные инструменты' %}
                                     <img class="img-fluid" src="{% static "img/Музыкальные инструменты.png" %}" alt="">
+                                {% elif category.name == 'Предметы интерьера' %}
+                                    <img class="img-fluid" src="{% static "img/Настольная лампа.png" %}" alt="">
+                                {% elif category.name == 'Полезные мелочи' %}
+                                    <img class="img-fluid" src="{% static "img/Вещи.png" %}" alt="">
+                                {% elif category.name == 'Недвижимость' %}
+                                    <img class="img-fluid" src="{% static "img/Недвижимость.png" %}" alt="">
+                                {% elif category.name == 'Хозяйственно-бытовые товары' %}
+                                    <img class="img-fluid" src="{% static "img/Хозтовары.png" %}" alt="">
+                                {% elif category.name == 'Одежда' %}
+                                    <img class="img-fluid" src="{% static "img/Одежда.png" %}" alt="">
                                 {% endif %}
                             </div>
                             <div class="flex-fill pl-3">
@@ -33,64 +43,6 @@
                     </a>
                 </div>
             {% endfor %}
-
-
-            {% comment %} <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <a class="text-decoration-none" href="">
-                    <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                            <img class="img-fluid" src="{% static "img/cat-2.jpg" %}" alt="">
-                        </div>
-                        <div class="flex-fill pl-3">
-                            <h6>Автомобили</h6>
-                            <small class="text-body">100 Products</small>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <a class="text-decoration-none" href="">
-                    <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                            <img class="img-fluid" src="{% static "img/cat-3.jpg" %}" alt="">
-                        </div>
-                        <div class="flex-fill pl-3">
-                            <h6>Книги</h6>
-                            <small class="text-body">100 Products</small>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <a class="text-decoration-none" href="">
-                    <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                            <img class="img-fluid" src="{% static "img/cat-4.jpg" %}" alt="">
-                        </div>
-                        <div class="flex-fill pl-3">
-                            <h6>Мебель</h6>
-                            <small class="text-body">100 Products</small>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <a class="text-decoration-none" href="">
-                    <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                            <img class="img-fluid" src="{% static "img/cat-4.jpg" %}" alt="">
-                        </div>
-                        <div class="flex-fill pl-3">
-                            <h6>Музыкальные инструменты</h6>
-                            <small class="text-body">100 Products</small>
-                        </div>
-                    </div>
-                </a>
-            </div> {% endcomment %}
-
         </div>
     </div>
     <!-- Каталог End -->

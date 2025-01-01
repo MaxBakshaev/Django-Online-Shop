@@ -34,7 +34,7 @@
     <div class="container-fluid">
         <div class="row align-items-center bg-light py-3 px-xl-5 d-none d-lg-flex">
             <div class="col-lg-4">
-                <a href="" class="text-decoration-none">
+                <a href="{% url "main:index" %}" class="text-decoration-none">
                     <span class="h1 text-uppercase text-primary bg-dark px-2">Multi</span>
                     <span class="h1 text-uppercase text-dark bg-primary px-2 ml-n1">Shop</span>
                 </a>
@@ -101,7 +101,7 @@
                     </button>
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto py-0">
-                            <a href="{% url "main:index" %}" class="nav-item nav-link active">Главная страница</a>
+                            <a href="{% url "main:index" %}" class="nav-item nav-link">Главная страница</a>
                             <a href="{% url "main:all_categories" %}" class="nav-item nav-link">Каталог</a>
                             <a href="detail.html" class="nav-item nav-link">Избранное</a>
                             <a href="detail.html" class="nav-item nav-link">Войти</a>
