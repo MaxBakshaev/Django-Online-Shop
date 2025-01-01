@@ -101,9 +101,21 @@
                     </button>
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto py-0">
-                            <a href="{% url "main:index" %}" class="nav-item nav-link">Главная страница</a>
-                            <a href="{% url "main:all_categories" %}" class="nav-item nav-link">Каталог</a>
-                            <a href="detail.html" class="nav-item nav-link">Избранное</a>
+                            {% if title == "MultiShop - Главная" %}
+                                <a href="{% url "main:index" %}" class="nav-item nav-link active">Главная страница</a>
+                            {% else %}
+                                <a href="{% url "main:index" %}" class="nav-item nav-link">Главная страница</a>
+                            {% endif %}
+                            {% if title == "MultiShop - Каталог" %}
+                                <a href="{% url "main:all_categories" %}" class="nav-item nav-link active">Каталог</a>
+                            {% else %}
+                                <a href="{% url "main:all_categories" %}" class="nav-item nav-link">Каталог</a>
+                            {% endif %}
+                            {% if title == "MultiShop - Избранное" %}
+                                <a href="detail.html" class="nav-item nav-link active">Избранное</a>
+                            {% else %}
+                                <a href="detail.html" class="nav-item nav-link">Избранное</a>
+                            {% endif %}
                             <a href="detail.html" class="nav-item nav-link">Войти</a>
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Профиль <i class="fa fa-angle-down mt-1"></i></a>
@@ -113,8 +125,16 @@
                                     <a href="" class="dropdown-item">Выйти</a>
                                 </div>
                             </div>
-                            <a href="detail.html" class="nav-item nav-link">Корзина</a>
-                            <a href="{% url "main:about" %}" class="nav-item nav-link">О нас</a>
+                            {% if title == "MultiShop - Избранное" %}
+                                <a href="detail.html" class="nav-item nav-link active">Корзина</a>
+                            {% else %}
+                                <a href="detail.html" class="nav-item nav-link">Корзина</a>
+                            {% endif %}
+                            {% if title == "MultiShop - О нас" %}
+                                <a href="{% url "main:about" %}" class="nav-item nav-link active">О нас</a>
+                            {% else %}
+                                <a href="{% url "main:about" %}" class="nav-item nav-link">О нас</a>
+                            {% endif %}
                         </div>
                         <!-- Значки избранное и корзина Start -->
                         <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
