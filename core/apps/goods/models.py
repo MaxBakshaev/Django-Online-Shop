@@ -35,6 +35,8 @@ class Products(models.Model):
         db_table = 'product'
         verbose_name = 'Продукт'
         verbose_name_plural = 'Продукты'
+        # стандартная сортировка по какому полю
+        ordering = ("id",)
 
     # метод для отображения количества в админке
     def __str__(self):
