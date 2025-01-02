@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load goods_tags %}
 
 {% block content %}
     <!-- Featured Start -->
@@ -480,6 +481,58 @@
         </div>
     </div>
     <!-- Новинки End -->
+
+        <!-- Vendor Start -->
+        <div class="container-fluid py-5">
+            <div class="row px-xl-5">
+                <div class="col">
+                    <div class="owl-carousel vendor-carousel">
+                        {% tag_categories as categories %}
+                        {% for category in categories %}
+                            {% if category.name == 'Автомобили' %}
+                                <div class="bg-light p-4">
+                                    <a href="{% url "catalog:index" category.slug %}"><img src="{% static "img/Машина.png" %}" alt=""></a>
+                                </div>
+                            {% elif category.name == 'Книги' %}
+                                <div class="bg-light p-4">    
+                                    <a href="{% url "catalog:index" category.slug %}"><img src="{% static "img/Книги.png" %}" alt=""></a>
+                                </div>
+                            {% elif category.name == 'Мебель' %}
+                                <div class="bg-light p-4">    
+                                    <a href="{% url "catalog:index" category.slug %}"><img src="{% static "img/Диван.png" %}" alt=""></a>
+                                </div>
+                            {% elif category.name == 'Музыкальные инструменты' %}
+                                <div class="bg-light p-4">    
+                                    <a href="{% url "catalog:index" category.slug %}"><img class="img-fluid" src="{% static "img/Музыкальные инструменты.png" %}" alt=""></a>
+                                </div>
+                            {% elif category.name == 'Предметы интерьера' %}
+                                <div class="bg-light p-4">    
+                                    <a href="{% url "catalog:index" category.slug %}"><img class="img-fluid" src="{% static "img/Настольная лампа.png" %}" alt=""></a>
+                                </div>
+                            {% elif category.name == 'Полезные мелочи' %}
+                                <div class="bg-light p-4">    
+                                    <a href="{% url "catalog:index" category.slug %}"><img class="img-fluid" src="{% static "img/Вещи.png" %}" alt=""></a>
+                                </div>
+                            {% elif category.name == 'Недвижимость' %}
+                                <div class="bg-light p-4">    
+                                    <a href="{% url "catalog:index" category.slug %}"><img class="img-fluid" src="{% static "img/Недвижимость.png" %}" alt=""></a>
+                                </div>
+                            {% elif category.name == 'Хозяйственно-бытовые товары' %}
+                                <div class="bg-light p-4">    
+                                    <a href="{% url "catalog:index" category.slug %}"><img class="img-fluid" src="{% static "img/Хозтовары.png" %}" alt=""></a>
+                                </div>
+                            {% elif category.name == 'Одежда' %}
+                                <div class="bg-light p-4">    
+                                    <a href="{% url "catalog:index" category.slug %}"><img class="img-fluid" src="{% static "img/Одежда.png" %}" alt=""></a>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Vendor End -->
+
 {% endblock %}
 
 <!-- Footer Start -->

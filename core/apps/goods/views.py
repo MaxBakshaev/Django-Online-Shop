@@ -5,7 +5,7 @@ from goods.models import Products
 
 def catalog(request, category_slug):
 
-    if category_slug == 'all':
+    if category_slug == 'vse-tovary':
         goods = Products.objects.all()
     else:
         goods = Products.objects.filter(category__slug=category_slug)
