@@ -28,8 +28,7 @@ class Products(models.Model):
     quantity = models.PositiveIntegerField(default=0, verbose_name='Количество')
     # ForeignKey связывает записи из таблицы Product с таблицей Categories
     # on_delete указывает что делать со всеми связанными товарами при удалении категории (PROTECT, CASCADE, SET_DEFAULT)
-    category = models.ForeignKey(to=Categories, on_delete=models.CASCADE, verbose_name='Категория')
-    
+    category = models.ForeignKey(to=Categories, on_delete=models.CASCADE, verbose_name='Категория') 
 
     class Meta:
         db_table = 'product'

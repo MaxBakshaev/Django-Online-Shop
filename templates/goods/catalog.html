@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load goods_tags %}
 
 {% block content %}
 <!-- Shop Start -->
@@ -8,39 +9,60 @@
         <!-- Shop Sidebar Start -->
         <div class="col-lg-3 col-md-4">
             <!-- Filter by price Start -->
-            <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Filter by price</span></h5>
-            <div class="bg-light p-4 mb-30">
-                <form>
+            <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Фильтр по цене</span></h5>
+            <div class="bg-light p-3 mb-30">
+                <form action="{% url "catalog:index" slug_url %}" method="get">
                     <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="checkbox" class="custom-control-input" checked id="price-all">
-                        <label class="custom-control-label" for="price-all">All Price</label>
+                        <input type="checkbox" class="custom-control-input" id="price-all" name="order_by" value="default" 
+                        {% if not request.GET.order_by or request.GET.order_by == 'default' %}checked{% endif %}>
+                        <label class="custom-control-label" for="price-all">Все товары</label>
                         <span class="badge border font-weight-normal">1000</span>
                     </div>
                     <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                        <input type="checkbox" class="custom-control-input" id="price-discount" name="on_sale" value="on" 
+                        {% if request.GET.on_sale == 'on' %}checked{% endif %}>
+                        {% comment %} <input type="hidden" name="q" value="request.GET.q"> {% endcomment %}
+                        <label class="custom-control-label" for="price-discount">Товары по акции</label>
+                        <span class="badge border font-weight-normal">1000</span>
+                    </div>
+                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                        <input type="checkbox" class="custom-control-input" id="price-cheap" name="order_by" value="price" 
+                        {% if request.GET.order_by == 'price' %}checked{% endif %}>
+                        <label class="custom-control-label" for="price-cheap">От дешевых к дорогим</label>
+                        <span class="badge border font-weight-normal">----------</span>
+                    </div>
+                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                        <input type="checkbox" class="custom-control-input" id="price-costly" name="order_by" value="-price" 
+                        {% if request.GET.order_by == '-price' %}checked{% endif %}>
+                        <label class="custom-control-label" for="price-costly">От дорогих к дешевым</label>
+                        <span class="badge border font-weight-normal">----------</span>
+                    </div>
+                    {% comment %} <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                         <input type="checkbox" class="custom-control-input" id="price-1">
-                        <label class="custom-control-label" for="price-1">$0 - $100</label>
+                        <label class="custom-control-label" for="price-1">0 - 1000 ₽</label>
                         <span class="badge border font-weight-normal">150</span>
                     </div>
                     <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                         <input type="checkbox" class="custom-control-input" id="price-2">
-                        <label class="custom-control-label" for="price-2">$100 - $200</label>
+                        <label class="custom-control-label" for="price-2">1001 - 5000 ₽</label>
                         <span class="badge border font-weight-normal">295</span>
                     </div>
                     <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                         <input type="checkbox" class="custom-control-input" id="price-3">
-                        <label class="custom-control-label" for="price-3">$200 - $300</label>
+                        <label class="custom-control-label" for="price-3">5001 - 10000 ₽</label>
                         <span class="badge border font-weight-normal">246</span>
                     </div>
                     <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                         <input type="checkbox" class="custom-control-input" id="price-4">
-                        <label class="custom-control-label" for="price-4">$300 - $400</label>
+                        <label class="custom-control-label" for="price-4">10001 - 50000 ₽</label>
                         <span class="badge border font-weight-normal">145</span>
                     </div>
                     <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
                         <input type="checkbox" class="custom-control-input" id="price-5">
-                        <label class="custom-control-label" for="price-5">$400 - $500</label>
+                        <label class="custom-control-label" for="price-5">50001 - 200000 ₽</label>
                         <span class="badge border font-weight-normal">168</span>
-                    </div>
+                    </div> {% endcomment %}
+                    <button type="sumbit" class="btn btn-primary mx-3 mt-3">Применить</button>
                 </form>
             </div>
             <!-- Filter by price End -->
@@ -125,7 +147,7 @@
                     <nav>
                       <ul class="pagination justify-content-center">
                         <li class="page-item {% if not goods.has_previous %}disabled{% endif %}">
-                            <a class="page-link" href="{% if goods.has_previous %}?page={{goods.previous_page_number}}{% else %}
+                            <a class="page-link" href="{% if goods.has_previous %}?{% change_params page=goods.previous_page_number %}{% else %}
                             #
                             {% endif %}">Назад</span></a>
                         </li>
@@ -133,13 +155,13 @@
                         {% for page in goods.paginator.page_range %}
                             {% if page >= goods.number|add:-2 and page <= goods.number|add:2 %}
                                 <li class="page-item {% if goods.number == page %}active{% endif %}">
-                                    <a class="page-link" href="?page={{page}}">{{ page }}</a>
+                                    <a class="page-link" href="?{% change_params page=page %}">{{ page }}</a>
                                 </li>
                             {% endif %}
                         {% endfor %}
 
                         <li class="page-item {% if not goods.has_next %}disabled{% endif %}">
-                            <a class="page-link" href="{% if goods.has_next %}?page={{goods.previous_next_number}}{% else %}
+                            <a class="page-link" href="{% if goods.has_next %}?{% change_params page=goods.next_page_number %}{% else %}
                             #
                             {% endif %}">Следующая</span></a>
                         </li>
