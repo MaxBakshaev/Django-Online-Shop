@@ -14,54 +14,57 @@
                 <form action="{% url "catalog:index" slug_url %}" method="get">
                     <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                         <input type="checkbox" class="custom-control-input" id="price-all" name="order_by" value="default" 
-                        {% if not request.GET.order_by or request.GET.order_by == 'default' %}checked{% endif %}>
+                        {% if not request.GET.on_sale == 'on' %}checked{% endif %}>
                         <label class="custom-control-label" for="price-all">Все товары</label>
-                        <span class="badge border font-weight-normal">1000</span>
+                        {% if not request.GET.on_sale == 'on' and not request.GET.cost_1000 == 'on' and not request.GET.cost_10000 == 'on' and not request.GET.cost_100000 == 'on' and not request.GET.cost_1000000 == 'on' and not request.GET.cost_10000000 == 'on' %}<span class="badge border font-weight-normal">{{ amount }}</span>{% endif %}
                     </div>
                     <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                         <input type="checkbox" class="custom-control-input" id="price-discount" name="on_sale" value="on" 
                         {% if request.GET.on_sale == 'on' %}checked{% endif %}>
                         {% comment %} <input type="hidden" name="q" value="request.GET.q"> {% endcomment %}
                         <label class="custom-control-label" for="price-discount">Товары по акции</label>
-                        <span class="badge border font-weight-normal">1000</span>
+                        {% if request.GET.on_sale == 'on' and not request.GET.cost_1000 == 'on' and not request.GET.cost_10000 == 'on' and not request.GET.cost_100000 == 'on' and not request.GET.cost_1000000 == 'on' and not request.GET.cost_10000000 == 'on' %}<span class="badge border font-weight-normal">{{ amount }}</span>{% endif %}
                     </div>
                     <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                         <input type="checkbox" class="custom-control-input" id="price-cheap" name="order_by" value="price" 
                         {% if request.GET.order_by == 'price' %}checked{% endif %}>
                         <label class="custom-control-label" for="price-cheap">От дешевых к дорогим</label>
-                        <span class="badge border font-weight-normal">----------</span>
                     </div>
                     <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                         <input type="checkbox" class="custom-control-input" id="price-costly" name="order_by" value="-price" 
                         {% if request.GET.order_by == '-price' %}checked{% endif %}>
                         <label class="custom-control-label" for="price-costly">От дорогих к дешевым</label>
-                        <span class="badge border font-weight-normal">----------</span>
-                    </div>
-                    {% comment %} <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="checkbox" class="custom-control-input" id="price-1">
-                        <label class="custom-control-label" for="price-1">0 - 1000 ₽</label>
-                        <span class="badge border font-weight-normal">150</span>
                     </div>
                     <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="checkbox" class="custom-control-input" id="price-2">
-                        <label class="custom-control-label" for="price-2">1001 - 5000 ₽</label>
-                        <span class="badge border font-weight-normal">295</span>
+                        <input type="checkbox" class="custom-control-input" id="price_1" name="cost_1000"
+                        {% if request.GET.cost_1000 == 'on' %}checked{% endif %}>
+                        <label class="custom-control-label" for="price_1">0 - 1000 ₽</label>
+                        {% if request.GET.cost_1000 == 'on' %}<span class="badge border font-weight-normal">{{ amount }}</span>{% endif %}
                     </div>
                     <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="checkbox" class="custom-control-input" id="price-3">
-                        <label class="custom-control-label" for="price-3">5001 - 10000 ₽</label>
-                        <span class="badge border font-weight-normal">246</span>
+                        <input type="checkbox" class="custom-control-input" id="price_2" name="cost_10000"
+                        {% if request.GET.cost_10000 == 'on' %}checked{% endif %}>
+                        <label class="custom-control-label" for="price_2">1000 - 10000 ₽</label>
+                        {% if request.GET.cost_10000 == 'on' %}<span class="badge border font-weight-normal">{{ amount }}</span>{% endif %}
                     </div>
                     <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="checkbox" class="custom-control-input" id="price-4">
-                        <label class="custom-control-label" for="price-4">10001 - 50000 ₽</label>
-                        <span class="badge border font-weight-normal">145</span>
+                        <input type="checkbox" class="custom-control-input" id="price_3" name="cost_100000"
+                        {% if request.GET.cost_100000 == 'on' %}checked{% endif %}>
+                        <label class="custom-control-label" for="price_3">10000 - 100000 ₽</label>
+                        {% if request.GET.cost_100000 == 'on' %}<span class="badge border font-weight-normal">{{ amount }}</span>{% endif %}
                     </div>
-                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
-                        <input type="checkbox" class="custom-control-input" id="price-5">
-                        <label class="custom-control-label" for="price-5">50001 - 200000 ₽</label>
-                        <span class="badge border font-weight-normal">168</span>
-                    </div> {% endcomment %}
+                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                        <input type="checkbox" class="custom-control-input" id="price_4" name="cost_1000000"
+                        {% if request.GET.cost_1000000 == 'on' %}checked{% endif %}>
+                        <label class="custom-control-label" for="price_4">100000 - 1000000 ₽</label>
+                        {% if request.GET.cost_1000000 == 'on' %}<span class="badge border font-weight-normal">{{ amount }}</span>{% endif %}
+                    </div>
+                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                        <input type="checkbox" class="custom-control-input" id="price_5" name="cost_10000000"
+                        {% if request.GET.cost_10000000 == 'on' %}checked{% endif %}>
+                        <label class="custom-control-label" for="price_5">Больше 1000000 ₽</label>
+                        {% if request.GET.cost_10000000 == 'on' %}<span class="badge border font-weight-normal">{{ amount }}</span>{% endif %}
+                    </div>
                     <button type="sumbit" class="btn btn-primary mx-3 mt-3">Применить</button>
                 </form>
             </div>
