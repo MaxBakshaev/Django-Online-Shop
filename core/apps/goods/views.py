@@ -1,5 +1,4 @@
 from django.core.paginator import Paginator
-from django.db.models import Count
 from django.shortcuts import get_list_or_404, render
 
 from goods.models import Products

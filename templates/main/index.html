@@ -36,7 +36,7 @@
 
     <!-- Скидки Start -->
     <div class="container-fluid pt-3 pb-3">
-        <h2 class="section-title position-relative mx-xl-5 mb-4"><span class="bg-secondary pr-3">Скидки</span></h2>
+        <h2 class="section-title position-relative mx-xl-5 mb-4"><span class="bg-secondary pr-3">Лучшие скидки</span></h2>
         <div class="row px-xl-5">
             <div class="col-lg-3 col-md-4 col-sm-6 pb-1 d-flex">
                 <div class="product-item bg-light mb-4">
@@ -239,7 +239,7 @@
                         </div>
                     </div>
                     <div class="text-center py-4">
-                        <a class="h4 text-decoration-none text-truncate" href="{% url "catalog:product" product_8.slug %}">{{ product_8.name }}</a>
+                        <a class="h4" href="{% url "catalog:product" product_8.slug %}">{{ product_8.name }}</a>
                         <div class="d-flex align-items-center justify-content-center mt-2">
                             <h5>{{ product_8.sell_price }} ₽</h5><h6 class="text-muted ml-2"><del>{{ product_8.price }} ₽</del></h6><h5 class="badge bg-warning text-dark ml-3">-{{ product_8.discount }} %</h5>
                         </div>
@@ -259,13 +259,13 @@
     <!-- Скидки End -->
 
     <!-- Новинки Start -->
-    <div class="container-fluid pt-3 pb-3">
+    <div class="container-fluid pt-5 pb-3">
         <h2 class="section-title position-relative mx-xl-5 mb-4"><span class="bg-secondary pr-3">Новинки</span></h2>
         <div class="row px-xl-5">
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+            <div class="col-lg-3 col-md-4 col-sm-6 pb-1 d-flex">
                 <div class="product-item bg-light mb-4">
                     <div class="product-img position-relative overflow-hidden">
-                        <img class="img-fluid w-100" src="{% static "img/product-1.jpg" %}" alt="">
+                        <img class="img-fluid w-100" src="{{ new_product_1.image.url }}" alt="">
                         <div class="product-action">
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
@@ -274,9 +274,13 @@
                         </div>
                     </div>
                     <div class="text-center py-4">
-                        <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
+                        <a class="h4" href="{% url "catalog:product" new_product_1.slug %}">{{ new_product_1.name }}</a>
                         <div class="d-flex align-items-center justify-content-center mt-2">
-                            <h5>$123.00</h5><h6 class="text-muted ml-2"><del>$123.00</del></h6>
+                            {% if new_product_1.discount %}
+                                <h5>{{ new_product_1.sell_price }} ₽</h5><h6 class="text-muted ml-2"><del>{{ new_product_1.price }} ₽</del></h6><h5 class="badge bg-warning text-dark ml-3">-{{ new_product_1.discount }} %</h5>
+                            {% else %}
+                                <h5>{{ new_product_1.sell_price }} ₽</h5>
+                            {% endif %}
                         </div>
                         <div class="d-flex align-items-center justify-content-center mb-1">
                             <small class="fa fa-star text-primary mr-1"></small>
@@ -289,10 +293,10 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+            <div class="col-lg-3 col-md-4 col-sm-6 pb-1 d-flex">
                 <div class="product-item bg-light mb-4">
                     <div class="product-img position-relative overflow-hidden">
-                        <img class="img-fluid w-100" src="{% static "img/product-2.jpg" %}" alt="">
+                        <img class="img-fluid w-100" src="{{ new_product_2.image.url }}" alt="">
                         <div class="product-action">
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
@@ -301,90 +305,13 @@
                         </div>
                     </div>
                     <div class="text-center py-4">
-                        <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
+                        <a class="h4" href="{% url "catalog:product" new_product_2.slug %}">{{ new_product_2.name }}</a>
                         <div class="d-flex align-items-center justify-content-center mt-2">
-                            <h5>$123.00</h5><h6 class="text-muted ml-2"><del>$123.00</del></h6>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-center mb-1">
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star-half-alt text-primary mr-1"></small>
-                            <small>(99)</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <div class="product-item bg-light mb-4">
-                    <div class="product-img position-relative overflow-hidden">
-                        <img class="img-fluid w-100" src="{% static "img/product-3.jpg" %}" alt="">
-                        <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
-                        </div>
-                    </div>
-                    <div class="text-center py-4">
-                        <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
-                        <div class="d-flex align-items-center justify-content-center mt-2">
-                            <h5>$123.00</h5><h6 class="text-muted ml-2"><del>$123.00</del></h6>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-center mb-1">
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star-half-alt text-primary mr-1"></small>
-                            <small class="far fa-star text-primary mr-1"></small>
-                            <small>(99)</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <div class="product-item bg-light mb-4">
-                    <div class="product-img position-relative overflow-hidden">
-                        <img class="img-fluid w-100" src="{% static "img/product-4.jpg" %}" alt="">
-                        <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
-                        </div>
-                    </div>
-                    <div class="text-center py-4">
-                        <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
-                        <div class="d-flex align-items-center justify-content-center mt-2">
-                            <h5>$123.00</h5><h6 class="text-muted ml-2"><del>$123.00</del></h6>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-center mb-1">
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="far fa-star text-primary mr-1"></small>
-                            <small class="far fa-star text-primary mr-1"></small>
-                            <small>(99)</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <div class="product-item bg-light mb-4">
-                    <div class="product-img position-relative overflow-hidden">
-                        <img class="img-fluid w-100" src="{% static "img/product-5.jpg" %}" alt="">
-                        <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
-                        </div>
-                    </div>
-                    <div class="text-center py-4">
-                        <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
-                        <div class="d-flex align-items-center justify-content-center mt-2">
-                            <h5>$123.00</h5><h6 class="text-muted ml-2"><del>$123.00</del></h6>
+                            {% if new_product_2.discount %}
+                                <h5>{{ new_product_2.sell_price }} ₽</h5><h6 class="text-muted ml-2"><del>{{ new_product_2.price }} ₽</del></h6><h5 class="badge bg-warning text-dark ml-3">-{{ new_product_2.discount }} %</h5>
+                            {% else %}
+                                <h5>{{ new_product_2.sell_price }} ₽</h5>
+                            {% endif %}
                         </div>
                         <div class="d-flex align-items-center justify-content-center mb-1">
                             <small class="fa fa-star text-primary mr-1"></small>
@@ -397,10 +324,10 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+            <div class="col-lg-3 col-md-4 col-sm-6 pb-1 d-flex">
                 <div class="product-item bg-light mb-4">
                     <div class="product-img position-relative overflow-hidden">
-                        <img class="img-fluid w-100" src="{% static "img/product-6.jpg" %}" alt="">
+                        <img class="img-fluid w-100" src="{{ new_product_3.image.url }}" alt="">
                         <div class="product-action">
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
@@ -409,25 +336,29 @@
                         </div>
                     </div>
                     <div class="text-center py-4">
-                        <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
+                        <a class="h4" href="{% url "catalog:product" new_product_3.slug %}">{{ new_product_3.name }}</a>
                         <div class="d-flex align-items-center justify-content-center mt-2">
-                            <h5>$123.00</h5><h6 class="text-muted ml-2"><del>$123.00</del></h6>
+                            {% if new_product_3.discount %}
+                                <h5>{{ new_product_3.sell_price }} ₽</h5><h6 class="text-muted ml-2"><del>{{ new_product_3.price }} ₽</del></h6><h5 class="badge bg-warning text-dark ml-3">-{{ new_product_3.discount }} %</h5>
+                            {% else %}
+                                <h5>{{ new_product_3.sell_price }} ₽</h5>
+                            {% endif %}
                         </div>
                         <div class="d-flex align-items-center justify-content-center mb-1">
                             <small class="fa fa-star text-primary mr-1"></small>
                             <small class="fa fa-star text-primary mr-1"></small>
                             <small class="fa fa-star text-primary mr-1"></small>
                             <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star-half-alt text-primary mr-1"></small>
+                            <small class="fa fa-star text-primary mr-1"></small>
                             <small>(99)</small>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+            <div class="col-lg-3 col-md-4 col-sm-6 pb-1 d-flex">
                 <div class="product-item bg-light mb-4">
                     <div class="product-img position-relative overflow-hidden">
-                        <img class="img-fluid w-100" src="{% static "img/product-7.jpg" %}" alt="">
+                        <img class="img-fluid w-100" src="{{ new_product_4.image.url }}" alt="">
                         <div class="product-action">
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
@@ -436,25 +367,29 @@
                         </div>
                     </div>
                     <div class="text-center py-4">
-                        <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
+                        <a class="h4" href="{% url "catalog:product" new_product_4.slug %}">{{ new_product_4.name }}</a>
                         <div class="d-flex align-items-center justify-content-center mt-2">
-                            <h5>$123.00</h5><h6 class="text-muted ml-2"><del>$123.00</del></h6>
+                            {% if new_product_4.discount %}
+                                <h5>{{ new_product_4.sell_price }} ₽</h5><h6 class="text-muted ml-2"><del>{{ new_product_4.price }} ₽</del></h6><h5 class="badge bg-warning text-dark ml-3">-{{ new_product_4.discount }} %</h5>
+                            {% else %}
+                                <h5>{{ new_product_4.sell_price }} ₽</h5>
+                            {% endif %}
                         </div>
                         <div class="d-flex align-items-center justify-content-center mb-1">
                             <small class="fa fa-star text-primary mr-1"></small>
                             <small class="fa fa-star text-primary mr-1"></small>
                             <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star-half-alt text-primary mr-1"></small>
-                            <small class="far fa-star text-primary mr-1"></small>
+                            <small class="fa fa-star text-primary mr-1"></small>
+                            <small class="fa fa-star text-primary mr-1"></small>
                             <small>(99)</small>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+            <div class="col-lg-3 col-md-4 col-sm-6 pb-1 d-flex">
                 <div class="product-item bg-light mb-4">
                     <div class="product-img position-relative overflow-hidden">
-                        <img class="img-fluid w-100" src="{% static "img/product-8.jpg" %}" alt="">
+                        <img class="img-fluid w-100" src="{{ new_product_5.image.url }}" alt="">
                         <div class="product-action">
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
@@ -463,16 +398,113 @@
                         </div>
                     </div>
                     <div class="text-center py-4">
-                        <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
+                        <a class="h4" href="{% url "catalog:product" new_product_5.slug %}">{{ new_product_5.name }}</a>
                         <div class="d-flex align-items-center justify-content-center mt-2">
-                            <h5>$123.00</h5><h6 class="text-muted ml-2"><del>$123.00</del></h6>
+                            {% if new_product_5.discount %}
+                                <h5>{{ new_product_5.sell_price }} ₽</h5><h6 class="text-muted ml-2"><del>{{ new_product_5.price }} ₽</del></h6><h5 class="badge bg-warning text-dark ml-3">-{{ new_product_5.discount }} %</h5>
+                            {% else %}
+                                <h5>{{ new_product_5.sell_price }} ₽</h5>
+                            {% endif %}
                         </div>
                         <div class="d-flex align-items-center justify-content-center mb-1">
                             <small class="fa fa-star text-primary mr-1"></small>
                             <small class="fa fa-star text-primary mr-1"></small>
                             <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="far fa-star text-primary mr-1"></small>
-                            <small class="far fa-star text-primary mr-1"></small>
+                            <small class="fa fa-star text-primary mr-1"></small>
+                            <small class="fa fa-star text-primary mr-1"></small>
+                            <small>(99)</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 pb-1 d-flex">
+                <div class="product-item bg-light mb-4">
+                    <div class="product-img position-relative overflow-hidden">
+                        <img class="img-fluid w-100" src="{{ new_product_6.image.url }}" alt="">
+                        <div class="product-action">
+                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
+                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
+                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
+                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
+                        </div>
+                    </div>
+                    <div class="text-center py-4">
+                        <a class="h4" href="{% url "catalog:product" new_product_6.slug %}">{{ new_product_6.name }}</a>
+                        <div class="d-flex align-items-center justify-content-center mt-2">
+                            {% if new_product_6.discount %}
+                                <h5>{{ new_product_6.sell_price }} ₽</h5><h6 class="text-muted ml-2"><del>{{ new_product_6.price }} ₽</del></h6><h5 class="badge bg-warning text-dark ml-3">-{{ new_product_6.discount }} %</h5>
+                            {% else %}
+                                <h5>{{ new_product_6.sell_price }} ₽</h5>
+                            {% endif %}
+                        </div>
+                        <div class="d-flex align-items-center justify-content-center mb-1">
+                            <small class="fa fa-star text-primary mr-1"></small>
+                            <small class="fa fa-star text-primary mr-1"></small>
+                            <small class="fa fa-star text-primary mr-1"></small>
+                            <small class="fa fa-star text-primary mr-1"></small>
+                            <small class="fa fa-star text-primary mr-1"></small>
+                            <small>(99)</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 pb-1 d-flex">
+                <div class="product-item bg-light mb-4">
+                    <div class="product-img position-relative overflow-hidden">
+                        <img class="img-fluid w-100" src="{{ new_product_7.image.url }}" alt="">
+                        <div class="product-action">
+                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
+                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
+                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
+                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
+                        </div>
+                    </div>
+                    <div class="text-center py-4">
+                        <a class="h4" href="{% url "catalog:product" new_product_7.slug %}">{{ new_product_7.name }}</a>
+                        <div class="d-flex align-items-center justify-content-center mt-2">
+                            {% if new_product_7.discount %}
+                                <h5>{{ new_product_7.sell_price }} ₽</h5><h6 class="text-muted ml-2"><del>{{ new_product_7.price }} ₽</del></h6><h5 class="badge bg-warning text-dark ml-3">-{{ new_product_7.discount }} %</h5>
+                            {% else %}
+                                <h5>{{ new_product_7.sell_price }} ₽</h5>
+                            {% endif %}
+                        </div>
+                        <div class="d-flex align-items-center justify-content-center mb-1">
+                            <small class="fa fa-star text-primary mr-1"></small>
+                            <small class="fa fa-star text-primary mr-1"></small>
+                            <small class="fa fa-star text-primary mr-1"></small>
+                            <small class="fa fa-star text-primary mr-1"></small>
+                            <small class="fa fa-star text-primary mr-1"></small>
+                            <small>(99)</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 pb-1 d-flex">
+                <div class="product-item bg-light mb-4">
+                    <div class="product-img position-relative overflow-hidden">
+                        <img class="img-fluid w-100" src="{{ new_product_8.image.url }}" alt="">
+                        <div class="product-action">
+                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
+                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
+                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
+                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
+                        </div>
+                    </div>
+                    <div class="text-center py-4">
+                        <a class="h4" href="{% url "catalog:product" new_product_8.slug %}">{{ new_product_8.name }}</a>
+                        <div class="d-flex align-items-center justify-content-center mt-2">
+                            {% if new_product_8.discount %}
+                                <h5>{{ new_product_8.sell_price }} ₽</h5><h6 class="text-muted ml-2"><del>{{ new_product_8.price }} ₽</del></h6><h5 class="badge bg-warning text-dark ml-3">-{{ new_product_8.discount }} %</h5>
+                            {% else %}
+                                <h5>{{ new_product_8.sell_price }} ₽</h5>
+                            {% endif %}
+                        </div>
+                        <div class="d-flex align-items-center justify-content-center mb-1">
+                            <small class="fa fa-star text-primary mr-1"></small>
+                            <small class="fa fa-star text-primary mr-1"></small>
+                            <small class="fa fa-star text-primary mr-1"></small>
+                            <small class="fa fa-star text-primary mr-1"></small>
+                            <small class="fa fa-star text-primary mr-1"></small>
                             <small>(99)</small>
                         </div>
                     </div>
