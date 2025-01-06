@@ -1,15 +1,17 @@
 from django.core.paginator import Paginator
 from django.shortcuts import get_list_or_404, render
 
+from goods.utils import q_search
 from goods.models import Products
 
 
-def catalog(request, category_slug):
+def catalog(request, category_slug=None):
 
     # параметры для пагинации и фильтров
     page = request.GET.get('page', 1)
     on_sale = request.GET.get('on_sale', None)
     order_by = request.GET.get('order_by', None)
+    query = request.GET.get('q', None)
     cost_1000 = request.GET.get('cost_1000', None)
     cost_10000 = request.GET.get('cost_10000', None)
     cost_100000 = request.GET.get('cost_100000', None)
@@ -19,6 +21,8 @@ def catalog(request, category_slug):
     # создается базовый запрос к БД (QuerySet)
     if category_slug == 'vse-tovary':
         goods = Products.objects.all()
+    elif query:
+        goods = q_search(query)
     else:
         goods = get_list_or_404(Products.objects.filter(category__slug=category_slug))
     

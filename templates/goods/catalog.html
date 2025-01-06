@@ -11,7 +11,7 @@
             <!-- Filter by price Start -->
             <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Фильтр по цене</span></h5>
             <div class="bg-light p-3 mb-30">
-                <form action="{% url "catalog:index" slug_url %}" method="get">
+                <form action="{% if request.GET.q %}{% url "catalog:search" %}{% else %}{% url "catalog:index" slug_url %}{% endif %}" method="get">
                     <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                         <input type="checkbox" class="custom-control-input" id="price-all" name="order_by" value="default" 
                         {% if not request.GET.on_sale == 'on' %}checked{% endif %}>
@@ -21,7 +21,9 @@
                     <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                         <input type="checkbox" class="custom-control-input" id="price-discount" name="on_sale" value="on" 
                         {% if request.GET.on_sale == 'on' %}checked{% endif %}>
-                        {% comment %} <input type="hidden" name="q" value="request.GET.q"> {% endcomment %}
+                        {% if request.GET.q %}
+                            <input type="hidden" name="q" value="{{ request.GET.q }}">
+                        {% endif %}
                         <label class="custom-control-label" for="price-discount">Товары по акции</label>
                         {% if request.GET.on_sale == 'on' and not request.GET.cost_1000 == 'on' and not request.GET.cost_10000 == 'on' and not request.GET.cost_100000 == 'on' and not request.GET.cost_1000000 == 'on' and not request.GET.cost_10000000 == 'on' %}<span class="badge border font-weight-normal">{{ amount }}</span>{% endif %}
                     </div>
