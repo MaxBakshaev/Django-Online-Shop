@@ -69,25 +69,6 @@
                         {% for category in categories %}
                             <a class="nav-item nav-link" href="{% url "catalog:index" category.slug %}">{{ category.name }}</a>
                         {% endfor %}
-                        {% comment %} <div class="nav-item dropdown dropright">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Dresses <i class="fa fa-angle-right float-right mt-1"></i></a>
-                            <div class="dropdown-menu position-absolute rounded-0 border-0 m-0">
-                                <a href="" class="dropdown-item">Men's Dresses</a>
-                                <a href="" class="dropdown-item">Women's Dresses</a>
-                                <a href="" class="dropdown-item">Baby's Dresses</a>
-                            </div>
-                        </div>
-                        <a href="{% url "catalog:index" %}" class="nav-item nav-link">Shirts</a>
-                        <a href="{% url "catalog:index" %}" class="nav-item nav-link">Jeans</a>
-                        <a href="{% url "catalog:index" %}" class="nav-item nav-link">Swimwear</a>
-                        <a href="{% url "catalog:index" %}" class="nav-item nav-link">Sleepwear</a>
-                        <a href="{% url "catalog:index" %}" class="nav-item nav-link">Sportswear</a>
-                        <a href="{% url "catalog:index" %}" class="nav-item nav-link">Jumpsuits</a>
-                        <a href="{% url "catalog:index" %}" class="nav-item nav-link">Blazers</a>
-                        <a href="{% url "catalog:index" %}" class="nav-item nav-link">Jackets</a>
-                        <a href="{% url "catalog:index" %}" class="nav-item nav-link">Shoes</a>
-                        <a href="{% url "catalog:index" %}" class="nav-item nav-link">Dresses</a>
-                    </div> {% endcomment %}
                 </nav>
             </div>
             <div class="col-lg-9">
@@ -116,16 +97,24 @@
                             {% else %}
                                 <a href="detail.html" class="nav-item nav-link">Избранное</a>
                             {% endif %}
-                            <a href="detail.html" class="nav-item nav-link">Войти</a>
+                            {% if title == "MultiShop - Авторизация" %}
+                                <a href="{% url "users:login" %}" class="nav-item nav-link active">Войти</a>
+                            {% else %}
+                                <a href="{% url "users:login" %}" class="nav-item nav-link">Войти</a>
+                            {% endif %}
                             <div class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Профиль <i class="fa fa-angle-down mt-1"></i></a>
+                                {% if title == "MultiShop - Кабинет" %}
+                                    <a href="{% url "users:profile" %}" class="nav-link active dropdown-toggle" data-toggle="dropdown">Профиль <i class="fa fa-angle-down mt-1"></i></a>
+                                {% else %}
+                                    <a href="{% url "users:profile" %}" class="nav-link dropdown-toggle" data-toggle="dropdown">Профиль <i class="fa fa-angle-down mt-1"></i></a>
+                                {% endif %}
                                 <div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
-                                    <a href="" class="dropdown-item">Личный кабинет</a>
+                                    <a href="{% url "users:profile" %}" class="dropdown-item">Личный кабинет</a>
                                     <a href="{% url "admin:index" %}" class="dropdown-item">Админ панель</a>
-                                    <a href="" class="dropdown-item">Выйти</a>
+                                    <a href="{% url "users:logout" %}" class="dropdown-item">Выйти</a>
                                 </div>
                             </div>
-                            {% if title == "MultiShop - Избранное" %}
+                            {% if title == "MultiShop - Корзина" %}
                                 <a href="detail.html" class="nav-item nav-link active">Корзина</a>
                             {% else %}
                                 <a href="detail.html" class="nav-item nav-link">Корзина</a>
