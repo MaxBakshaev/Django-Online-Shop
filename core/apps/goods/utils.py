@@ -1,4 +1,4 @@
-from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
+from django.contrib.postgres.search import SearchHeadline, SearchQuery, SearchRank, SearchVector
 from django.db.models import Q
 
 from goods.models import Products
@@ -11,11 +11,29 @@ def q_search(query):
     if query.isdigit() and len(query) <= 5:
         return Products.objects.filter(id=int(query))
     
-    # упорядочение по релевантности
+    # SearchVector - запрос по нескольким полям
     vector = SearchVector("name", "description")
+    # SearchQuery - поиск совпадений по всем словам
     query = SearchQuery(query)
     
-    return Products.objects.annotate(rank=SearchRank(vector, query)).order_by("-rank")
+    # SearchRank - упорядочение по релевантности
+    result = (
+        Products.objects.annotate(rank=SearchRank(vector, query))
+        .filter(rank__gt=0)
+        .order_by("-rank")
+    )
+    
+    # выделение цветом найденных слов
+    result = result.annotate(
+        headline=SearchHeadline(
+            "name",
+            query,
+            start_sel='<span style="background-color: yellow;">',
+            stop_sel="</span>",
+        )
+    )
+
+    return result
     
     # # список слов в поиске для дальнейшей обработки
     # keywords = [word for word in query.split() if len(word) > 2]
