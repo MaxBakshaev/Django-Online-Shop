@@ -89,8 +89,8 @@ WSGI_APPLICATION = 'core.project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'goods_for_all_occasions',
-        'USER': 'root',
+        'NAME': 'shop_goods_for_all_occasions',
+        'USER': 'root_shop_goods_for_all_occasions',
         'PASSWORD': 'root',
         'HOST': 'localhost',
         'PORT': '5432',
@@ -154,3 +154,4 @@ INTERNAL_IPS = [
 
 # Автоматически создает поле для id, каждая последующая запись в БД увеличивает id на 1
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+AUTH_USER_MODEL = 'users.User'
