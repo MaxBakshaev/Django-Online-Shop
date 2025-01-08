@@ -97,23 +97,28 @@
                             {% else %}
                                 <a href="detail.html" class="nav-item nav-link">Избранное</a>
                             {% endif %}
-                            {% if title == "MultiShop - Авторизация" %}
-                                <a href="{% url "users:login" %}" class="nav-item nav-link active">Войти</a>
-                            {% else %}
-                                <a href="{% url "users:login" %}" class="nav-item nav-link">Войти</a>
-                            {% endif %}
-                            <div class="nav-item dropdown">
-                                {% if title == "MultiShop - Кабинет" %}
-                                    <a href="{% url "users:profile" %}" class="nav-link active dropdown-toggle" data-toggle="dropdown">Профиль <i class="fa fa-angle-down mt-1"></i></a>
+                            {% if not user.is_authenticated %}
+                                {% if title == "MultiShop - Авторизация" %}
+                                    <a href="{% url "users:login" %}" class="nav-item nav-link active">Войти</a>
                                 {% else %}
-                                    <a href="{% url "users:profile" %}" class="nav-link dropdown-toggle" data-toggle="dropdown">Профиль <i class="fa fa-angle-down mt-1"></i></a>
+                                    <a href="{% url "users:login" %}" class="nav-item nav-link">Войти</a>
                                 {% endif %}
-                                <div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
-                                    <a href="{% url "users:profile" %}" class="dropdown-item">Личный кабинет</a>
-                                    <a href="{% url "admin:index" %}" class="dropdown-item">Админ панель</a>
-                                    <a href="{% url "users:logout" %}" class="dropdown-item">Выйти</a>
+                            {% else %}
+                                <div class="nav-item dropdown">
+                                    {% if title == "MultiShop - Кабинет" %}
+                                        <a href="{% url "users:profile" %}" class="nav-link active dropdown-toggle" data-toggle="dropdown">Профиль <i class="fa fa-angle-down mt-1"></i></a>
+                                    {% else %}
+                                        <a href="{% url "users:profile" %}" class="nav-link dropdown-toggle" data-toggle="dropdown">Профиль <i class="fa fa-angle-down mt-1"></i></a>
+                                    {% endif %}
+                                    <div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
+                                        <a href="{% url "users:profile" %}" class="dropdown-item">Личный кабинет</a>
+                                        {% if user.is_admin or user.is_staff %}
+                                            <a href="{% url "admin:index" %}" class="dropdown-item">Админ панель</a>
+                                        {% endif %}
+                                        <a href="{% url "users:logout" %}" class="dropdown-item">Выйти</a>
+                                    </div>
                                 </div>
-                            </div>
+                            {% endif %}
                             {% if title == "MultiShop - Корзина" %}
                                 <a href="detail.html" class="nav-item nav-link active">Корзина</a>
                             {% else %}
