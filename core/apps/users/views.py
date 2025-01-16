@@ -73,10 +73,19 @@ def profile(request):
         form = ProfileForm(instance=request.user)
     
     context = {
-        'title': 'Home - Кабинет',
+        'title': 'MultiShop - Кабинет',
         'form': form
     }    
     return render(request, 'users/profile.html', context)
+
+
+def users_cart(request):
+    
+    context = {
+        'title': 'MultiShop - Корзина',
+    }
+    
+    return render(request, 'users/users-cart.html', context)
 
 
 @login_required
