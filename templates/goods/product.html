@@ -97,7 +97,9 @@
                             </button>
                         </div>
                     </div>
-                    <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Добавить в корзину</button>
+                    <a class="btn btn-primary px-3" href="{% url "cart:cart_add" product.slug %}">
+                        <i class="fa fa-shopping-cart mr-1"></i> Добавить в корзину
+                    </a>
                 </div>
                 <div class="d-flex pt-2">
                     <strong class="text-dark mr-2">Share on:</strong>
