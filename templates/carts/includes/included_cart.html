@@ -1,7 +1,4 @@
 {% load static %}
-{% load carts_tags %}
-
-{% user_carts request as carts %}
 
 <div class="col-md-12">
     <div class=" bg-white p-4 mb-4 mx-2 rounded">
@@ -21,7 +18,7 @@
         {% for cart in carts %}    
             <div class="align-middle">
                 <tr>
-                    <td class="align-middle"><img src="{% static "img/product-1.jpg" %}" alt="" style="width: 50px;">{{ cart.product.name }}</td>
+                    <td class="align-middle"><img src="{{ cart.product.image.url }}" alt="" style="width: 50px;">{{ cart.product.name }}</td>
                     <td class="align-middle">{{ cart.product.sell_price }} ₽</td>
                     <td class="align-middle">
                         <div class="input-group quantity mx-auto" style="width: 100px;">
