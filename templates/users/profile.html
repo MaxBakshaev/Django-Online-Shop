@@ -116,7 +116,7 @@
                                                 </div>
                                             </td>
                                             <td class="align-middle">{{ cart.products_price }} ₽</td>
-                                            <td class="align-middle"><button class="btn btn-sm btn-danger"><i class="fa fa-times"></i></button></td>
+                                            <td><a class="align-middle" href="{% url "cart:cart_remove" cart.id %}"><button class="btn btn-sm btn-danger"><i class="fa fa-times"></i></button></a></td>
                                         </tr>
                                     </div>
                                 {% endfor %}
@@ -125,22 +125,27 @@
                     </div>
                 </div>
                 <div class="bg-light p-30 mb-5">
-                    <div class="border-bottom pb-2">
-                        <div class="d-flex justify-content-between mb-3">
-                            <h6>Итого</h6>
-                            <h6>{{ carts.total_price }} ₽</h6>
+                    {% if carts %}
+                        <div class="border-bottom pb-2">
+                            <div class="d-flex justify-content-between mb-3">
+                                <h6>Итого</h6>
+                                <h6>{{ carts.total_price }} ₽</h6>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <h6 class="font-weight-medium">Доставка</h6>
+                                <h6 class="font-weight-medium">0 ₽</h6>
+                            </div>
                         </div>
-                        <div class="d-flex justify-content-between">
-                            <h6 class="font-weight-medium">Доставка</h6>
-                            <h6 class="font-weight-medium">0 ₽</h6>
-                        </div>
-                    </div>
-                    <div class="pt-2">
-                        <div class="d-flex justify-content-between mt-2">
-                            <h5 class="float-left">Итого <strong>{{ carts.total_quantity }}</strong> товар(а) на сумму</h5>
-                            <h5>{{ carts.total_price }} ₽</h5>
+                        <div class="pt-2">
+                            <div class="d-flex justify-content-between mt-2">
+                                <h5 class="float-left">Итого <strong>{{ carts.total_quantity }}</strong> товар(а) на сумму</h5>
+                                <h5>{{ carts.total_price }} ₽</h5>
                         </div>
                         <button class="btn btn-block btn-primary font-weight-bold my-3 py-3">Оформить заказ</button>
+                    {% else %}
+                        <center><img src="{% static "img/Пустая корзина.PNG" %}" class="pb-2" style="width: 200px;"></center>
+                        <h5 class="text-center">Пока пусто</h5>
+                    {% endif %}
                     </div>
                 </div>
             </div>
@@ -198,7 +203,7 @@
                                                     </div>
                                                 </td>
                                                 <td class="align-middle">{{ cart.products_price }} ₽</td>
-                                                <td class="align-middle"><button class="btn btn-sm btn-danger"><i class="fa fa-times"></i></button></td>
+                                                <td><a class="align-middle" href="{% url "cart:cart_remove" cart.id %}"><button class="btn btn-sm btn-danger"><i class="fa fa-times"></i></button></a></td>
                                             </tr>
                                         </div>
                                     {% endfor %}
@@ -207,23 +212,28 @@
                             <div class="col-lg-4">
                                 <h4 class="text-center mb-3">Корзина</h4>
                                 <div class="bg-light p-30 mb-5">
-                                    <div class="border-bottom pb-2">
-                                        <div class="d-flex justify-content-between mb-3">
-                                            <h6>Итого</h6>
-                                            <h6>{{ carts.total_price }} ₽</h6>
+                                    {% if carts %}
+                                        <div class="border-bottom pb-2">
+                                            <div class="d-flex justify-content-between mb-3">
+                                                <h6>Итого</h6>
+                                                <h6>{{ carts.total_price }} ₽</h6>
+                                            </div>
+                                            <div class="d-flex justify-content-between">
+                                                <h6 class="font-weight-medium">Доставка</h6>
+                                                <h6 class="font-weight-medium">0 ₽</h6>
+                                            </div>
                                         </div>
-                                        <div class="d-flex justify-content-between">
-                                            <h6 class="font-weight-medium">Доставка</h6>
-                                            <h6 class="font-weight-medium">0 ₽</h6>
+                                        <div class="pt-2">
+                                            <div class="d-flex justify-content-between mt-2">
+                                                <h5 class="float-left">Итого <strong>{{ carts.total_quantity }}</strong> товар(а) на сумму</h5>
+                                                <h5>{{ carts.total_price }} ₽</h5>
+                                            </div>
+                                            <button class="btn btn-block btn-primary font-weight-bold my-3 py-3">Оформить заказ</button>
                                         </div>
-                                    </div>
-                                    <div class="pt-2">
-                                        <div class="d-flex justify-content-between mt-2">
-                                            <h5 class="float-left">Итого <strong>{{ carts.total_quantity }}</strong> товар(а) на сумму</h5>
-                                            <h5>{{ carts.total_price }} ₽</h5>
-                                        </div>
-                                        <button class="btn btn-block btn-primary font-weight-bold my-3 py-3">Оформить заказ</button>
-                                    </div>
+                                    {% else %}
+                                        <center><img src="{% static "img/Пустая корзина.PNG" %}" class="pb-2" style="width: 200px;"></center>
+                                        <h5 class="text-center">Пока пусто</h5>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
