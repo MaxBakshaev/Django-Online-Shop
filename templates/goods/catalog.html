@@ -127,7 +127,10 @@
                                 <img class="img-fluid w-100" src="{% static "img/Not found image.png" %}" alt="">
                             {% endif %}
                                 <div class="product-action">
-                                    <a class="btn btn-outline-dark btn-square" href="{% url "cart:cart_add" product.slug %}"><i class="fa fa-shopping-cart"></i></a>
+                                    <a class="btn btn-outline-dark btn-square add-to-cart" href="{% url "cart:cart_add" %}"
+                                    data-product-id="{{ product.id }}">
+                                        {% csrf_token %}
+                                        <i class="fa fa-shopping-cart"></i></a>
                                     <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
                                     <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
                                     <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>

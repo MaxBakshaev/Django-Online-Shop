@@ -42,7 +42,10 @@
                                     </div>
                                 </td>
                                 <td class="align-middle">{{ cart.products_price }} ₽</td>
-                                <td><a class="align-middle" href="{% url "cart:cart_remove" cart.id %}"><button class="btn btn-sm btn-danger"><i class="fa fa-times"></i></button></a></td>
+                                <td><a class="remove-from-cart align-middle" href="{% url "cart:cart_remove" %}"
+                                    data-cart-id="{{ cart.id }}">
+                                    {% csrf_token %}
+                                    <button class="btn btn-sm btn-danger"><i class="fa fa-times"></i></button></a></td>
                             </tr>
                         </div>
                     {% endfor %}

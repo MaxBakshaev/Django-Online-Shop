@@ -7,7 +7,10 @@
     <button type="button" class="btn btn-dark btn-secondary" id="modalButton"
         aria-expanded="false">
         <i class="fas fa-shopping-cart text-primary"></i>
-        <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">{{ carts.total_quantity }}</span>
+        <span class="badge text-secondary border border-secondary rounded-circle" 
+        style="padding-bottom: 2px;" 
+        id="goods-in-cart-count">
+        {{ carts.total_quantity }}</span>
 
     </button>
 </div>

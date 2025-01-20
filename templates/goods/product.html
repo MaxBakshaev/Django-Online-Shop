@@ -101,7 +101,9 @@
                             </button>
                         </div>
                     </div>
-                    <a class="btn btn-primary px-3" href="{% url "cart:cart_add" product.slug %}">
+                    <a class="btn btn-primary px-3 add-to-cart" href="{% url "cart:cart_add"%}"
+                    data-product-id="{{ product.id }}">
+                        {% csrf_token %}
                         <i class="fa fa-shopping-cart mr-1"></i> Добавить в корзину
                     </a>
                 </div>
