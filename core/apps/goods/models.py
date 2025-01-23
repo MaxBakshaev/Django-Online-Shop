@@ -41,6 +41,10 @@ class Products(models.Model):
     def __str__(self):
         return f'{self.name} Количество - {self.quantity}'
     
+    # сслыка на страницу товара
+    def get_absolute_url(self):
+        return reverse("catalog:product", kwargs={"product_slug": self.slug})
+    
     # метод для отображения id с количеством знаков
     def display_id(self):
         return f'{self.id:05}'
