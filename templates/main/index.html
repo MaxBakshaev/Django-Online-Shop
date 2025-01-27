@@ -8,28 +8,28 @@
 
 {% block content %}
     <!-- Featured Start -->
-    <div class="container-fluid pt-5">
-        <div class="row px-xl-5 pb-3">
-            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
-                <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
+    <div class="container-fluid pt-3">
+        <div class="row px-xl-5 pb-2">
+            <div class="col-lg-3 col-md-6 col-sm-12 pb-1 d-flex">
+                <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px; width: 100%;">
                     <h1 class="fa fa-check text-primary m-0 mr-3"></h1>
-                    <h5 class="font-weight-semi-bold m-0">Качественная продукция</h5>
+                    <h5 class="font-weight-semi-bold m-0">Качество продукции</h5>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
-                <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
+            <div class="col-lg-3 col-md-6 col-sm-12 pb-1 d-flex">
+                <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px; width: 100%;">
                     <h1 class="fa fa-shipping-fast text-primary m-0 mr-2"></h1>
                     <h5 class="font-weight-semi-bold m-0">Бесплатная доставка</h5>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
-                <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
+            <div class="col-lg-3 col-md-6 col-sm-12 pb-1 d-flex">
+                <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px; width: 100%;">
                     <h1 class="fas fa-exchange-alt text-primary m-0 mr-3"></h1>
                     <h5 class="font-weight-semi-bold m-0">Возврат в течение 14 дней</h5>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
-                <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
+            <div class="col-lg-3 col-md-6 col-sm-12 pb-1 d-flex">
+                <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px; width: 100%;">
                     <h1 class="fa fa-phone-volume text-primary m-0 mr-3"></h1>
                     <h5 class="font-weight-semi-bold m-0">Поддержка 24/7</h5>
                 </div>
@@ -38,6 +38,7 @@
     </div>
     <!-- Featured End -->
 
+    
     <!-- Скидки Start -->
     <div class="container-fluid pt-3 pb-3">
         <h2 class="section-title position-relative mx-xl-5 mb-4"><span class="bg-secondary pr-3">Лучшие скидки</span></h2>
@@ -47,7 +48,10 @@
                     <div class="product-img position-relative overflow-hidden">
                         <img class="img-fluid w-100" src="{{ product_1.image.url }}" alt="">
                         <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
+                            <a class="btn btn-outline-dark btn-square add-to-cart" href="{% url "cart:cart_add" %}"
+                                data-product-id="{{ product_1.id }}">
+                                    {% csrf_token %}
+                                    <i class="fa fa-shopping-cart"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
@@ -74,7 +78,10 @@
                     <div class="product-img position-relative overflow-hidden">
                         <img class="img-fluid w-100" src="{{ product_2.image.url }}" alt="">
                         <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
+                            <a class="btn btn-outline-dark btn-square add-to-cart" href="{% url "cart:cart_add" %}"
+                                data-product-id="{{ product_2.id }}">
+                                {% csrf_token %}
+                                    <i class="fa fa-shopping-cart"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
@@ -101,7 +108,10 @@
                     <div class="product-img position-relative overflow-hidden">
                         <img class="img-fluid w-100" src="{{ product_3.image.url }}" alt="">
                         <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
+                            <a class="btn btn-outline-dark btn-square add-to-cart" href="{% url "cart:cart_add" %}"
+                                data-product-id="{{ product_3.id }}">
+                                    {% csrf_token %}
+                                    <i class="fa fa-shopping-cart"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
@@ -128,7 +138,10 @@
                     <div class="product-img position-relative overflow-hidden">
                         <img class="img-fluid w-100" src="{{ product_4.image.url }}" alt="">
                         <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
+                            <a class="btn btn-outline-dark btn-square add-to-cart" href="{% url "cart:cart_add" %}"
+                            data-product-id="{{ product_4.id }}">
+                                    {% csrf_token %}
+                                    <i class="fa fa-shopping-cart"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
@@ -155,7 +168,10 @@
                     <div class="product-img position-relative overflow-hidden">
                         <img class="img-fluid w-100" src="{{ product_5.image.url }}" alt="">
                         <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
+                            <a class="btn btn-outline-dark btn-square add-to-cart" href="{% url "cart:cart_add" %}"
+                                data-product-id="{{ product_5.id }}">
+                                    {% csrf_token %}
+                                    <i class="fa fa-shopping-cart"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
@@ -182,7 +198,10 @@
                     <div class="product-img position-relative overflow-hidden">
                         <img class="img-fluid w-100" src="{{ product_6.image.url }}" alt="">
                         <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
+                            <a class="btn btn-outline-dark btn-square add-to-cart" href="{% url "cart:cart_add" %}"
+                            data-product-id="{{ product_6.id }}">
+                                    {% csrf_token %}
+                                    <i class="fa fa-shopping-cart"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
@@ -209,11 +228,14 @@
                     <div class="product-img position-relative overflow-hidden">
                         <img class="img-fluid w-100" src="{{ product_7.image.url }}" alt="">
                         <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
-                        </div>
+                            <a class="btn btn-outline-dark btn-square add-to-cart" href="{% url "cart:cart_add" %}"
+                            data-product-id="{{ product_7.id }}">
+                                    {% csrf_token %}
+                                    <i class="fa fa-shopping-cart"></i></a>
+                                    <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
+                                    <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
+                                    <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
+                                </div>
                     </div>
                     <div class="text-center py-4">
                         <a class="h4" href="{% url "catalog:product" product_7.slug %}">{{ product_7.name }}</a>
@@ -236,8 +258,11 @@
                     <div class="product-img position-relative overflow-hidden">
                         <img class="img-fluid w-100" src="{{ product_8.image.url }}" alt="">
                         <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
+                            <a class="btn btn-outline-dark btn-square add-to-cart" href="{% url "cart:cart_add" %}"
+                                data-product-id="{{ product_8.id }}">
+                                    {% csrf_token %}
+                                    <i class="fa fa-shopping-cart"></i></a>
+                                    <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
                         </div>
@@ -271,8 +296,11 @@
                     <div class="product-img position-relative overflow-hidden">
                         <img class="img-fluid w-100" src="{{ new_product_1.image.url }}" alt="">
                         <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
+                            <a class="btn btn-outline-dark btn-square add-to-cart" href="{% url "cart:cart_add" %}"
+                            data-product-id="{{ new_product_1.id }}">
+                                    {% csrf_token %}
+                                    <i class="fa fa-shopping-cart"></i></a>
+                                    <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
                         </div>
@@ -302,7 +330,10 @@
                     <div class="product-img position-relative overflow-hidden">
                         <img class="img-fluid w-100" src="{{ new_product_2.image.url }}" alt="">
                         <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
+                            <a class="btn btn-outline-dark btn-square add-to-cart" href="{% url "cart:cart_add" %}"
+                                data-product-id="{{ new_product_2.id }}">
+                                    {% csrf_token %}
+                                    <i class="fa fa-shopping-cart"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
@@ -333,7 +364,10 @@
                     <div class="product-img position-relative overflow-hidden">
                         <img class="img-fluid w-100" src="{{ new_product_3.image.url }}" alt="">
                         <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
+                            <a class="btn btn-outline-dark btn-square add-to-cart" href="{% url "cart:cart_add" %}"
+                            data-product-id="{{ new_product_3.id }}">
+                                    {% csrf_token %}
+                                    <i class="fa fa-shopping-cart"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
@@ -345,7 +379,7 @@
                             {% if new_product_3.discount %}
                                 <h5>{{ new_product_3.sell_price }} ₽</h5><h6 class="text-muted ml-2"><del>{{ new_product_3.price }} ₽</del></h6><h5 class="badge bg-warning text-dark ml-3">-{{ new_product_3.discount }} %</h5>
                             {% else %}
-                                <h5>{{ new_product_3.sell_price }} ₽</h5>
+                            <h5>{{ new_product_3.sell_price }} ₽</h5>
                             {% endif %}
                         </div>
                         <div class="d-flex align-items-center justify-content-center mb-1">
@@ -364,7 +398,10 @@
                     <div class="product-img position-relative overflow-hidden">
                         <img class="img-fluid w-100" src="{{ new_product_4.image.url }}" alt="">
                         <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
+                            <a class="btn btn-outline-dark btn-square add-to-cart" href="{% url "cart:cart_add" %}"
+                            data-product-id="{{ new_product_4.id }}">
+                                    {% csrf_token %}
+                                    <i class="fa fa-shopping-cart"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
@@ -395,7 +432,10 @@
                     <div class="product-img position-relative overflow-hidden">
                         <img class="img-fluid w-100" src="{{ new_product_5.image.url }}" alt="">
                         <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
+                            <a class="btn btn-outline-dark btn-square add-to-cart" href="{% url "cart:cart_add" %}"
+                                data-product-id="{{ new_product_5.id }}">
+                                    {% csrf_token %}
+                                    <i class="fa fa-shopping-cart"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
@@ -406,10 +446,10 @@
                         <div class="d-flex align-items-center justify-content-center mt-2">
                             {% if new_product_5.discount %}
                                 <h5>{{ new_product_5.sell_price }} ₽</h5><h6 class="text-muted ml-2"><del>{{ new_product_5.price }} ₽</del></h6><h5 class="badge bg-warning text-dark ml-3">-{{ new_product_5.discount }} %</h5>
-                            {% else %}
+                                {% else %}
                                 <h5>{{ new_product_5.sell_price }} ₽</h5>
-                            {% endif %}
-                        </div>
+                                {% endif %}
+                            </div>
                         <div class="d-flex align-items-center justify-content-center mb-1">
                             <small class="fa fa-star text-primary mr-1"></small>
                             <small class="fa fa-star text-primary mr-1"></small>
@@ -426,7 +466,10 @@
                     <div class="product-img position-relative overflow-hidden">
                         <img class="img-fluid w-100" src="{{ new_product_6.image.url }}" alt="">
                         <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
+                            <a class="btn btn-outline-dark btn-square add-to-cart" href="{% url "cart:cart_add" %}"
+                            data-product-id="{{ new_product_6.id }}">
+                            {% csrf_token %}
+                            <i class="fa fa-shopping-cart"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
@@ -438,7 +481,7 @@
                             {% if new_product_6.discount %}
                                 <h5>{{ new_product_6.sell_price }} ₽</h5><h6 class="text-muted ml-2"><del>{{ new_product_6.price }} ₽</del></h6><h5 class="badge bg-warning text-dark ml-3">-{{ new_product_6.discount }} %</h5>
                             {% else %}
-                                <h5>{{ new_product_6.sell_price }} ₽</h5>
+                            <h5>{{ new_product_6.sell_price }} ₽</h5>
                             {% endif %}
                         </div>
                         <div class="d-flex align-items-center justify-content-center mb-1">
@@ -457,7 +500,10 @@
                     <div class="product-img position-relative overflow-hidden">
                         <img class="img-fluid w-100" src="{{ new_product_7.image.url }}" alt="">
                         <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
+                            <a class="btn btn-outline-dark btn-square add-to-cart" href="{% url "cart:cart_add" %}"
+                            data-product-id="{{ new_product_7.id }}">
+                            {% csrf_token %}
+                            <i class="fa fa-shopping-cart"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
@@ -467,9 +513,9 @@
                         <a class="h4" href="{% url "catalog:product" new_product_7.slug %}">{{ new_product_7.name }}</a>
                         <div class="d-flex align-items-center justify-content-center mt-2">
                             {% if new_product_7.discount %}
-                                <h5>{{ new_product_7.sell_price }} ₽</h5><h6 class="text-muted ml-2"><del>{{ new_product_7.price }} ₽</del></h6><h5 class="badge bg-warning text-dark ml-3">-{{ new_product_7.discount }} %</h5>
+                            <h5>{{ new_product_7.sell_price }} ₽</h5><h6 class="text-muted ml-2"><del>{{ new_product_7.price }} ₽</del></h6><h5 class="badge bg-warning text-dark ml-3">-{{ new_product_7.discount }} %</h5>
                             {% else %}
-                                <h5>{{ new_product_7.sell_price }} ₽</h5>
+                            <h5>{{ new_product_7.sell_price }} ₽</h5>
                             {% endif %}
                         </div>
                         <div class="d-flex align-items-center justify-content-center mb-1">
@@ -488,7 +534,10 @@
                     <div class="product-img position-relative overflow-hidden">
                         <img class="img-fluid w-100" src="{{ new_product_8.image.url }}" alt="">
                         <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
+                            <a class="btn btn-outline-dark btn-square add-to-cart" href="{% url "cart:cart_add" %}"
+                            data-product-id="{{ new_product_8.id }}">
+                            {% csrf_token %}
+                            <i class="fa fa-shopping-cart"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
@@ -498,9 +547,9 @@
                         <a class="h4" href="{% url "catalog:product" new_product_8.slug %}">{{ new_product_8.name }}</a>
                         <div class="d-flex align-items-center justify-content-center mt-2">
                             {% if new_product_8.discount %}
-                                <h5>{{ new_product_8.sell_price }} ₽</h5><h6 class="text-muted ml-2"><del>{{ new_product_8.price }} ₽</del></h6><h5 class="badge bg-warning text-dark ml-3">-{{ new_product_8.discount }} %</h5>
+                            <h5>{{ new_product_8.sell_price }} ₽</h5><h6 class="text-muted ml-2"><del>{{ new_product_8.price }} ₽</del></h6><h5 class="badge bg-warning text-dark ml-3">-{{ new_product_8.discount }} %</h5>
                             {% else %}
-                                <h5>{{ new_product_8.sell_price }} ₽</h5>
+                            <h5>{{ new_product_8.sell_price }} ₽</h5>
                             {% endif %}
                         </div>
                         <div class="d-flex align-items-center justify-content-center mb-1">
@@ -517,58 +566,59 @@
         </div>
     </div>
     <!-- Новинки End -->
-
-        <!-- Vendor Start -->
-        <div class="container-fluid py-5">
-            <div class="row px-xl-5">
-                <div class="col">
-                    <div class="owl-carousel vendor-carousel">
-                        {% tag_categories as categories %}
-                        {% for category in categories %}
-                            {% if category.name == 'Автомобили' %}
-                                <div class="bg-light p-4">
-                                    <a href="{% url "catalog:index" category.slug %}"><img src="{% static "img/Машина.png" %}" alt=""></a>
-                                </div>
-                            {% elif category.name == 'Книги' %}
-                                <div class="bg-light p-4">    
-                                    <a href="{% url "catalog:index" category.slug %}"><img src="{% static "img/Книги.png" %}" alt=""></a>
-                                </div>
-                            {% elif category.name == 'Мебель' %}
-                                <div class="bg-light p-4">    
-                                    <a href="{% url "catalog:index" category.slug %}"><img src="{% static "img/Диван.png" %}" alt=""></a>
-                                </div>
-                            {% elif category.name == 'Музыкальные инструменты' %}
-                                <div class="bg-light p-4">    
-                                    <a href="{% url "catalog:index" category.slug %}"><img src="{% static "img/Музыкальные инструменты.png" %}" alt=""></a>
-                                </div>
-                            {% elif category.name == 'Предметы интерьера' %}
-                                <div class="bg-light p-4">    
-                                    <a href="{% url "catalog:index" category.slug %}"><img src="{% static "img/Настольная лампа.png" %}" alt=""></a>
-                                </div>
-                            {% elif category.name == 'Полезные мелочи' %}
-                                <div class="bg-light p-4">    
-                                    <a href="{% url "catalog:index" category.slug %}"><img src="{% static "img/Вещи.png" %}" alt=""></a>
-                                </div>
-                            {% elif category.name == 'Недвижимость' %}
-                                <div class="bg-light p-4">    
-                                    <a href="{% url "catalog:index" category.slug %}"><img src="{% static "img/Недвижимость.png" %}" alt=""></a>
-                                </div>
-                            {% elif category.name == 'Хозяйственно-бытовые товары' %}
-                                <div class="bg-light p-4">    
-                                    <a href="{% url "catalog:index" category.slug %}"><img src="{% static "img/Хозтовары.png" %}" alt=""></a>
-                                </div>
-                            {% elif category.name == 'Одежда' %}
-                                <div class="bg-light p-4">    
-                                    <a href="{% url "catalog:index" category.slug %}"><img src="{% static "img/Одежда.png" %}" alt=""></a>
-                                </div>
-                            {% endif %}
-                        {% endfor %}
-                    </div>
+    
+    <!-- Vendor Start -->
+    <div class="container-fluid py-3">
+        <h2 class="section-title position-relative mx-xl-5 mb-4"><span class="bg-secondary pr-3">Категории</span></h2>
+        <div class="row px-xl-5">
+            <div class="col">
+                <div class="owl-carousel vendor-carousel">
+                    {% tag_categories as categories %}
+                    {% for category in categories %}
+                        {% if category.name == 'Автомобили' %}
+                            <div class="bg-light p-4">
+                                <a href="{% url "catalog:index" category.slug %}"><img src="{% static "img/Машина.png" %}" alt=""></a>
+                            </div>
+                        {% elif category.name == 'Книги' %}
+                            <div class="bg-light p-4">    
+                                <a href="{% url "catalog:index" category.slug %}"><img src="{% static "img/Книги.png" %}" alt=""></a>
+                            </div>
+                        {% elif category.name == 'Мебель' %}
+                            <div class="bg-light p-4">    
+                                <a href="{% url "catalog:index" category.slug %}"><img src="{% static "img/Диван.png" %}" alt=""></a>
+                            </div>
+                        {% elif category.name == 'Музыкальные инструменты' %}
+                            <div class="bg-light p-4">    
+                                <a href="{% url "catalog:index" category.slug %}"><img src="{% static "img/Музыкальные инструменты.png" %}" alt=""></a>
+                            </div>
+                        {% elif category.name == 'Предметы интерьера' %}
+                            <div class="bg-light p-4">    
+                                <a href="{% url "catalog:index" category.slug %}"><img src="{% static "img/Настольная лампа.png" %}" alt=""></a>
+                            </div>
+                        {% elif category.name == 'Полезные мелочи' %}
+                            <div class="bg-light p-4">    
+                                <a href="{% url "catalog:index" category.slug %}"><img src="{% static "img/Вещи.png" %}" alt=""></a>
+                            </div>
+                        {% elif category.name == 'Недвижимость' %}
+                            <div class="bg-light p-4">    
+                                <a href="{% url "catalog:index" category.slug %}"><img src="{% static "img/Недвижимость.png" %}" alt=""></a>
+                            </div>
+                        {% elif category.name == 'Хозяйственно-бытовые товары' %}
+                            <div class="bg-light p-4">    
+                                <a href="{% url "catalog:index" category.slug %}"><img src="{% static "img/Хозтовары.png" %}" alt=""></a>
+                            </div>
+                        {% elif category.name == 'Одежда' %}
+                            <div class="bg-light p-4">    
+                                <a href="{% url "catalog:index" category.slug %}"><img src="{% static "img/Одежда.png" %}" alt=""></a>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
                 </div>
             </div>
         </div>
-        <!-- Vendor End -->
-
+    </div>
+    <!-- Vendor End -->
+    
 {% endblock %}
 
 <!-- Footer Start -->
