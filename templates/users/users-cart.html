@@ -3,12 +3,14 @@
 
 {% block content %}
 <!-- Cart Start -->
-{% include "carts/includes/included_cart.html" %}
+<div class="container-fluid" id="cart-items-container">
+    {% include "carts/includes/included_cart.html" %}
 <!-- Cart End -->
 {% endblock content %}
 
 <!-- Footer Start -->
-{% block footer %}
+{% comment %} {% block footer %}
+<footer>
     <div class="container-fluid bg-dark text-secondary mt-5 pt-5">
         <div class="row border-top mx-xl-5 py-4" style="border-color: rgba(256, 256, 256, .1) !important;">
             <div class="col-md-6 px-xl-0">
@@ -22,5 +24,6 @@
             </div>
         </div>
     </div>
-{% endblock %}
+</footer>    
+{% endblock %} {% endcomment %}
 <!-- Footer End -->

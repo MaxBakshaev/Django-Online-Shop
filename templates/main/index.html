@@ -40,13 +40,13 @@
 
     
     <!-- Скидки Start -->
-    <div class="container-fluid pt-3 pb-3">
+    <div class="container-fluid pt-1 pb-1">
         <h2 class="section-title position-relative mx-xl-5 mb-4"><span class="bg-secondary pr-3">Лучшие скидки</span></h2>
         <div class="row px-xl-5">
             <div class="col-lg-3 col-md-4 col-sm-6 pb-1 d-flex">
-                <div class="product-item bg-light mb-4">
+                <div class="product-item bg-light mb-4 position-relative">
                     <div class="product-img position-relative overflow-hidden">
-                        <img class="img-fluid w-100" src="{{ product_1.image.url }}" alt="">
+                        <img class="img-fluid w-330" src="{{ product_1.image.url }}" alt="">
                         <div class="product-action">
                             <a class="btn btn-outline-dark btn-square add-to-cart" href="{% url "cart:cart_add" %}"
                                 data-product-id="{{ product_1.id }}">
@@ -163,7 +163,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1 d-flex">
+            {% comment %} <div class="col-lg-3 col-md-4 col-sm-6 pb-1 d-flex">
                 <div class="product-item bg-light mb-4">
                     <div class="product-img position-relative overflow-hidden">
                         <img class="img-fluid w-100" src="{{ product_5.image.url }}" alt="">
@@ -282,13 +282,13 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> {% endcomment %}
         </div>
     </div>
     <!-- Скидки End -->
 
     <!-- Новинки Start -->
-    <div class="container-fluid pt-5 pb-3">
+    <div class="container-fluid pt-1 pb-1">
         <h2 class="section-title position-relative mx-xl-5 mb-4"><span class="bg-secondary pr-3">Новинки</span></h2>
         <div class="row px-xl-5">
             <div class="col-lg-3 col-md-4 col-sm-6 pb-1 d-flex">
@@ -427,7 +427,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1 d-flex">
+            {% comment %} <div class="col-lg-3 col-md-4 col-sm-6 pb-1 d-flex">
                 <div class="product-item bg-light mb-4">
                     <div class="product-img position-relative overflow-hidden">
                         <img class="img-fluid w-100" src="{{ new_product_5.image.url }}" alt="">
@@ -562,13 +562,13 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> {% endcomment %}
         </div>
     </div>
     <!-- Новинки End -->
     
     <!-- Vendor Start -->
-    <div class="container-fluid py-3">
+    <div class="container-fluid py-1">
         <h2 class="section-title position-relative mx-xl-5 mb-4"><span class="bg-secondary pr-3">Категории</span></h2>
         <div class="row px-xl-5">
             <div class="col">
@@ -623,6 +623,7 @@
 
 <!-- Footer Start -->
 {% block footer %}
+<footer>
     <div class="container-fluid bg-dark text-secondary mt-5 pt-5">
         <div class="row border-top mx-xl-5 py-4" style="border-color: rgba(256, 256, 256, .1) !important;">
             <div class="col-md-6 px-xl-0">
@@ -636,5 +637,6 @@
             </div>
         </div>
     </div>
+</footer>
 {% endblock %}
 <!-- Footer End -->
