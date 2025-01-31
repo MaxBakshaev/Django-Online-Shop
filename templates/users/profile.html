@@ -3,270 +3,90 @@
 {% load carts_tags %}
 
 {% block content %}
-<div class="row">
-    <div class="container-fluid mt-5">
-        <div class="row">
-            <!-- Профиль с данными пользователя -->
-            <div class="col-md-5">
-                <div class=" bg-white p-4 mb-4 mx-2 rounded custom-shadow">
-                    <h3 class="text-center mb-4">Профиль пользователя</h3>
-                    <form action="{% url "users:profile" %}" method="post" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <div class="row">
-                            <div class="col-md-12 mb-3 text-center">
-                                {% if user.image %}
-                                    <img src="{{ user.image.url }}"
-                                        alt="Аватар пользователя" class="img-fluid rounded-circle"
-                                        style="max-width: 150px;">
-                                {% else %}
-                                    <img src="{% static "img/baseavatar.png" %}"
-                                        alt="Аватар пользователя" class="img-fluid rounded-circle"
-                                        style="max-width: 150px;">
-                                {% endif %}
-                                <input type="file" class="form-control mt-3" id="id_image"
-                                    name="image"
-                                    accept="image/*">
-                                    {% if form.image.errors %}
-                                        <div class="alert alert-danger alert-dismissible fade show">{{ form.image.errors }}</div>
-                                    {% endif %}
-                            </div>
-                            <div class="col-md-12 mb-3">
-                                <label for="id_first_name" class="form-label">Имя*</label>
-                                <input type="text" class="form-control" id="id_first_name"
-                                    name="first_name"
-                                    placeholder="Введите ваше имя"
-                                    value="{{ form.first_name.value }}"
-                                    required>
-                                    {% if form.first_name.errors %}
-                                        <div class="alert alert-danger alert-dismissible fade show">{{ form.first_name.errors }}</div>
-                                    {% endif %}
-                            </div>
-                            <div class="col-md-12 mb-3">
-                                <label for="id_last_name" class="form-label">Фамилия*</label>
-                                <input type="text" class="form-control" id="id_last_name"
-                                    name="last_name"
-                                    placeholder="Введите вашу фамилию"
-                                    value="{{ form.last_name.value }}"
-                                    required>
-                                    {% if form.last_name.errors %}
-                                        <div class="alert alert-danger alert-dismissible fade show">{{ form.last_name.errors }}</div>
-                                    {% endif %}
-                            </div>
-                            <div class="col-md-12 mb-3">
-                                <label for="id_username" class="form-label">Имя пользователя*</label>
-                                <input type="text" class="form-control" id="id_username"
-                                    name="username"    
-                                    placeholder="Введите ваше имя пользователя"
-                                    value="{{ form.username.value }}"
-                                    required>
-                                    {% if form.username.errors %}
-                                        <div class="alert alert-danger alert-dismissible fade show">{{ form.username.errors }}</div>
-                                    {% endif %}
-                            </div>
-                            <div class="col-md-12 mb-3">
-                                <label for="id_email" class="form-label">Email*</label>
-                                <input type="email" class="form-control" id="id_email"
-                                    name="email"
-                                    placeholder="Введите ваш email"
-                                    value="{{ form.email.value }}"
-                                    required>
-                                    {% if form.email.errors %}
-                                        <div class="alert alert-danger alert-dismissible fade show">{{ form.email.errors }}</div>
-                                    {% endif %}
-                            </div>
-                        </div>
-                        <button type="submit" class="btn btn-block btn-primary font-weight-bold my-3 py-2">Сохранить</button>
-                    </form>
-                </div>
-            </div>
-            
-            {% user_carts request as carts %}
-            <div class="col-lg-7">
-                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Корзина</span></h5>
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-lg-16 table-responsive mb-3">
-                            <table class="table table-light table-borderless table-hover text-center mb-0">
-                                <thead class="thead-dark">
-                                    <tr>
-                                        <th></th>
-                                        <th>Название</th>
-                                        <th>Цена</th>
-                                        <th>Количество</th>
-                                        <th>Всего</th>
-                                        <th>Удалить</th>
-                                    </tr>
-                                </thead>
-                                {% for cart in carts %}    
-                                    <div class="align-middle">
-                                        <tr>
-                                            <td class="align-middle">
-                                                <img src="{{ cart.product.image.url }}" alt="" style="width: 100px;">
-                                            </td>
-                                            <td class="align-middle">{{ cart.product.name }}</td>
-                                            </div>
-                                            </td>
-                                            <td class="align-middle" style="width: 170px;">{{ cart.product.sell_price }} ₽</td>
-                                            <td class="align-middle">
-                                                <div class="input-group quantity mx-auto" style="width: 100px;">
-                                                    <div class="input-group-btn">
-                                                        <button class="btn btn-sm btn-primary btn-minus decrement"
-                                                        data-cart-id="{{ cart.id }}" 
-                                                        data-cart-change-url="{% url "cart:cart_change" %}">
-                                                        {% csrf_token %}
-                                                        <i class="fa fa-minus"></i>
-                                                        </button>
-                                                    </div>
-                                                    <input type="text" class="form-control form-control-sm bg-secondary border-0 text-center" value="{{ cart.quantity }}">
-                                                    <div class="input-group-btn">
-                                                        <button class="btn btn-sm btn-primary btn-plus increment"
-                                                        data-cart-id="{{ cart.id }}" 
-                                                        data-cart-change-url="{% url "cart:cart_change" %}">
-                                                        {% csrf_token %}
-                                                            <i class="fa fa-plus"></i>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="align-middle" style="width: 200px;">{{ cart.products_price }} ₽</td>
-                                            <td class="align-middle"><a class="remove-from-cart align-middle" href="{% url "cart:cart_remove" %}"
-                                                data-cart-id="{{ cart.id }}">
-                                                {% csrf_token %}
-                                                <button class="btn btn-sm btn-danger"><i class="fa fa-times"></i></button></a></td>
-                                        </tr>
-                                    </div>
-                                {% endfor %}
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-light p-30 mb-5">
-                    {% if carts %}
-                        <div class="border-bottom pb-2">
-                            <div class="d-flex justify-content-between mb-3">
-                                <h6>Итого</h6>
-                                <h6>{{ carts.total_price }} ₽</h6>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <h6 class="font-weight-medium">Доставка</h6>
-                                <h6 class="font-weight-medium">0 ₽</h6>
-                            </div>
-                        </div>
-                        <div class="pt-2">
-                            <div class="d-flex justify-content-between mt-2">
-                                <h5 class="float-left">Итого <strong>{{ carts.total_quantity }}</strong> товар(а) на сумму</h5>
-                                <h5>{{ carts.total_price }} ₽</h5>
-                        </div>
-                        <a class="btn btn-block btn-primary font-weight-bold my-3 py-3" href="orders/create_order.html">Оформить заказ</a>
-                    {% else %}
-                        <center><img src="{% static "img/Пустая корзина.PNG" %}" class="pb-2" style="width: 200px;"></center>
-                        <h5 class="text-center">Пока пусто</h5>
-                    {% endif %}
-                    </div>
-                </div>
-            </div>
 
-            {% comment %} <!-- Корзина -->
-            <div class="col-md-7">
-                <div class=" bg-white p-4 mb-4 mx-2 rounded custom-shadow">
-                    <h3 class="text-center mb-4">Корзина</h3>
-                    <div class="container" id="cart-items-container">
-                        <!-- Разметка корзины -->
-                        {% include "carts/includes/included_cart.html" %}
-                        <!-- Закончилась разметка корзины -->
-                        <a class="btn btn-dark" href="../orders/create_order.html">
-                            Оформить заказ
-                        </a>
-                    </div>
+<div class="container-fluid mt-5 d-flex">
+    <!-- Профиль с данными пользователя -->
+    <div class="col-md-13 bg-white p-4 mb-4 mx-2 rounded custom-shadow">
+        <h3 class="text-center mb-4">Профиль пользователя</h3>
+        <form action="{% url "users:profile" %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-12 mb-3 text-center">
+                    {% if user.image %}
+                        <img src="{{ user.image.url }}"
+                            alt="Аватар пользователя" class="img-fluid rounded-circle"
+                            style="max-width: 150px;">
+                    {% else %}
+                        <img src="{% static "img/baseavatar.png" %}"
+                            alt="Аватар пользователя" class="img-fluid rounded-circle"
+                            style="max-width: 150px;">
+                    {% endif %}
+                    <input type="file" class="form-control mt-3" id="id_image"
+                        name="image"
+                        accept="image/*">
+                        {% if form.image.errors %}
+                            <div class="alert alert-danger alert-dismissible fade show">{{ form.image.errors }}</div>
+                        {% endif %}
                 </div>
-            </div> {% endcomment %}
-            
-            <!-- Оформленные заказы -->
-            {% comment %} <div class="col-md-12">
-                <div class=" bg-white p-4 mb-4 mx-2 rounded">
-                    <h3 class="text-center mb-4">Мои заказы</h3>
-                    <div class="container-fluid">
-                        <div class="row px-xl-5">
-                            <div class="col-lg-8 table-responsive mb-5">
-                                <table class="table table-light table-borderless table-hover text-center mb-0">
-                                    <thead class="thead-dark">
-                                        <tr>
-                                            <th>Products</th>
-                                            <th>Price</th>
-                                            <th>Quantity</th>
-                                            <th>Total</th>
-                                            <th>Remove</th>
-                                        </tr>
-                                    </thead>
-                                    {% for cart in carts %}    
-                                        <div class="align-middle">
-                                            <tr>
-                                                <td class="align-middle"><img src="{{ cart.product.image.url }}" alt="" style="width: 50px;">{{ cart.product.name }}</td>
-                                                <td class="align-middle">{{ cart.product.sell_price }} ₽</td>
-                                                <td class="align-middle">
-                                                    <div class="input-group quantity mx-auto" style="width: 100px;">
-                                                        <div class="input-group-btn">
-                                                            <button class="btn btn-sm btn-primary btn-minus decrement"
-                                                            data-cart-id="{{ cart.id }}" 
-                                                            data-cart-change-url="{% url "cart:cart_change" %}">
-                                                            {% csrf_token %}
-                                                            <i class="fa fa-minus"></i>
-                                                            </button>
-                                                        </div>
-                                                        <input type="text" class="form-control form-control-sm bg-secondary border-0 text-center" value="{{ cart.quantity }}">
-                                                        <div class="input-group-btn">
-                                                            <button class="btn btn-sm btn-primary btn-plus increment"
-                                                            data-cart-id="{{ cart.id }}" 
-                                                            data-cart-change-url="{% url "cart:cart_change" %}">
-                                                            {% csrf_token %}
-                                                                <i class="fa fa-plus"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="align-middle">{{ cart.products_price }} ₽</td>
-                                                <td><a class="remove-from-cart align-middle" href="{% url "cart:cart_remove" %}"
-                                                data-cart-id="{{ cart.id }}">
-                                                {% csrf_token %}
-                                                    <button class="btn btn-sm btn-danger"><i class="fa fa-times"></i></button></a></td>
-                                            </tr>
-                                        </div>
-                                    {% endfor %}
-                                </table>
-                            </div>
-                            <div class="col-lg-4">
-                                <h4 class="text-center mb-3">Корзина</h4>
-                                <div class="bg-light p-30 mb-5">
-                                    {% if carts %}
-                                        <div class="border-bottom pb-2">
-                                            <div class="d-flex justify-content-between mb-3">
-                                                <h6>Итого</h6>
-                                                <h6>{{ carts.total_price }} ₽</h6>
-                                            </div>
-                                            <div class="d-flex justify-content-between">
-                                                <h6 class="font-weight-medium">Доставка</h6>
-                                                <h6 class="font-weight-medium">0 ₽</h6>
-                                            </div>
-                                        </div>
-                                        <div class="pt-2">
-                                            <div class="d-flex justify-content-between mt-2">
-                                                <h5 class="float-left">Итого <strong>{{ carts.total_quantity }}</strong> товар(а) на сумму</h5>
-                                                <h5>{{ carts.total_price }} ₽</h5>
-                                            </div>
-                                            <button class="btn btn-block btn-primary font-weight-bold my-3 py-3">Оформить заказ</button>
-                                        </div>
-                                    {% else %}
-                                        <center><img src="{% static "img/Пустая корзина.PNG" %}" class="pb-2" style="width: 200px;"></center>
-                                        <h5 class="text-center">Пока пусто</h5>
-                                    {% endif %}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Cart End -->
+                <div class="col-md-12 mb-3">
+                    <label for="id_first_name" class="form-label">Имя*</label>
+                    <input type="text" class="form-control" id="id_first_name"
+                        name="first_name"
+                        placeholder="Введите ваше имя"
+                        value="{{ form.first_name.value }}"
+                        required>
+                        {% if form.first_name.errors %}
+                            <div class="alert alert-danger alert-dismissible fade show">{{ form.first_name.errors }}</div>
+                        {% endif %}
                 </div>
-            </div> {% endcomment %}
-        </div>
+                <div class="col-md-12 mb-3">
+                    <label for="id_last_name" class="form-label">Фамилия*</label>
+                    <input type="text" class="form-control" id="id_last_name"
+                        name="last_name"
+                        placeholder="Введите вашу фамилию"
+                        value="{{ form.last_name.value }}"
+                        required>
+                        {% if form.last_name.errors %}
+                            <div class="alert alert-danger alert-dismissible fade show">{{ form.last_name.errors }}</div>
+                        {% endif %}
+                </div>
+                <div class="col-md-12 mb-3">
+                    <label for="id_username" class="form-label">Имя пользователя*</label>
+                    <input type="text" class="form-control" id="id_username"
+                        name="username"    
+                        placeholder="Введите ваше имя пользователя"
+                        value="{{ form.username.value }}"
+                        required>
+                        {% if form.username.errors %}
+                            <div class="alert alert-danger alert-dismissible fade show">{{ form.username.errors }}</div>
+                        {% endif %}
+                </div>
+                <div class="col-md-12 mb-3">
+                    <label for="id_email" class="form-label">Email*</label>
+                    <input type="email" class="form-control" id="id_email"
+                        name="email"
+                        placeholder="Введите ваш email"
+                        value="{{ form.email.value }}"
+                        required>
+                        {% if form.email.errors %}
+                            <div class="alert alert-danger alert-dismissible fade show">{{ form.email.errors }}</div>
+                        {% endif %}
+                </div>
+            </div>
+            <button type="submit" class="btn btn-block btn-primary font-weight-bold my-3 py-2">Сохранить</button>
+        </form>
     </div>
+
+    <!-- Профиль с данными пользователя Конец -->
+    <!-- Корзина Начало -->
+
+        {% comment %} <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Корзина</span></h5> {% endcomment %}
+    <div id="cart-items-container">
+        {% include "carts/includes/included_cart.html" %}
+    </div>
+
+
+    <!-- Корзина Конец -->
 </div>
+
 {% endblock content %}
