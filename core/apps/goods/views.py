@@ -21,32 +21,58 @@ def catalog(request, category_slug=None):
     # создается базовый запрос к БД (QuerySet)
     if category_slug == 'vse-tovary':
         goods = Products.objects.all()
+        
+        # проверки с добавлением фильтров к запросу
+        if on_sale:
+            goods = goods.filter(discount__gt=0)
+        
+        if order_by and order_by != "default":
+            goods = goods.order_by(order_by)
+            
+        if cost_1000:
+            goods = goods.filter(price__lt=1000)
+        
+        if cost_10000:
+            goods = goods.filter(price__lt=10000, price__gt=1000)
+            
+        if cost_100000:
+            goods = goods.filter(price__lt=100000, price__gt=10000)
+        
+        if cost_1000000:
+            goods = goods.filter(price__lt=1000000, price__gt=100000)
+        
+        if cost_10000000:
+            goods = goods.filter(price__gt=1000000)
+            
     elif query:
         goods = q_search(query)
+        
     else:
-        goods = get_list_or_404(Products.objects.filter(category__slug=category_slug))
-    
-    # проверки с добавлением фильтров к запросу
-    if on_sale:
-        goods = goods.filter(discount__gt=0)
-    
-    if order_by and order_by != "default":
-        goods = goods.order_by(order_by)
+        category_filter = Products.objects.filter(category__slug=category_slug)
+        goods = get_list_or_404(category_filter)
         
-    if cost_1000:
-        goods = goods.filter(price__lt=1000)
-    
-    if cost_10000:
-        goods = goods.filter(price__lt=10000, price__gt=1000)
+        # проверки с добавлением фильтров к запросу
+        if on_sale:
+            goods = get_list_or_404(category_filter.filter(discount__gt=0))
         
-    if cost_100000:
-        goods = goods.filter(price__lt=100000, price__gt=10000)
+        if order_by and order_by != "default":
+            goods = get_list_or_404(category_filter.order_by(order_by))
+            
+        if cost_1000:
+            goods = get_list_or_404(category_filter.filter(price__lt=1000))
+        
+        if cost_10000:
+            goods = get_list_or_404(category_filter.filter(price__lt=10000, price__gt=1000))
+            
+        if cost_100000:
+            goods = get_list_or_404(category_filter.filter(price__lt=100000, price__gt=10000))
+        
+        if cost_1000000:
+            goods = get_list_or_404(category_filter.filter(price__lt=1000000, price__gt=100000))
+        
+        if cost_10000000:
+            goods = get_list_or_404(category_filter.filter(price__gt=1000000))
     
-    if cost_1000000:
-        goods = goods.filter(price__lt=1000000, price__gt=100000)
-    
-    if cost_10000000:
-        goods = goods.filter(price__gt=1000000)
         
     amount = len(goods)
     
