@@ -53,31 +53,49 @@ def catalog(request, category_slug=None):
         
         # проверки с добавлением фильтров к запросу
         if on_sale:
-            goods = get_list_or_404(category_filter.filter(discount__gt=0))
+            category_filter = category_filter.filter(discount__gt=0)
         
         if order_by and order_by != "default":
-            goods = get_list_or_404(category_filter.order_by(order_by))
+            category_filter = category_filter.order_by(order_by)
             
         if cost_1000:
-            goods = get_list_or_404(category_filter.filter(price__lt=1000))
+            category_filter = category_filter.filter(price__lt=1000)
         
         if cost_10000:
-            goods = get_list_or_404(category_filter.filter(price__lt=10000, price__gt=1000))
+            category_filter = category_filter.filter(price__lt=10000, price__gt=1000)
             
         if cost_100000:
-            goods = get_list_or_404(category_filter.filter(price__lt=100000, price__gt=10000))
+            category_filter = category_filter.filter(price__lt=100000, price__gt=10000)
         
         if cost_1000000:
-            goods = get_list_or_404(category_filter.filter(price__lt=1000000, price__gt=100000))
+            category_filter = category_filter.filter(price__lt=1000000, price__gt=100000)
         
         if cost_10000000:
-            goods = get_list_or_404(category_filter.filter(price__gt=1000000))
+            category_filter = category_filter.filter(price__gt=1000000)
+            
+        goods = get_list_or_404(category_filter)
     
         
     amount = len(goods)
     
     # количество товаров на страницу
+    
+    # show_three = request.GET.get('show_three', 3)
+    # show_six = request.GET.get('show_six', 6)
+    # show_nine = request.GET.get('show_nine', 9)
+    # show_twelve = request.GET.get('show_twelve', 12)
+    
     paginator = Paginator(goods, 6)
+    
+    # if show_three:
+    #     paginator = Paginator(goods, show_three)
+    # elif show_nine:
+    #     paginator = Paginator(goods, show_nine)
+    # elif show_twelve:
+    #     paginator = Paginator(goods, show_twelve)
+    # else:
+    #     paginator = Paginator(goods, show_six)
+        
     # отображение первой страницы
     current_page = paginator.page(int(page))
     

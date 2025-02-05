@@ -80,8 +80,8 @@
 
         <!-- Shop Product Start -->
         <div class="col-lg-9 col-md-8">
-            <div class="row pb-3">
-                <div class="col-12 pb-1">
+            <div class="row pb-3 pt-5">
+                {% comment %} <div class="col-12 pb-1">
                     <div class="d-flex align-items-center justify-content-between mb-4">
                         <div>
                             <button class="btn btn-sm btn-light"><i class="fa fa-th-large"></i></button>
@@ -89,27 +89,28 @@
                         </div>
                         <div class="ml-2">
                             <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Sorting</button>
+                                <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Сортировать</button>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="#">Latest</a>
-                                    <a class="dropdown-item" href="#">Popularity</a>
-                                    <a class="dropdown-item" href="#">Best Rating</a>
+                                    <a class="dropdown-item" href="#">По новинкам</a>
+                                    <a class="dropdown-item" href="#">По популярным</a>
+                                    <a class="dropdown-item" href="#">По рейтингу</a>
                                 </div>
                             </div>
                             <div class="btn-group ml-2">
-                                <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Showing</button>
+                                <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Показывать</button>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="#">10</a>
-                                    <a class="dropdown-item" href="#">20</a>
-                                    <a class="dropdown-item" href="#">30</a>
+                                    <a class="dropdown-item" href="{% url "catalog:index" slug_url %}" name="show_three">3</a>
+                                    <a class="dropdown-item" href="{% url "catalog:index" slug_url %}" name="show_six">6</a>
+                                    <a class="dropdown-item" href="{% url "catalog:index" slug_url %}" name="show_nine">9</a>
+                                    <a class="dropdown-item" href="{% url "catalog:index" slug_url %}" name="show_twelve">12</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> {% endcomment %}
 
                 <!-- Карты товара Start -->
-                <div class="col-12 pb-1">
+                <div class="col-12 pb-3">
                     {% if request.GET.q %}
                     <h3 class="mt-4">Результаты поиска по запросу {{ request.GET.q }}:</h3>
                     {% if not goods %}
