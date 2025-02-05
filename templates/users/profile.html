@@ -4,9 +4,9 @@
 
 {% block content %}
 
-<div class="container-fluid mt-5 d-flex">
+<div class="container-fluid pt-3 mt-5 d-flex">
     <!-- Профиль с данными пользователя -->
-    <div class="col-md-13 bg-white p-4 mb-4 mx-2 rounded custom-shadow">
+    <div class="col-md-13 bg-white p-4 mb-4 mx-2 rounded">
         <h3 class="text-center mb-4">Профиль пользователя</h3>
         <form action="{% url "users:profile" %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
