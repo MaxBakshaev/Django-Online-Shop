@@ -28,7 +28,11 @@
             <div id="product-carousel" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner bg-light">
                     <div class="carousel-item active">
-                        <img class="w-100 h-100" src="{{ product.image.url }}" alt="Image">
+                        {% if product.image %}
+                            <img class="w-100 h-100" src="{{ product.image.url }}" alt="{{ product.name }}">
+                        {% else %}
+                            <img class="img-fluid w-100" src="{% static "img/Not found image.png" %}" alt="">
+                        {% endif %}
                     </div>
                 </div>
             </div>
