@@ -65,7 +65,7 @@ def registration(request):
         form = UserRegistrationForm()
     
     context = {
-        'title': 'Home - Регистрация',
+        'title': 'MultiShop - Регистрация',
         'form': form
     }    
     return render(request, 'users/registration.html', context)

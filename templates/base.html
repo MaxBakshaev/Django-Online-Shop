@@ -83,7 +83,12 @@
                             {% else %}
                                 <a href="{% url "main:index" %}" class="nav-item nav-link">Главная страница</a>
                             {% endif %}
-                            {% if title == "MultiShop - Каталог" %}
+                            {% comment %} {% if title == "MultiShop - О нас" %}
+                                <a href="{% url "main:about" %}" class="nav-item nav-link active">О нас</a>
+                            {% else %}
+                                <a href="{% url "main:about" %}" class="nav-item nav-link">О нас</a>
+                            {% endif %} {% endcomment %}
+                            {% if title == "MultiShop - Каталог" or check_page == "MultiShop - Категории" or check_page == "MultiShop - Продукты" %}
                                 <a href="{% url "main:all_categories" %}" class="nav-item nav-link active">Каталог</a>
                             {% else %}
                                 <a href="{% url "main:all_categories" %}" class="nav-item nav-link">Каталог</a>
@@ -93,10 +98,20 @@
                             {% else %}
                                 <a href="" class="nav-item nav-link">Избранное</a>
                             {% endif %}
+                            {% if title == "MultiShop - Корзина" %}
+                                <a href="{% url "user:users_cart" %}" class="nav-item nav-link active">Корзина</a>
+                            {% else %}
+                                <a href="{% url "user:users_cart" %}" class="nav-item nav-link">Корзина</a>
+                            {% endif %}
                             {% if not user.is_authenticated %}
                                 {% if title == "MultiShop - Авторизация" %}
+                                    <a href="{% url "users:registration" %}" class="nav-item nav-link">Зарегистрироваться</a>
                                     <a href="{% url "users:login" %}" class="nav-item nav-link active">Войти</a>
+                                {% elif title == "MultiShop - Регистрация" %}
+                                    <a href="{% url "users:registration" %}" class="nav-item nav-link active">Зарегистрироваться</a>
+                                    <a href="{% url "users:login" %}" class="nav-item nav-link">Войти</a>
                                 {% else %}
+                                    <a href="{% url "users:registration" %}" class="nav-item nav-link">Зарегистрироваться</a>
                                     <a href="{% url "users:login" %}" class="nav-item nav-link">Войти</a>
                                 {% endif %}
                             {% else %}
@@ -114,16 +129,6 @@
                                         <a href="{% url "users:logout" %}" class="dropdown-item">Выйти</a>
                                     </div>
                                 </div>
-                            {% endif %}
-                            {% if title == "MultiShop - Корзина" %}
-                                <a href="{% url "user:users_cart" %}" class="nav-item nav-link active">Корзина</a>
-                            {% else %}
-                                <a href="{% url "user:users_cart" %}" class="nav-item nav-link">Корзина</a>
-                            {% endif %}
-                            {% if title == "MultiShop - О нас" %}
-                                <a href="{% url "main:about" %}" class="nav-item nav-link active">О нас</a>
-                            {% else %}
-                                <a href="{% url "main:about" %}" class="nav-item nav-link">О нас</a>
                             {% endif %}
                         </div>
 
