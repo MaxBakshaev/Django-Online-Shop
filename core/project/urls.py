@@ -31,6 +31,7 @@ urlpatterns = [
     path('catalog/', include('goods.urls', namespace='catalog')),
     path('user/', include('users.urls', namespace='user')),
     path('cart/', include('carts.urls', namespace='cart')),
+    path('', include('favorites.urls', namespace='favorite')),
 ]
 
 if DEBUG:

@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block modal_cart %}
+{% include "includes/cart_button.html" %}
+{% endblock modal_cart %}
+
+{% block content %}
+<div class="container-fluid pt-5 d-flex" style="justify-content: center;">
+    <div class="col-lg-9 col-md-8">
+        <h2 class="section-title position-relative mx-xxl-5 mb-4"><span class="bg-secondary pr-3">Избранное</span></h2>
+        {% if favorite_goods %}
+            <div class="row pb-3">
+                {% for product in favorite_goods %}
+                <div class="col-lg-4 col-md-5 col-sm-6 pb-1 d-flex">
+                    <div class="product-item bg-light mb-4">
+                        <div class="product-img position-relative overflow-hidden">
+                            {% if product.image %}
+                                <img class="img-fluid w-100" src="{{ product.image.url }}" alt="{{ product.name }}">
+                            {% else %}
+                                <img class="img-fluid w-100" src="{% static "img/Not found image.png" %}" alt="">
+                            {% endif %}
+                                <div class="product-action">
+                                    <a class="btn btn-outline-dark btn-square add-to-cart" href="{% url "cart:cart_add" %}"
+                                    data-product-id="{{ product.id }}">
+                                        {% csrf_token %}
+                                        <i class="fa fa-shopping-cart"></i></a>
+                                    <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
+                                    <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
+                                </div>
+                        </div>
+                        <div class="text-center py-3"> 
+                            <p>
+                                <a class="h4" href="{% url "catalog:product" product.slug %}">
+                                    {% autoescape off %}
+                                        {% if product.headline %}
+                                        {{ product.headline }}
+                                        {% else %}
+                                        {{ product.name }}
+                                        {% endif %}
+                                    {% endautoescape %}
+                                </a>
+                            </p>
+                            <p class="product_id"> id: {{ product.display_id }}</p>
+                            <div class="d-flex align-items-center justify-content-center mt-1">
+                                {% if product.discount %}
+                                    <h5>{{ product.sell_price }} ₽</h5>
+                                    <h6 class="text-muted ml-3"><del>{{ product.price }}</del> ₽</h6>
+                                    <h5 class="badge bg-warning text-dark ml-3">-{{ product.discount }} %</h5>
+                                {% else %}
+                                    <h5>{{ product.price }} ₽</h5>
+                                {% endif %}
+                            </div>
+                            <div class="d-flex align-items-center justify-content-center">
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small>(99)</small>
+                            </div>
+                            <form action="{% url "favorites:remove_from_favorites" id=product.id %}" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="type" value="{{ type }}">
+                                <input type="hidden" name="url_from" value="{{ request.path }}">
+                                <button type="submit" class="btn btn-primary mt-2" style="color: #3D464D !important">Удалить из избранного</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>    
+                {% endfor %}   
+            </div>
+        {% else %}
+        <div class="bg-light p-30 mb-5 text-center">
+            <img src="{% static "img/Пустая корзина.PNG" %}" class="pb-2" style="width: 200px;">
+            <h5>Пока пусто</h5>
+            <a class="h5" href="{% url "main:all_categories" %}" style="Color: #e6b400;">Перейти в каталог</a>
+        </div>             
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}
+    

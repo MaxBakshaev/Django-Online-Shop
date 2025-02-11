@@ -146,7 +146,14 @@
                                     data-product-id="{{ product.id }}">
                                         {% csrf_token %}
                                         <i class="fa fa-shopping-cart"></i></a>
-                                    <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
+                                    <a class="btn btn-outline-dark btn-square">
+                                        <form action="{% url "favorites:add_to_favorites" id=product.id %}" method="post">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="type" value="{{ type }}">
+                                            <input type="hidden" name="url_from" value="{{ request.path }}">
+                                            <button class="btn btn-outline-dark btn-square" type="submit"><i class="fa fa-heart"></i></button>
+                                        </form>      
+                                    </a>
                                     <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
                                     <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
                                 </div>

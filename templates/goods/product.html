@@ -63,6 +63,13 @@
                         <i class="fa fa-shopping-cart mr-1"></i> Добавить в корзину
                     </a>
                 </div>
+                <form action="{% url "favorites:add_to_favorites" id=product.id %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="type" value="{{ type }}">
+                    <input type="hidden" name="url_from" value="{{ request.path }}">
+                    <button type="submit" class="btn btn-primary px-3">
+                        <i class="fa fa-heart mr-1"></i>Добавить в избранное</button>
+                </form>
             </div>
         </div>
     </div>

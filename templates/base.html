@@ -12,7 +12,7 @@
     <meta content="Free HTML Templates" name="description">
 
     <!-- Favicon -->
-    <link href="{% static "img/favicon.ico" %}" rel="icon">
+    <link href="{% static "favicon/favicon.ico" %}" rel="icon">
 
     <!-- Стиль footer-a для главной страницы -->
     <link rel="stylesheet" href="{% static "deps/css/my_footer_css.css" %}">
@@ -94,9 +94,9 @@
                                 <a href="{% url "main:all_categories" %}" class="nav-item nav-link">Каталог</a>
                             {% endif %}
                             {% if title == "MultiShop - Избранное" %}
-                                <a href="" class="nav-item nav-link active">Избранное</a>
+                                <a href="{% url "favorite:favorites_list" %}" class="nav-item nav-link active">Избранное</a>
                             {% else %}
-                                <a href="" class="nav-item nav-link">Избранное</a>
+                                <a href="{% url "favorite:favorites_list" %}" class="nav-item nav-link">Избранное</a>
                             {% endif %}
                             {% if title == "MultiShop - Корзина" %}
                                 <a href="{% url "user:users_cart" %}" class="nav-item nav-link active">Корзина</a>

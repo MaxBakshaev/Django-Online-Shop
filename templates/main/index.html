@@ -56,7 +56,14 @@
                                 data-product-id="{{ product_1.id }}">
                                     {% csrf_token %}
                                     <i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
+                            <a class="btn btn-outline-dark btn-square">
+                                <form action="{% url "favorites:add_to_favorites" id=product_1.id %}" method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="type" value="{{ type }}">
+                                    <input type="hidden" name="url_from" value="{{ request.path }}">
+                                    <button class="btn btn-outline-dark btn-square" type="submit"><i class="fa fa-heart"></i></button>
+                                </form>      
+                            </a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
                         </div>
@@ -91,7 +98,14 @@
                                 data-product-id="{{ product_2.id }}">
                                 {% csrf_token %}
                                     <i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
+                            <a class="btn btn-outline-dark btn-square">
+                                <form action="{% url "favorites:add_to_favorites" id=product_2.id %}" method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="type" value="{{ type }}">
+                                    <input type="hidden" name="url_from" value="{{ request.path }}">
+                                    <button class="btn btn-outline-dark btn-square" type="submit"><i class="fa fa-heart"></i></button>
+                                </form>      
+                            </a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
                         </div>
@@ -126,7 +140,14 @@
                                 data-product-id="{{ product_3.id }}">
                                     {% csrf_token %}
                                     <i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
+                            <a class="btn btn-outline-dark btn-square">
+                                <form action="{% url "favorites:add_to_favorites" id=product_3.id %}" method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="type" value="{{ type }}">
+                                    <input type="hidden" name="url_from" value="{{ request.path }}">
+                                    <button class="btn btn-outline-dark btn-square" type="submit"><i class="fa fa-heart"></i></button>
+                                </form>      
+                            </a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
                         </div>
@@ -161,7 +182,14 @@
                             data-product-id="{{ product_4.id }}">
                                     {% csrf_token %}
                                     <i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
+                            <a class="btn btn-outline-dark btn-square">
+                                <form action="{% url "favorites:add_to_favorites" id=product_4.id %}" method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="type" value="{{ type }}">
+                                    <input type="hidden" name="url_from" value="{{ request.path }}">
+                                    <button class="btn btn-outline-dark btn-square" type="submit"><i class="fa fa-heart"></i></button>
+                                </form>      
+                            </a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
                         </div>
@@ -201,10 +229,17 @@
                         {% endif %}
                         <div class="product-action">
                             <a class="btn btn-outline-dark btn-square add-to-cart" href="{% url "cart:cart_add" %}"
-                            data-product-id="{{ new_product_1.id }}">
+                                data-product-id="{{ new_product_1.id }}">
                                     {% csrf_token %}
                                     <i class="fa fa-shopping-cart"></i></a>
-                                    <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
+                            <a class="btn btn-outline-dark btn-square">
+                                <form action="{% url "favorites:add_to_favorites" id=new_product_1.id %}" method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="type" value="{{ type }}">
+                                    <input type="hidden" name="url_from" value="{{ request.path }}">
+                                    <button class="btn btn-outline-dark btn-square" type="submit"><i class="fa fa-heart"></i></button>
+                                </form>      
+                            </a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
                         </div>
@@ -243,7 +278,14 @@
                                 data-product-id="{{ new_product_2.id }}">
                                     {% csrf_token %}
                                     <i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
+                            <a class="btn btn-outline-dark btn-square">
+                                <form action="{% url "favorites:add_to_favorites" id=new_product_2.id %}" method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="type" value="{{ type }}">
+                                    <input type="hidden" name="url_from" value="{{ request.path }}">
+                                    <button class="btn btn-outline-dark btn-square" type="submit"><i class="fa fa-heart"></i></button>
+                                </form>      
+                            </a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
                         </div>
@@ -282,7 +324,14 @@
                             data-product-id="{{ new_product_3.id }}">
                                     {% csrf_token %}
                                     <i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
+                            <a class="btn btn-outline-dark btn-square">
+                                <form action="{% url "favorites:add_to_favorites" id=new_product_3.id %}" method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="type" value="{{ type }}">
+                                    <input type="hidden" name="url_from" value="{{ request.path }}">
+                                    <button class="btn btn-outline-dark btn-square" type="submit"><i class="fa fa-heart"></i></button>
+                                </form>      
+                            </a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
                         </div>
@@ -318,10 +367,17 @@
                         {% endif %}
                         <div class="product-action">
                             <a class="btn btn-outline-dark btn-square add-to-cart" href="{% url "cart:cart_add" %}"
-                            data-product-id="{{ new_product_4.id }}">
+                                data-product-id="{{ new_product_4.id }}">
                                     {% csrf_token %}
                                     <i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
+                            <a class="btn btn-outline-dark btn-square">
+                                <form action="{% url "favorites:add_to_favorites" id=new_product_4.id %}" method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="type" value="{{ type }}">
+                                    <input type="hidden" name="url_from" value="{{ request.path }}">
+                                    <button class="btn btn-outline-dark btn-square" type="submit"><i class="fa fa-heart"></i></button>
+                                </form>      
+                            </a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
                         </div>
