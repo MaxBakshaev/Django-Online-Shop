@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.template.loader import render_to_string
@@ -42,6 +43,8 @@ def add_to_favorites(request, id):
         if not item_exist:
             request.session['favorites'].append(add_data)
             request.session.modified = True
+    
+        messages.success(request, "Товар добавлен в избранное")
     return redirect(request.POST.get('url_from'))
 
 
@@ -59,6 +62,7 @@ def remove_from_favorites(request, id):
             del request.session['favorites']
             
         request.session.modified = True
+        messages.success(request, "Товар удален из избранного")
     return redirect(request.POST.get('url_from'))
 
 

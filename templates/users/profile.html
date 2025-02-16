@@ -4,9 +4,9 @@
 
 {% block content %}
 
-<div class="container-fluid pt-3 mt-5 d-flex">
+<div class="row pt-3 mt-5 d-flex" style="justify-content: center; width: 100%;">
     <!-- Профиль с данными пользователя -->
-    <div class="col-md-13 bg-white p-4 mb-4 mx-2 rounded">
+    <div class="col-md-13 bg-white p-4 mb-4 mx-2 rounded" style="width: 20%;">
         <h3 class="text-center mb-4">Профиль пользователя</h3>
         <form action="{% url "users:profile" %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
@@ -79,10 +79,17 @@
     <!-- Профиль с данными пользователя Конец -->
 
     <!-- Корзина Начало -->
-    <div id="cart-items-container">
+    <div class="col-lg-4" id="cart-items-container" style="width: 40%;">
         {% include "carts/includes/included_cart.html" %}
     </div>
     <!-- Корзина Конец -->
+
 </div>
+
+<!-- Заказы Начало -->
+<div class="container-fluid" style="font-weight: 50px;">
+    {% include "orders/includes/included_orders.html" %}
+</div>
+<!-- Заказы Конец -->
 
 {% endblock content %}

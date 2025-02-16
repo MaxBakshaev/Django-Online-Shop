@@ -28,11 +28,11 @@
                             </td>
                             <td class="align-middle"> 
                                 <a href="{% url "catalog:product" cart.product.slug %}" 
-                                    style="Color: #6C757D;" onmouseover="style.color='#e6b400'" onmouseout="style.color='#6C757D'">
+                                    style="Color: #6C757D; width: 550px;" onmouseover="style.color='#e6b400'" onmouseout="style.color='#6C757D'">
                                     {{ cart.product.name }}
                                 </a>
                             </td>
-                            <td class="align-middle" style="width: 150px;">{{ cart.product.sell_price }} ₽</td>
+                            <td class="align-middle" style="width: 170px;">{{ cart.product.sell_price }} ₽</td>
                             <td class="align-middle">
                                 <div class="input-group mx-auto" style="width: 100px;">
                                     <div class="input-group-btn">
@@ -85,7 +85,9 @@
                     <h5 class="float-left">Итого <strong>{{ carts.total_quantity }}</strong> товар(а) <br>на сумму</h5>
                     <h5>{{ carts.total_price }} ₽</h5>
             </div>
-            <a class="btn btn-block btn-primary font-weight-bold my-3 py-3" href="orders/create_order.html">Оформить заказ</a>
+            {% if not order %}
+            <a class="btn btn-block btn-primary font-weight-bold my-3 py-3" href="{% url "orders:create_order" %}">Оформить заказ</a>
+            {% endif %}
         </div>
         <!-- Итого сумма заказа конец -->
 

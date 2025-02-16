@@ -30,6 +30,7 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="{% static "css/style.css" %}" rel="stylesheet">
+    {% comment %} <link href="{% static "deps/css/bootstrap/bootstrap.min.css" %}" rel="stylesheet"> {% endcomment %}
 </head>
 
 <body>
@@ -129,23 +130,19 @@
                                         <a href="{% url "users:logout" %}" class="dropdown-item">Выйти</a>
                                     </div>
                                 </div>
+                                {% if title == "MultiShop - Оформление заказа" or title == "MultiShop - Заказы"  %}
+                                    <a href="{% url "orders:my_orders" %}" class="nav-item nav-link active">Заказы</a>
+                                {% else %}
+                                    <a href="{% url "orders:my_orders" %}" class="nav-item nav-link">Заказы</a>
+                                {% endif %}
                             {% endif %}
                         </div>
-
-                        <!-- Значки избранное и корзина Start -->
-                        <div class="navbar-nav ml-auto py-0 d-none d-lg-block d-flex">
-                            <a href="" class="btn px-0">
-                                <i class="fas fa-heart text-primary"></i>
-                                <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">0</span>
-                            </a>
-                        </div>
+                        
                         <!-- Значек корзины, вызывает модальное окно -->
                         {% block modal_cart %}
                         {% endblock modal_cart %}
                         <!-- Закончилась разметка модального окна -->
-                        
-                        
-                        <!-- Значки избранное и корзина End -->
+
                     </div>
                 </nav>
             </div>

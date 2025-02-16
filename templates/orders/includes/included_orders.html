@@ -1,0 +1,44 @@
+<!-- Оформленные заказы -->
+<div class="container-fluid d-flex" style="justify-content: center;">
+    <div class="bg-white p-4 mb-4 mx-2">
+        <h3 class="text-center mb-4">Мои заказы</h3>
+        <!-- Разметка заказов -->
+        <div class="col-md-12">
+            <!-- Разметка заказов -->
+            {% if orders %}
+                <div class="container">
+                    {% for order in orders %}
+                        <button class="accordion d-flex" style="justify-content: center;">
+                            <h5 style="margin: 0px; ">Заказ № {{ order.id }} - {{ order.created_timestamp }} | Статус:<strong class="mx-2">{{ order.status }}</strong></h5>
+                            <i class="fa fa-angle-down d-flex align-items-center" aria-hidden="true"></i>
+                        </button>
+                        <div class="panel">
+                            <table style="width: 100%;" border="1px;">
+                                <tbody>
+                                    <tr style="text-align: center;">
+                                        <td style="width: 50%;"><strong>Название</strong></td>
+                                        <td style="width: 25%;"><strong>Количество, шт.</strong></td>
+                                        <td style="width: 25%;"><strong>Цена, ₽</strong></td>
+                                    </tr>
+                                    {% for item in order.orderitem_set.all %}
+                                        <tr>
+                                            <td>
+                                                <a href="{% url 'goods:product' item.product.slug %}" 
+                                                style="padding-left: 5px; Color: #3D464D;" onmouseover="style.color='#e6b400'" onmouseout="style.color='#3D464D'">
+                                                    {{ item.product.name }}
+                                                </a>
+                                            </td>
+                                            <td style="text-align: center;">{{ item.quantity }}</td>
+                                            <td style="text-align: center;">{{ item.price }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <p></p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
