@@ -53,9 +53,9 @@
                         {% endif %}
                         <div class="product-action">
                             <a class="btn btn-outline-dark btn-square add-to-cart" href="{% url "cart:cart_add" %}"
-                                data-product-id="{{ product_1.id }}">
-                                    {% csrf_token %}
-                                    <i class="fa fa-shopping-cart"></i></a>
+                            data-product-id="{{ product_1.id }}">
+                            {% csrf_token %}
+                            <i class="fa fa-shopping-cart"></i></a>
                             <a class="btn btn-outline-dark btn-square">
                                 <form action="{% url "favorites:add_to_favorites" id=product_1.id %}" method="post">
                                     {% csrf_token %}
@@ -64,8 +64,9 @@
                                     <button class="btn btn-outline-dark btn-square" type="submit"><i class="fa fa-heart"></i></button>
                                 </form>      
                             </a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
+                            <a class="btn btn-outline-dark btn-square" href="{% url "catalog:product" product_1.slug %}">
+                                <i class="fa fa-arrow-right"></i>
+                            </a>       
                         </div>
                     </div>
                     <div class="text-center py-4">
@@ -106,8 +107,9 @@
                                     <button class="btn btn-outline-dark btn-square" type="submit"><i class="fa fa-heart"></i></button>
                                 </form>      
                             </a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
+                            <a class="btn btn-outline-dark btn-square" href="{% url "catalog:product" product_2.slug %}">
+                                <i class="fa fa-arrow-right"></i>
+                            </a>
                         </div>
                     </div>
                     <div class="text-center py-4">
@@ -148,8 +150,9 @@
                                     <button class="btn btn-outline-dark btn-square" type="submit"><i class="fa fa-heart"></i></button>
                                 </form>      
                             </a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
+                            <a class="btn btn-outline-dark btn-square" href="{% url "catalog:product" product_3.slug %}">
+                                <i class="fa fa-arrow-right"></i>
+                            </a>
                         </div>
                     </div>
                     <div class="text-center py-4">
@@ -190,8 +193,9 @@
                                     <button class="btn btn-outline-dark btn-square" type="submit"><i class="fa fa-heart"></i></button>
                                 </form>      
                             </a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
+                            <a class="btn btn-outline-dark btn-square" href="{% url "catalog:product" product_4.slug %}">
+                                <i class="fa fa-arrow-right"></i>
+                            </a>
                         </div>
                     </div>
                     <div class="text-center py-4">
@@ -240,8 +244,9 @@
                                     <button class="btn btn-outline-dark btn-square" type="submit"><i class="fa fa-heart"></i></button>
                                 </form>      
                             </a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
+                            <a class="btn btn-outline-dark btn-square" href="{% url "catalog:product" new_product_1.slug %}">
+                                <i class="fa fa-arrow-right"></i>
+                            </a>
                         </div>
                     </div>
                     <div class="text-center py-4">
@@ -286,8 +291,9 @@
                                     <button class="btn btn-outline-dark btn-square" type="submit"><i class="fa fa-heart"></i></button>
                                 </form>      
                             </a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
+                            <a class="btn btn-outline-dark btn-square" href="{% url "catalog:product" new_product_2.slug %}">
+                                <i class="fa fa-arrow-right"></i>
+                            </a>
                         </div>
                     </div>
                     <div class="text-center py-4">
@@ -332,8 +338,9 @@
                                     <button class="btn btn-outline-dark btn-square" type="submit"><i class="fa fa-heart"></i></button>
                                 </form>      
                             </a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
+                            <a class="btn btn-outline-dark btn-square" href="{% url "catalog:product" new_product_3.slug %}">
+                                <i class="fa fa-arrow-right"></i>
+                            </a>
                         </div>
                     </div>
                     <div class="text-center py-4">
@@ -378,8 +385,9 @@
                                     <button class="btn btn-outline-dark btn-square" type="submit"><i class="fa fa-heart"></i></button>
                                 </form>      
                             </a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
+                            <a class="btn btn-outline-dark btn-square" href="{% url "catalog:product" new_product_4.slug %}">
+                                <i class="fa fa-arrow-right"></i>
+                            </a>
                         </div>
                     </div>
                     <div class="text-center py-4">

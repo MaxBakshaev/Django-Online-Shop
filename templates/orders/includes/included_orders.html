@@ -3,7 +3,7 @@
     <div class="bg-white p-4 mb-4 mx-2">
         <h3 class="text-center mb-4">Мои заказы</h3>
         <!-- Разметка заказов -->
-        <div class="col-md-12">
+        <div class="col-md-12 d-flex">
             <!-- Разметка заказов -->
             {% if orders %}
                 <div class="container">
@@ -16,15 +16,15 @@
                             <table style="width: 100%;" border="1px;">
                                 <tbody>
                                     <tr style="text-align: center;">
-                                        <td style="width: 50%;"><strong>Название</strong></td>
-                                        <td style="width: 25%;"><strong>Количество, шт.</strong></td>
-                                        <td style="width: 25%;"><strong>Цена, ₽</strong></td>
+                                        <td style="width: 40%;"><strong>Название</strong></td>
+                                        <td style="width: 30%;"><strong>Количество, шт.</strong></td>
+                                        <td style="width: 30%;"><strong>Цена, ₽</strong></td>
                                     </tr>
                                     {% for item in order.orderitem_set.all %}
                                         <tr>
-                                            <td>
+                                            <td style="text-align: center;">
                                                 <a href="{% url 'goods:product' item.product.slug %}" 
-                                                style="padding-left: 5px; Color: #3D464D;" onmouseover="style.color='#e6b400'" onmouseout="style.color='#3D464D'">
+                                                style="text-align: center; Color: #3D464D;" onmouseover="style.color='#e6b400'" onmouseout="style.color='#3D464D'">
                                                     {{ item.product.name }}
                                                 </a>
                                             </td>
@@ -32,6 +32,25 @@
                                             <td style="text-align: center;">{{ item.price }}</td>
                                         </tr>
                                     {% endfor %}
+                                    <tr style="text-align: center;">
+                                        <td style="width: 40%;"><strong>Способ получения</strong></td>
+                                        <td style="width: 30%;"><strong>Адрес</strong></td>
+                                        <td style="width: 30%;"><strong>Способ оплаты</strong></td>
+                                    </tr>
+                                    <tr style="text-align: center;">
+                                        {% if order.requires_delivery %}
+                                            <td>Доставка</td>
+                                            <td>{{order.delivery_address}}</td>
+                                        {% else %}
+                                            <td>Самовывоз</td>
+                                            <td>-</td>
+                                        {% endif %}
+                                        {% if order.payment_on_get %}
+                                            <td>Онлайн</td>
+                                        {% else %}
+                                            <td>Наличными/картой при плучении</td>
+                                        {% endif %}
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>

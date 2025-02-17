@@ -137,47 +137,48 @@
                     <div class="product-item bg-light mb-4">
                         <div class="product-img position-relative overflow-hidden">
                             {% if product.image %}
-                                <img class="img-fluid w-100" src="{{ product.image.url }}" alt="{{ product.name }}">
+                            <img class="img-fluid w-100" src="{{ product.image.url }}" alt="{{ product.name }}">
                             {% else %}
-                                <img class="img-fluid w-100" src="{% static "img/Not found image.png" %}" alt="">
+                            <img class="img-fluid w-100" src="{% static "img/Not found image.png" %}" alt="">
                             {% endif %}
-                                <div class="product-action">
-                                    <a class="btn btn-outline-dark btn-square add-to-cart" href="{% url "cart:cart_add" %}"
-                                    data-product-id="{{ product.id }}">
+                            <div class="product-action">
+                                <a class="btn btn-outline-dark btn-square add-to-cart" href="{% url "cart:cart_add" %}"
+                                data-product-id="{{ product.id }}">
+                                {% csrf_token %}
+                                <i class="fa fa-shopping-cart"></i></a>
+                                <a class="btn btn-outline-dark btn-square">
+                                    <form action="{% url "favorites:add_to_favorites" id=product.id %}" method="post">
                                         {% csrf_token %}
-                                        <i class="fa fa-shopping-cart"></i></a>
-                                    <a class="btn btn-outline-dark btn-square">
-                                        <form action="{% url "favorites:add_to_favorites" id=product.id %}" method="post">
-                                            {% csrf_token %}
                                             <input type="hidden" name="type" value="{{ type }}">
                                             <input type="hidden" name="url_from" value="{{ request.path }}">
                                             <button class="btn btn-outline-dark btn-square" type="submit"><i class="fa fa-heart"></i></button>
-                                        </form>      
-                                    </a>
-                                    <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                                    <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
-                                </div>
-                        </div>
-                        <div class="text-center py-3"> 
-                            <p>
-                                <a class="h4" href="{% url "catalog:product" product.slug %}">
-                                    {% autoescape off %}
+                                    </form>      
+                                </a>
+                                <a class="btn btn-outline-dark btn-square" href="{% url "catalog:product" product.slug %}">
+                                    <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </div>
+                            </div>
+                            <div class="text-center py-3"> 
+                                <p>
+                                    <a class="h4" href="{% url "catalog:product" product.slug %}">
+                                        {% autoescape off %}
                                         {% if product.headline %}
                                         {{ product.headline }}
                                         {% else %}
                                         {{ product.name }}
                                         {% endif %}
-                                    {% endautoescape %}
-                                </a>
+                                        {% endautoescape %}
+                                    </a>
                             </p>
                             <p class="product_id"> id: {{ product.display_id }}</p>
                             <div class="d-flex align-items-center justify-content-center mt-1">
                                 {% if product.discount %}
-                                    <h5>{{ product.sell_price }} ₽</h5>
-                                    <h6 class="text-muted ml-3"><del>{{ product.price }}</del> ₽</h6>
-                                    <h5 class="badge bg-warning text-dark ml-3">-{{ product.discount }} %</h5>
+                                <h5>{{ product.sell_price }} ₽</h5>
+                                <h6 class="text-muted ml-3"><del>{{ product.price }}</del> ₽</h6>
+                                <h5 class="badge bg-warning text-dark ml-3">-{{ product.discount }} %</h5>
                                 {% else %}
-                                    <h5>{{ product.price }} ₽</h5>
+                                <h5>{{ product.price }} ₽</h5>
                                 {% endif %}
                             </div>
                             <div class="d-flex align-items-center justify-content-center">
@@ -193,37 +194,37 @@
                 </div>
                 {% endfor %}                
                 <!-- Карты товара End -->
-
+                
                 <!-- Пагинация Start -->
                 {% if goods %}
-                    <div class="col-12">
-                        <nav>
+                <div class="col-12">
+                    <nav>
                         <ul class="pagination justify-content-center">
                             <li class="page-item {% if not goods.has_previous %}disabled{% endif %}">
                                 <a class="page-link" href="{% if goods.has_previous %}?{% change_params page=goods.previous_page_number %}{% else %}
                                 #
                                 {% endif %}">Назад</span></a>
                             </li>
-
+                            
                             {% for page in goods.paginator.page_range %}
-                                {% if page >= goods.number|add:-2 and page <= goods.number|add:2 %}
-                                    <li class="page-item {% if goods.number == page %}active{% endif %}">
-                                        <a class="page-link" href="?{% change_params page=page %}">{{ page }}</a>
-                                    </li>
-                                {% endif %}
+                            {% if page >= goods.number|add:-2 and page <= goods.number|add:2 %}
+                            <li class="page-item {% if goods.number == page %}active{% endif %}">
+                                <a class="page-link" href="?{% change_params page=page %}">{{ page }}</a>
+                            </li>
+                            {% endif %}
                             {% endfor %}
-
+                            
                             <li class="page-item {% if not goods.has_next %}disabled{% endif %}">
                                 <a class="page-link" href="{% if goods.has_next %}?{% change_params page=goods.next_page_number %}{% else %}
                                 #
                                 {% endif %}">Следующая</span></a>
                             </li>
                         </ul>
-                        </nav>
-                    </div>
+                    </nav>
+                </div>
                 {% endif %}
                 <!-- Пагинация End -->
-
+                
             </div>
         </div>
         <!-- Shop Product End -->
@@ -231,21 +232,21 @@
 </div>
 <!-- Shop End -->
 {% endblock %}
-    
+
 <!-- Footer Start -->
 {% block footer %}
-    <div class="container-fluid bg-dark text-secondary mt-5 pt-5">
-        <div class="row border-top mx-xl-5 py-4" style="border-color: rgba(256, 256, 256, .1) !important;">
-            <div class="col-md-6 px-xl-0">
-                <p class="mb-md-0 text-center text-md-left text-secondary">
-                    &copy; <a class="text-primary" href="#">Domain</a>. All Rights Reserved. Designed by
-                    <a class="text-primary" href="https://github.com/MaxBakshaev/">MaxBakshaev</a>
-                </p>
-            </div>
-            <div class="col-md-6 px-xl-0 text-center text-md-right">
-                <img class="img-fluid" src="{% static "img/payments.png" %}" alt="">
-            </div>
+<div class="container-fluid bg-dark text-secondary mt-5 pt-5">
+    <div class="row border-top mx-xl-5 py-4" style="border-color: rgba(256, 256, 256, .1) !important;">
+        <div class="col-md-6 px-xl-0">
+            <p class="mb-md-0 text-center text-md-left text-secondary">
+                &copy; <a class="text-primary" href="#">Domain</a>. All Rights Reserved. Designed by
+                <a class="text-primary" href="https://github.com/MaxBakshaev/">MaxBakshaev</a>
+            </p>
+        </div>
+        <div class="col-md-6 px-xl-0 text-center text-md-right">
+            <img class="img-fluid" src="{% static "img/payments.png" %}" alt="">
         </div>
     </div>
+</div>
 {% endblock %}
 <!-- Footer End -->

@@ -93,16 +93,27 @@ def catalog(request, category_slug=None):
     # отображение текущей страницы
     current_page = paginator.page(int(page))
 
-    category = Categories.objects.get(slug=category_slug)
+    if not query:
+        
+        category = Categories.objects.get(slug=category_slug)
+        
+        context = {
+            "title": f"MultiShop - Каталог - {category.name}",
+            "check_page": "MultiShop - Категории",
+            "goods": current_page,
+            "slug_url": category_slug,
+            "amount": amount,
+            "category": category,
+        }
+    
+    else:
 
-    context = {
-        "title": f"MultiShop - Каталог - {category.name}",
-        "check_page": "MultiShop - Категории",
-        "goods": current_page,
-        "slug_url": category_slug,
-        "amount": amount,
-        "category": category,
-    }
+        context = {
+            "title": "MultiShop - Каталог - Поиск",
+            "check_page": "MultiShop - Категории",
+            "goods": current_page,
+            "amount": amount,
+        }
 
     return render(request, "goods/catalog.html", context)
 
