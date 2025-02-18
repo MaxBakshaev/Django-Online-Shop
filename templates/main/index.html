@@ -43,178 +43,51 @@
     <div class="container-fluid pt-1 pb-1">
         <h2 class="section-title position-relative mx-xl-5 mb-4"><span class="bg-secondary pr-3">Лучшие скидки</span></h2>
         <div class="row px-xl-5">
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1 d-flex">
-                <div class="product-item bg-light mb-4">
-                    <div class="product-img position-relative overflow-hidden">
-                        {% if product_1.image %}
-                            <img class="img-fluid" src="{{ product_1.image.url }}" alt="{{ product_1.name }}">
-                        {% else %}
-                            <img class="img-fluid w-100" src="{% static "img/Not found image.png" %}" alt="">
-                        {% endif %}
-                        <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square add-to-cart" href="{% url "cart:cart_add" %}"
-                            data-product-id="{{ product_1.id }}">
-                            {% csrf_token %}
-                            <i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square">
-                                <form action="{% url "favorites:add_to_favorites" id=product_1.id %}" method="post">
-                                    {% csrf_token %}
-                                    <input type="hidden" name="type" value="{{ type }}">
-                                    <input type="hidden" name="url_from" value="{{ request.path }}">
-                                    <button class="btn btn-outline-dark btn-square" type="submit"><i class="fa fa-heart"></i></button>
-                                </form>      
-                            </a>
-                            <a class="btn btn-outline-dark btn-square" href="{% url "catalog:product" product_1.slug %}">
-                                <i class="fa fa-arrow-right"></i>
-                            </a>       
-                        </div>
-                    </div>
-                    <div class="text-center py-4">
-                        <p> <a class="h4" href="{% url "catalog:product" product_1.slug %}">{{ product_1.name }}</a></p>
-                        <p class="product_id"> id: {{ product_1.display_id }}</p>
-                        <div class="d-flex align-items-center justify-content-center mt-2">
-                            <h5>{{ product_1.sell_price }} ₽</h5><h6 class="text-muted ml-2"><del>{{ product_1.price }} ₽</del></h6><h5 class="badge bg-warning text-dark ml-3">-{{ product_1.discount }} %</h5>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-center mb-1">
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small>(99)</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1 d-flex">
-                <div class="product-item bg-light mb-4">
-                    <div class="product-img position-relative overflow-hidden">
-                        {% if product_2.image %}
-                            <img class="img-fluid" src="{{ product_2.image.url }}" alt="{{ product_2.name }}">
-                        {% else %}
-                            <img class="img-fluid w-100" src="{% static "img/Not found image.png" %}" alt="">
-                        {% endif %}
-                        <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square add-to-cart" href="{% url "cart:cart_add" %}"
-                                data-product-id="{{ product_2.id }}">
+            {% for discount_product in discount_products %}
+                <div class="col-lg-3 col-md-4 col-sm-6 pb-1 d-flex">
+                    <div class="product-item bg-light mb-4">
+                        <div class="product-img position-relative overflow-hidden">
+                            {% if discount_product.image %}
+                                <img class="img-fluid" src="{{ discount_product.image.url }}" alt="{{ discount_product.name }}">
+                            {% else %}
+                                <img class="img-fluid w-100" src="{% static "img/Not found image.png" %}" alt="">
+                            {% endif %}
+                            <div class="product-action">
+                                <a class="btn btn-outline-dark btn-square add-to-cart" href="{% url "cart:cart_add" %}"
+                                data-product-id="{{ discount_product.id }}">
                                 {% csrf_token %}
-                                    <i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square">
-                                <form action="{% url "favorites:add_to_favorites" id=product_2.id %}" method="post">
-                                    {% csrf_token %}
-                                    <input type="hidden" name="type" value="{{ type }}">
-                                    <input type="hidden" name="url_from" value="{{ request.path }}">
-                                    <button class="btn btn-outline-dark btn-square" type="submit"><i class="fa fa-heart"></i></button>
-                                </form>      
-                            </a>
-                            <a class="btn btn-outline-dark btn-square" href="{% url "catalog:product" product_2.slug %}">
-                                <i class="fa fa-arrow-right"></i>
-                            </a>
+                                <i class="fa fa-shopping-cart"></i></a>
+                                <a class="btn btn-outline-dark btn-square">
+                                    <form action="{% url "favorites:add_to_favorites" id=discount_product.id %}" method="post">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="type" value="{{ type }}">
+                                        <input type="hidden" name="url_from" value="{{ request.path }}">
+                                        <button class="btn btn-outline-dark btn-square" type="submit"><i class="fa fa-heart"></i></button>
+                                    </form>      
+                                </a>
+                                <a class="btn btn-outline-dark btn-square" href="{% url "catalog:product" discount_product.slug %}">
+                                    <i class="fa fa-arrow-right"></i>
+                                </a>       
+                            </div>
                         </div>
-                    </div>
-                    <div class="text-center py-4">
-                        <p><a class="h4" href="{% url "catalog:product" product_2.slug %}">{{ product_2.name }}</a></p>
-                        <p class="product_id"> id: {{ product_2.display_id }}</p>
-                        <div class="d-flex align-items-center justify-content-center mt-2">
-                            <h5>{{ product_2.sell_price }} ₽</h5><h6 class="text-muted ml-2"><del>{{ product_2.price }} ₽</del></h6><h5 class="badge bg-warning text-dark ml-3">-{{ product_2.discount }} %</h5>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-center mb-1">
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star-half-alt text-primary mr-1"></small>
-                            <small>(99)</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1 d-flex">
-                <div class="product-item bg-light mb-4">
-                    <div class="product-img position-relative overflow-hidden">
-                        {% if product_3.image %}
-                            <img class="img-fluid" src="{{ product_3.image.url }}" alt="{{ product_3.name }}">
-                        {% else %}
-                            <img class="img-fluid w-100" src="{% static "img/Not found image.png" %}" alt="">
-                        {% endif %}
-                        <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square add-to-cart" href="{% url "cart:cart_add" %}"
-                                data-product-id="{{ product_3.id }}">
-                                    {% csrf_token %}
-                                    <i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square">
-                                <form action="{% url "favorites:add_to_favorites" id=product_3.id %}" method="post">
-                                    {% csrf_token %}
-                                    <input type="hidden" name="type" value="{{ type }}">
-                                    <input type="hidden" name="url_from" value="{{ request.path }}">
-                                    <button class="btn btn-outline-dark btn-square" type="submit"><i class="fa fa-heart"></i></button>
-                                </form>      
-                            </a>
-                            <a class="btn btn-outline-dark btn-square" href="{% url "catalog:product" product_3.slug %}">
-                                <i class="fa fa-arrow-right"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="text-center py-4">
-                        <p><a class="h4" href="{% url "catalog:product" product_3.slug %}">{{ product_3.name }}</a></p>
-                        <p class="product_id"> id: {{ product_3.display_id }}</p>
-                        <div class="d-flex align-items-center justify-content-center mt-2">
-                            <h5>{{ product_3.sell_price }} ₽</h5><h6 class="text-muted ml-2"><del>{{ product_3.price }} ₽</del></h6><h5 class="badge bg-warning text-dark ml-3">-{{ product_3.discount }} %</h5>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-center mb-1">
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star-half-alt text-primary mr-1"></small>
-                            <small class="far fa-star text-primary mr-1"></small>
-                            <small>(99)</small>
+                        <div class="text-center py-4">
+                            <p> <a class="h4" href="{% url "catalog:product" discount_product.slug %}">{{ discount_product.name }}</a></p>
+                            <p class="product_id"> id: {{ discount_product.display_id }}</p>
+                            <div class="d-flex align-items-center justify-content-center mt-2">
+                                <h5>{{ discount_product.sell_price }} ₽</h5><h6 class="text-muted ml-2"><del>{{ discount_product.price }} ₽</del></h6><h5 class="badge bg-warning text-dark ml-3">-{{ discount_product.discount }} %</h5>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-center mb-1">
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small>(99)</small>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1 d-flex">
-                <div class="product-item bg-light mb-4">
-                    <div class="product-img position-relative overflow-hidden">
-                        {% if product_4.image %}
-                            <img class="img-fluid" src="{{ product_4.image.url }}" alt="{{ product_4.name }}">
-                        {% else %}
-                            <img class="img-fluid w-100" src="{% static "img/Not found image.png" %}" alt="">
-                        {% endif %}
-                        <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square add-to-cart" href="{% url "cart:cart_add" %}"
-                            data-product-id="{{ product_4.id }}">
-                                    {% csrf_token %}
-                                    <i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square">
-                                <form action="{% url "favorites:add_to_favorites" id=product_4.id %}" method="post">
-                                    {% csrf_token %}
-                                    <input type="hidden" name="type" value="{{ type }}">
-                                    <input type="hidden" name="url_from" value="{{ request.path }}">
-                                    <button class="btn btn-outline-dark btn-square" type="submit"><i class="fa fa-heart"></i></button>
-                                </form>      
-                            </a>
-                            <a class="btn btn-outline-dark btn-square" href="{% url "catalog:product" product_4.slug %}">
-                                <i class="fa fa-arrow-right"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="text-center py-4">
-                        <p><a class="h4" href="{% url "catalog:product" product_4.slug %}">{{ product_4.name }}</a></p>
-                        <p class="product_id"> id: {{ product_4.display_id }}</p>
-                        <div class="d-flex align-items-center justify-content-center mt-2">
-                            <h5>{{ product_4.sell_price }} ₽</h5><h6 class="text-muted ml-2"><del>{{ product_4.price }} ₽</del></h6><h5 class="badge bg-warning text-dark ml-3">-{{ product_4.discount }} %</h5>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-center mb-1">
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="far fa-star text-primary mr-1"></small>
-                            <small class="far fa-star text-primary mr-1"></small>
-                            <small>(99)</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
         </div>
     </div>
     <!-- Скидки End -->
@@ -223,194 +96,55 @@
     <div class="container-fluid pt-1 pb-1">
         <h2 class="section-title position-relative mx-xl-5 mb-4"><span class="bg-secondary pr-3">Новинки</span></h2>
         <div class="row px-xl-5">
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1 d-flex">
-                <div class="product-item bg-light mb-4">
-                    <div class="product-img position-relative overflow-hidden">
-                        {% if product_1.image %}
-                            <img class="img-fluid w-100" src="{{ new_product_1.image.url }}" alt="{{ product_1.name }}">
-                        {% else %}
-                            <img class="img-fluid w-100" src="{% static "img/Not found image.png" %}" alt="">
-                        {% endif %}
-                        <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square add-to-cart" href="{% url "cart:cart_add" %}"
-                                data-product-id="{{ new_product_1.id }}">
-                                    {% csrf_token %}
-                                    <i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square">
-                                <form action="{% url "favorites:add_to_favorites" id=new_product_1.id %}" method="post">
-                                    {% csrf_token %}
-                                    <input type="hidden" name="type" value="{{ type }}">
-                                    <input type="hidden" name="url_from" value="{{ request.path }}">
-                                    <button class="btn btn-outline-dark btn-square" type="submit"><i class="fa fa-heart"></i></button>
-                                </form>      
-                            </a>
-                            <a class="btn btn-outline-dark btn-square" href="{% url "catalog:product" new_product_1.slug %}">
-                                <i class="fa fa-arrow-right"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="text-center py-4">
-                        <p><a class="h4" href="{% url "catalog:product" new_product_1.slug %}">{{ new_product_1.name }}</a></p>
-                        <p class="product_id"> id: {{ new_product_1.display_id }}</p>
-                        <div class="d-flex align-items-center justify-content-center mt-2">
-                            {% if new_product_1.discount %}
-                                <h5>{{ new_product_1.sell_price }} ₽</h5><h6 class="text-muted ml-2"><del>{{ new_product_1.price }} ₽</del></h6><h5 class="badge bg-warning text-dark ml-3">-{{ new_product_1.discount }} %</h5>
+            {% for new_product in new_products %}
+                <div class="col-lg-3 col-md-4 col-sm-6 pb-1 d-flex">
+                    <div class="product-item bg-light mb-4">
+                        <div class="product-img position-relative overflow-hidden">
+                            {% if new_product.image %}
+                                <img class="img-fluid w-100" src="{{ new_product.image.url }}" alt="{{ new_product.name }}">
                             {% else %}
-                                <h5>{{ new_product_1.sell_price }} ₽</h5>
+                                <img class="img-fluid w-100" src="{% static "img/Not found image.png" %}" alt="">
                             {% endif %}
+                            <div class="product-action">
+                                <a class="btn btn-outline-dark btn-square add-to-cart" href="{% url "cart:cart_add" %}"
+                                    data-product-id="{{ new_product.id }}">
+                                        {% csrf_token %}
+                                        <i class="fa fa-shopping-cart"></i></a>
+                                <a class="btn btn-outline-dark btn-square">
+                                    <form action="{% url "favorites:add_to_favorites" id=new_product.id %}" method="post">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="type" value="{{ type }}">
+                                        <input type="hidden" name="url_from" value="{{ request.path }}">
+                                        <button class="btn btn-outline-dark btn-square" type="submit"><i class="fa fa-heart"></i></button>
+                                    </form>      
+                                </a>
+                                <a class="btn btn-outline-dark btn-square" href="{% url "catalog:product" new_product.slug %}">
+                                    <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </div>
                         </div>
-                        <div class="d-flex align-items-center justify-content-center mb-1">
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small>(99)</small>
+                        <div class="text-center py-4">
+                            <p><a class="h4" href="{% url "catalog:product" new_product.slug %}">{{ new_product.name }}</a></p>
+                            <p class="product_id"> id: {{ new_product.display_id }}</p>
+                            <div class="d-flex align-items-center justify-content-center mt-2">
+                                {% if new_product.discount %}
+                                    <h5>{{ new_product.sell_price }} ₽</h5><h6 class="text-muted ml-2"><del>{{ new_product.price }} ₽</del></h6><h5 class="badge bg-warning text-dark ml-3">-{{ new_product.discount }} %</h5>
+                                {% else %}
+                                    <h5>{{ new_product.sell_price }} ₽</h5>
+                                {% endif %}
+                            </div>
+                            <div class="d-flex align-items-center justify-content-center mb-1">
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small>(99)</small>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1 d-flex">
-                <div class="product-item bg-light mb-4">
-                    <div class="product-img position-relative overflow-hidden">
-                        {% if product_2.image %}
-                            <img class="img-fluid w-100" src="{{ new_product_2.image.url }}" alt="{{ product_2.name }}">
-                        {% else %}
-                            <img class="img-fluid w-100" src="{% static "img/Not found image.png" %}" alt="">
-                        {% endif %}
-                        <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square add-to-cart" href="{% url "cart:cart_add" %}"
-                                data-product-id="{{ new_product_2.id }}">
-                                    {% csrf_token %}
-                                    <i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square">
-                                <form action="{% url "favorites:add_to_favorites" id=new_product_2.id %}" method="post">
-                                    {% csrf_token %}
-                                    <input type="hidden" name="type" value="{{ type }}">
-                                    <input type="hidden" name="url_from" value="{{ request.path }}">
-                                    <button class="btn btn-outline-dark btn-square" type="submit"><i class="fa fa-heart"></i></button>
-                                </form>      
-                            </a>
-                            <a class="btn btn-outline-dark btn-square" href="{% url "catalog:product" new_product_2.slug %}">
-                                <i class="fa fa-arrow-right"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="text-center py-4">
-                        <p><a class="h4" href="{% url "catalog:product" new_product_2.slug %}">{{ new_product_2.name }}</a></p>
-                        <p class="product_id"> id: {{ new_product_2.display_id }}</p>
-                        <div class="d-flex align-items-center justify-content-center mt-2">
-                            {% if new_product_2.discount %}
-                                <h5>{{ new_product_2.sell_price }} ₽</h5><h6 class="text-muted ml-2"><del>{{ new_product_2.price }} ₽</del></h6><h5 class="badge bg-warning text-dark ml-3">-{{ new_product_2.discount }} %</h5>
-                            {% else %}
-                                <h5>{{ new_product_2.sell_price }} ₽</h5>
-                            {% endif %}
-                        </div>
-                        <div class="d-flex align-items-center justify-content-center mb-1">
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small>(99)</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1 d-flex">
-                <div class="product-item bg-light mb-4">
-                    <div class="product-img position-relative overflow-hidden">
-                        {% if product_3.image %}
-                            <img class="img-fluid w-100" src="{{ new_product_3.image.url }}" alt="{{ product_3.name }}">
-                        {% else %}
-                            <img class="img-fluid w-100" src="{% static "img/Not found image.png" %}" alt="">
-                        {% endif %}
-                        <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square add-to-cart" href="{% url "cart:cart_add" %}"
-                            data-product-id="{{ new_product_3.id }}">
-                                    {% csrf_token %}
-                                    <i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square">
-                                <form action="{% url "favorites:add_to_favorites" id=new_product_3.id %}" method="post">
-                                    {% csrf_token %}
-                                    <input type="hidden" name="type" value="{{ type }}">
-                                    <input type="hidden" name="url_from" value="{{ request.path }}">
-                                    <button class="btn btn-outline-dark btn-square" type="submit"><i class="fa fa-heart"></i></button>
-                                </form>      
-                            </a>
-                            <a class="btn btn-outline-dark btn-square" href="{% url "catalog:product" new_product_3.slug %}">
-                                <i class="fa fa-arrow-right"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="text-center py-4">
-                        <p><a class="h4" href="{% url "catalog:product" new_product_3.slug %}">{{ new_product_3.name }}</a></p>
-                        <p class="product_id"> id: {{ new_product_3.display_id }}</p>
-                        <div class="d-flex align-items-center justify-content-center mt-2">
-                            {% if new_product_3.discount %}
-                                <h5>{{ new_product_3.sell_price }} ₽</h5><h6 class="text-muted ml-2"><del>{{ new_product_3.price }} ₽</del></h6><h5 class="badge bg-warning text-dark ml-3">-{{ new_product_3.discount }} %</h5>
-                            {% else %}
-                            <h5>{{ new_product_3.sell_price }} ₽</h5>
-                            {% endif %}
-                        </div>
-                        <div class="d-flex align-items-center justify-content-center mb-1">
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small>(99)</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1 d-flex">
-                <div class="product-item bg-light mb-4">
-                    <div class="product-img position-relative overflow-hidden">
-                        {% if product_4.image %}
-                            <img class="img-fluid w-100" src="{{ new_product_4.image.url }}" alt="{{ product_4.name }}">
-                        {% else %}
-                            <img class="img-fluid w-100" src="{% static "img/Not found image.png" %}" alt="">
-                        {% endif %}
-                        <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square add-to-cart" href="{% url "cart:cart_add" %}"
-                                data-product-id="{{ new_product_4.id }}">
-                                    {% csrf_token %}
-                                    <i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square">
-                                <form action="{% url "favorites:add_to_favorites" id=new_product_4.id %}" method="post">
-                                    {% csrf_token %}
-                                    <input type="hidden" name="type" value="{{ type }}">
-                                    <input type="hidden" name="url_from" value="{{ request.path }}">
-                                    <button class="btn btn-outline-dark btn-square" type="submit"><i class="fa fa-heart"></i></button>
-                                </form>      
-                            </a>
-                            <a class="btn btn-outline-dark btn-square" href="{% url "catalog:product" new_product_4.slug %}">
-                                <i class="fa fa-arrow-right"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="text-center py-4">
-                        <p><a class="h4" href="{% url "catalog:product" new_product_4.slug %}">{{ new_product_4.name }}</a></p>
-                        <p class="product_id"> id: {{ new_product_4.display_id }}</p>
-                        <div class="d-flex align-items-center justify-content-center mt-2">
-                            {% if new_product_4.discount %}
-                                <h5>{{ new_product_4.sell_price }} ₽</h5><h6 class="text-muted ml-2"><del>{{ new_product_4.price }} ₽</del></h6><h5 class="badge bg-warning text-dark ml-3">-{{ new_product_4.discount }} %</h5>
-                            {% else %}
-                                <h5>{{ new_product_4.sell_price }} ₽</h5>
-                            {% endif %}
-                        </div>
-                        <div class="d-flex align-items-center justify-content-center mb-1">
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small>(99)</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
         </div>
     </div>
     <!-- Новинки End -->

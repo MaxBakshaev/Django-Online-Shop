@@ -10,7 +10,7 @@ app_name = 'main'
 # второй аргумент - функция из контроллера views
 # name - имя в шаблоне для URL-адреса
 urlpatterns = [
-    path('', views.index, name='index'),
-    path('about/', views.about, name='about'),
-    path('all_categories/', views.all_categories, name='all_categories'),
+    path('', views.IndexView.as_view(), name='index'),
+    path('about/', views.AboutView.as_view(), name='about'),
+    path('all_categories/', views.All_categories.as_view(), name='all_categories'),
 ]
