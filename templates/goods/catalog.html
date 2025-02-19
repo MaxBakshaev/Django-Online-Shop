@@ -30,7 +30,7 @@
             <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Фильтр по цене</span></h5>
             <div class="bg-light p-3 mb-30">
                 <form action="{% if request.GET.q %}{% url "catalog:search" %}{% else %}{% url "catalog:index" slug_url %}{% endif %}" method="get">
-                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                    <div class="custom-control custom-checkbox d-flex align-items-cente0r justify-content-between mb-3">
                         <input type="checkbox" class="custom-control-input" id="price-all" name="order_by" value="default" 
                         {% if not request.GET.on_sale == 'on' %}checked{% endif %}>
                         <label class="custom-control-label" for="price-all">Все товары</label>
@@ -200,22 +200,22 @@
                 <div class="col-12">
                     <nav>
                         <ul class="pagination justify-content-center">
-                            <li class="page-item {% if not goods.has_previous %}disabled{% endif %}">
-                                <a class="page-link" href="{% if goods.has_previous %}?{% change_params page=goods.previous_page_number %}{% else %}
+                            <li class="page-item {% if not page_obj.has_previous %}disabled{% endif %}">
+                                <a class="page-link" href="{% if page_obj.has_previous %}?{% change_params page=page_obj.previous_page_number %}{% else %}
                                 #
                                 {% endif %}">Назад</span></a>
                             </li>
                             
-                            {% for page in goods.paginator.page_range %}
-                            {% if page >= goods.number|add:-2 and page <= goods.number|add:2 %}
-                            <li class="page-item {% if goods.number == page %}active{% endif %}">
+                            {% for page in page_obj.paginator.page_range %}
+                            {% if page >= page_obj.number|add:-2 and page <= page_obj.number|add:2 %}
+                            <li class="page-item {% if page_obj.number == page %}active{% endif %}">
                                 <a class="page-link" href="?{% change_params page=page %}">{{ page }}</a>
                             </li>
                             {% endif %}
                             {% endfor %}
                             
-                            <li class="page-item {% if not goods.has_next %}disabled{% endif %}">
-                                <a class="page-link" href="{% if goods.has_next %}?{% change_params page=goods.next_page_number %}{% else %}
+                            <li class="page-item {% if not page_obj.has_next %}disabled{% endif %}">
+                                <a class="page-link" href="{% if page_obj.has_next %}?{% change_params page=page_obj.next_page_number %}{% else %}
                                 #
                                 {% endif %}">Следующая</span></a>
                             </li>
