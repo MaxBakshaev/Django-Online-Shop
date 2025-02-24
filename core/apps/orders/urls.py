@@ -6,6 +6,6 @@ from orders import views
 app_name = 'orders'
 
 urlpatterns = [
-    path('create-order/', views.create_order, name='create_order'),
-    path('my-orders/', views.my_orders, name='my_orders'),
+    path('create-order/', views.CreateOrderView.as_view(), name='create_order'),
+    path('my-orders/', views.MyOrdersView.as_view(), name='my_orders'),
 ]
