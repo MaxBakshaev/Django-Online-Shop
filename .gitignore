@@ -1,6 +1,7 @@
 .venv
 .vscode/
 __pycache_/
+cache/
 .idea
 *.pyc
 *.sqlite*

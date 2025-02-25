@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load cache %}
 {% load goods_tags %}
 
 {% block modal_cart %}
@@ -11,6 +12,7 @@
     <div class="container-fluid pt-5">
         <h2 class="section-title position-relative mx-xxl-5 mb-4"><span class="bg-secondary pr-3">Товары</span></h2>
         <div class="row px-xxl-5 pb-3">
+            {% cache 600 cache_all_categories %}
             {% tag_categories as categories %}
             {% for category in categories %}
                 <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
@@ -47,6 +49,7 @@
                     </a>
                 </div>
             {% endfor %}
+            {% endcache %}
         </div>
     </div>
     <!-- Каталог End -->
