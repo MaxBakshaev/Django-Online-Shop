@@ -5,7 +5,7 @@ from carts.utils import get_user_carts
 
 
 class CartMixin:
-    def get_cart(self, request, product=None, cart_id=None):
+    def get_cart(self, request, product=None, cart_id=None) -> Cart | None:
 
         if request.user.is_authenticated:
             query_kwargs = {"user": request.user}
@@ -20,7 +20,7 @@ class CartMixin:
 
         return Cart.objects.filter(**query_kwargs).first()
 
-    def render_cart(self, request):
+    def render_cart(self, request) -> str:
         user_cart = get_user_carts(request)
         context = {"carts": user_cart}
 

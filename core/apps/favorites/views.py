@@ -1,12 +1,11 @@
 from django.contrib import messages
-from django.http import JsonResponse
+from django.http import HttpResponse, HttpResponsePermanentRedirect, HttpResponseRedirect
 from django.shortcuts import redirect, render
-from django.template.loader import render_to_string
 
 from goods.models import Products
 
 
-def favorites_list(request):
+def favorites_list(request) -> HttpResponse:
 
     if request.session.get('favorites'):
         list_id = []
@@ -26,7 +25,7 @@ def favorites_list(request):
     return render(request, "favorites/favorites-list.html", context=context)
 
 
-def add_to_favorites(request, id):
+def add_to_favorites(request, id) -> HttpResponseRedirect | HttpResponsePermanentRedirect:
     if request.method == 'POST':
         if not request.session.get('favorites'):
             request.session['favorites'] = list()
@@ -48,7 +47,7 @@ def add_to_favorites(request, id):
     return redirect(request.POST.get('url_from'))
 
 
-def remove_from_favorites(request, id):
+def remove_from_favorites(request, id) -> HttpResponseRedirect | HttpResponsePermanentRedirect:
     if request.method == 'POST':
         
         for item in request.session['favorites']:
@@ -66,7 +65,7 @@ def remove_from_favorites(request, id):
     return redirect(request.POST.get('url_from'))
 
 
-def delete_favorites(request):
+def delete_favorites(request) -> HttpResponseRedirect | HttpResponsePermanentRedirect:
     if request.session.get('favorites'):
         del request.session['favorites']
     return redirect(request.POST.get('url_from'))

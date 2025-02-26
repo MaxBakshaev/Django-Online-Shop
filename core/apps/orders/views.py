@@ -1,9 +1,12 @@
 from typing import Any
+from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
+from django.contrib.auth.models import AnonymousUser
 from django.db import transaction
 from django.db.models import Prefetch
 from django.forms import ValidationError
+from django.http import HttpResponsePermanentRedirect, HttpResponseRedirect
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import FormView, TemplateView
@@ -18,16 +21,16 @@ class CreateOrderView(LoginRequiredMixin, FormView):
     form_class = CreateOrderForm
     success_url = reverse_lazy("users:profile")
 
-    def get_initial(self):
-        initial = super().get_initial()
+    def get_initial(self) -> dict[str, Any]:
+        initial: dict[str, Any] = super().get_initial()
         initial["first_name"] = self.request.user.first_name
         initial["last_name"] = self.request.user.last_name
         return initial
 
-    def form_valid(self, form):
+    def form_valid(self, form) -> HttpResponseRedirect | HttpResponsePermanentRedirect | None:
         try:
             with transaction.atomic():
-                user = self.request.user
+                user: AbstractBaseUser | AnonymousUser = self.request.user
                 cart_items = Cart.objects.filter(user=user)
 
                 if cart_items.exists():
@@ -43,9 +46,9 @@ class CreateOrderView(LoginRequiredMixin, FormView):
                     # Создать заказанные товары
                     for cart_item in cart_items:
                         product = cart_item.product
-                        name = cart_item.product.name
+                        name: str = cart_item.product.name
                         price = cart_item.product.sell_price()
-                        quantity = cart_item.quantity
+                        quantity: int = cart_item.quantity
 
                         if product.quantity < quantity:
                             raise ValidationError(
@@ -77,12 +80,12 @@ class CreateOrderView(LoginRequiredMixin, FormView):
             )
             return redirect("orders:create_order")
 
-    def form_invalid(self, form):
+    def form_invalid(self, form) -> HttpResponseRedirect | HttpResponsePermanentRedirect:
         messages.error(self.request, "Заполните все обязательные поля!")
         return redirect("orders:create_order")
 
     def get_context_data(self, **kwargs) -> dict[str, Any]:
-        context = super().get_context_data(**kwargs)
+        context: dict[str, Any] = super().get_context_data(**kwargs)
         context["title"] = "Оформление заказа"
         context["order"] = True
         return context
@@ -91,8 +94,8 @@ class CreateOrderView(LoginRequiredMixin, FormView):
 class MyOrdersView(TemplateView):
     template_name = "orders/my_orders.html"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+    def get_context_data(self, **kwargs) -> dict[str, Any]:
+        context: dict[str, Any] = super().get_context_data(**kwargs)
         context["title"] = "MultiShop - Заказы"
         context["orders"] = (
             Order.objects.filter(user=self.request.user)

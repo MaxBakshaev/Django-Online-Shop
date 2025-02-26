@@ -7,11 +7,11 @@ from goods.models import Products
 
 
 class CartAddView(CartMixin, View):
-    def post(self, request):
+    def post(self, request) -> JsonResponse:
         product_id = request.POST.get("product_id")
-        product = Products.objects.get(id=product_id)
+        product: Products = Products.objects.get(id=product_id)
 
-        cart = self.get_cart(request, product=product)
+        cart: Cart | None = self.get_cart(request, product=product)
 
         if cart:
             cart.quantity += 1
@@ -28,7 +28,7 @@ class CartAddView(CartMixin, View):
                 quantity=1,
             )
 
-        response_data = {
+        response_data: dict[str, str] = {
             "message": "Товар добавлен в корзину",
             "cart_items_html": self.render_cart(request),
         }
@@ -37,10 +37,10 @@ class CartAddView(CartMixin, View):
 
 
 class CartChangeView(CartMixin, View):
-    def post(self, request):
+    def post(self, request) -> JsonResponse:
         cart_id = request.POST.get("cart_id")
 
-        cart = self.get_cart(request, cart_id=cart_id)
+        cart: Cart | None = self.get_cart(request, cart_id=cart_id)
 
         cart.quantity = request.POST.get("quantity")
         cart.save()
@@ -57,11 +57,11 @@ class CartChangeView(CartMixin, View):
 
 
 class CartRemoveView(CartMixin, View):
-    def post(self, request):
+    def post(self, request) -> JsonResponse:
         cart_id = request.POST.get("cart_id")
 
-        cart = self.get_cart(request, cart_id=cart_id)
-        quantity = cart.quantity
+        cart: Cart | None = self.get_cart(request, cart_id=cart_id)
+        quantity: int = cart.quantity
         cart.delete()
 
         response_data = {

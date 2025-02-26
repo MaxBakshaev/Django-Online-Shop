@@ -1,5 +1,4 @@
 from django.db import models
-from django.urls import reverse
 
 
 class Categories(models.Model):
@@ -12,7 +11,7 @@ class Categories(models.Model):
         verbose_name_plural = 'Категории'
     
     # метод для названия категории в админке
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
 
@@ -38,11 +37,11 @@ class Products(models.Model):
         ordering = ("id",)
 
     # метод для отображения количества в админке
-    def __str__(self):
+    def __str__(self) -> str:
         return f'{self.name} Количество - {self.quantity}'
     
     # метод для отображения id с количеством знаков
-    def display_id(self):
+    def display_id(self) -> str:
         return f'{self.id:05}'
     
     # метод для отображения стоимости товара с учетом скидки

@@ -1,5 +1,6 @@
 '''Хранение заказанных товаров в базе данных'''
 
+from typing import Any
 from django.db import models
 
 from goods.models import Products
@@ -9,11 +10,11 @@ from users.models import User
 class CartQueryset(models.QuerySet):
     
     # суммарная цена всех корзин пользователя
-    def total_price(self):
+    def total_price(self) -> int:
         return sum(cart.products_price() for cart in self)
 
     # количество всех товаров
-    def total_quantity(self):
+    def total_quantity(self) -> int:
         if self:
             return sum(cart.quantity for cart in self)
         return 0
@@ -35,10 +36,10 @@ class Cart(models.Model):
         
     objects = CartQueryset().as_manager()    
         
-    def products_price(self):
+    def products_price(self) -> Any:
         return round(self.product.sell_price() * self.quantity, 0)
       
-    def __str__(self):
+    def __str__(self) -> str:
         if self.user:
             return f'Корзина {self.user.username} | Товар {self.product.name} | Количество {self.quantity}'
         

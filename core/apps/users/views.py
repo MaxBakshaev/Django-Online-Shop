@@ -1,11 +1,13 @@
 from typing import Any
+from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
+from django.contrib.auth.models import AnonymousUser
 from django.contrib import auth, messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Prefetch
-from django.http import HttpResponseRedirect
-from django.shortcuts import redirect, render
+from django.http import HttpResponse, HttpResponsePermanentRedirect, HttpResponseRedirect
+from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView, TemplateView, UpdateView
 
@@ -19,13 +21,13 @@ class UserLoginView(LoginView):
     form_class = UserLoginForm
     # succes_url = reverse_lazy('main:index')
 
-    def get_success_url(self):
-        redirect_page = self.request.POST.get("next", None)
+    def get_success_url(self) -> str | Any:
+        redirect_page: str | None = self.request.POST.get("next", None)
         if redirect_page and redirect_page != reverse("user:logout"):
             return redirect_page
         return reverse_lazy("main:index")
 
-    def form_valid(self, form):
+    def form_valid(self, form) -> HttpResponseRedirect | None:
         session_key = self.request.session.session_key
         user = form.get_user()
 
@@ -46,7 +48,7 @@ class UserLoginView(LoginView):
                 return HttpResponseRedirect(self.get_success_url())
 
     def get_context_data(self, **kwargs) -> dict[str, Any]:
-        context = super().get_context_data(**kwargs)
+        context: dict[str, Any] = super().get_context_data(**kwargs)
         context["title"] = "MultiShop - Авторизация"
         return context
 
@@ -56,7 +58,7 @@ class UserRegistrationView(CreateView):
     form_class = UserRegistrationForm
     success_url = reverse_lazy("users:profile")
 
-    def form_valid(self, form):
+    def form_valid(self, form) -> HttpResponseRedirect:
         session_key = self.request.session.session_key
         user = form.instance
 
@@ -75,7 +77,7 @@ class UserRegistrationView(CreateView):
         return HttpResponseRedirect(self.success_url)
 
     def get_context_data(self, **kwargs) -> dict[str, Any]:
-        context = super().get_context_data(**kwargs)
+        context: dict[str, Any] = super().get_context_data(**kwargs)
         context["title"] = "MultiShop - Регистрация"
         return context
 
@@ -85,19 +87,19 @@ class UserProfileView(LoginRequiredMixin, UpdateView):
     form_class = ProfileForm
     success_url = reverse_lazy("users:profile")
 
-    def get_object(self, queryset=None):
+    def get_object(self, queryset=None) -> AbstractBaseUser | AnonymousUser:
         return self.request.user
 
-    def form_valid(self, form):
+    def form_valid(self, form) -> HttpResponse:
         messages.success(self.request, "Профиль успешно обновлен")
         return super().form_valid(form)
 
-    def form_invalid(self, form):
+    def form_invalid(self, form) -> HttpResponse:
         messages.error(self.request, "Произошла ошибка")
         return super().form_invalid(form)
 
     def get_context_data(self, **kwargs) -> dict[str, Any]:
-        context = super().get_context_data(**kwargs)
+        context: dict[str, Any] = super().get_context_data(**kwargs)
         context["title"] = "MultiShop - Кабинет"
 
         context["orders"] = (
@@ -118,13 +120,13 @@ class UserCartView(TemplateView):
     template_name = "users/users-cart.html"
 
     def get_context_data(self, **kwargs) -> dict[str, Any]:
-        context = super().get_context_data(**kwargs)
+        context: dict[str, Any] = super().get_context_data(**kwargs)
         context["title"] = "MultiShop - Корзина"
         return context
 
 
 @login_required
-def logout(request):
+def logout(request) -> HttpResponseRedirect | HttpResponsePermanentRedirect:
 
     messages.success(request, f"{request.user.username}, Вы вышли из аккаунта")
     auth.logout(request)

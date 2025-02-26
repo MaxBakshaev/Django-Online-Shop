@@ -1,5 +1,4 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from typing import Any
 from django.views.generic import TemplateView
 
 from common.mixins import CacheMixin
@@ -10,9 +9,9 @@ class IndexView(TemplateView, CacheMixin):
     
     template_name = 'main/index.html'
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> dict[str, Any]:
         
-        context = super().get_context_data(**kwargs)           
+        context: dict[str, Any] = super().get_context_data(**kwargs)           
         context['title'] = 'MultiShop - Главная' 
         # лучшие скидки
         discount_products = ((Products.objects.all()).filter(discount__gt=0)).order_by('-discount')[:4]
@@ -29,9 +28,9 @@ class AboutView(TemplateView):
     
     template_name = 'main/about.html'
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> dict[str, Any]:
         
-        context = super().get_context_data(**kwargs)           
+        context: dict[str, Any] = super().get_context_data(**kwargs)           
         context['title'] = 'MultiShop - О нас'
         context['content'] = 'MultiShop - Товары на все случаи жизни'
         context['text_on_page'] = 'Лучший магазин во вселенной'
@@ -43,9 +42,9 @@ class All_categories(TemplateView):
     
     template_name = 'main/all_categories.html'
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> dict[str, Any]:
         
-        context = super().get_context_data(**kwargs)           
+        context: dict[str, Any] = super().get_context_data(**kwargs)           
         context['title'] = 'MultiShop - Каталог'
         
         return context

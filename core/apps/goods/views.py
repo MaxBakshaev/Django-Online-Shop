@@ -1,6 +1,5 @@
 from typing import Any
-from django.core.paginator import Paginator
-from django.shortcuts import render
+from django.db.models import QuerySet
 from django.views.generic import DetailView, ListView
 
 from goods.utils import q_search
@@ -15,23 +14,23 @@ class CatalogView(ListView):
     context_object_name = "goods"
     paginate_by = 6
 
-    def get_queryset(self):
+    def get_queryset(self) -> QuerySet[Any]:
         
         self.category_slug = self.kwargs.get("category_slug")
         
         # параметры для фильтров
-        on_sale = self.request.GET.get("on_sale")
-        order_by = self.request.GET.get("order_by")
-        self.query = self.request.GET.get("q")
-        cost_1k = self.request.GET.get("cost_1k")
-        cost_10k = self.request.GET.get("cost_10k")
-        cost_100k = self.request.GET.get("cost_100k")
-        cost_1m = self.request.GET.get("cost_1m")
-        cost_10m = self.request.GET.get("cost_10m")
+        on_sale: str | None = self.request.GET.get("on_sale")
+        order_by: str | None = self.request.GET.get("order_by")
+        self.query: str | None = self.request.GET.get("q")
+        cost_1k: str | None = self.request.GET.get("cost_1k")
+        cost_10k: str | None = self.request.GET.get("cost_10k")
+        cost_100k: str | None = self.request.GET.get("cost_100k")
+        cost_1m: str | None = self.request.GET.get("cost_1m")
+        cost_10m: str | None = self.request.GET.get("cost_10m")
 
         # создается базовый запрос к БД (QuerySet)
         if self.category_slug == "vse-tovary":
-            goods = super().get_queryset()
+            goods: QuerySet[Any] = super().get_queryset()
             
         elif self.query:
             goods = q_search(self.query)
@@ -100,10 +99,10 @@ class CatalogView(ListView):
         
         return goods
     
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> dict[str, Any]:
         
         # контекстные переменные при поиске
-        context = super().get_context_data(**kwargs)
+        context: dict[str, Any] = super().get_context_data(**kwargs)
         context["title"] = "MultiShop - Каталог - Поиск"
         context["check_page"] = "MultiShop - Категории"
         context["amount"] = self.amount
@@ -127,14 +126,14 @@ class ProductView(DetailView):
     context_object_name = "product"
     
     # переопределение model = Products
-    def get_object(self, queryset=None):
+    def get_object(self, queryset=None) -> Products:
         
         product = Products.objects.get(slug=self.kwargs.get(self.slug_url_kwarg))
         return product
     
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         
-        context = super().get_context_data(**kwargs)
+        context: dict[str, Any] = super().get_context_data(**kwargs)
         context["title"] = self.object.name
         context["check_page"] = "MultiShop - Продукты"
         return context

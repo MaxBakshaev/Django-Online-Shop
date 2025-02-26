@@ -1,3 +1,4 @@
+from decimal import Decimal
 from django.db import models
 
 from goods.models import Products
@@ -6,10 +7,10 @@ from users.models import User
 
 class OrderitemQueryset(models.QuerySet):
     
-    def total_price(self):
+    def total_price(self) -> int:
         return sum(cart.products_price() for cart in self)
     
-    def total_quantity(self):
+    def total_quantity(self) -> int:
         if self:
             return sum(cart.quantity for cart in self)
         return 0
@@ -30,7 +31,7 @@ class Order(models.Model):
         verbose_name = "Заказ"
         verbose_name_plural = "Заказы"
         
-    def __str__(self):
+    def __str__(self) -> str:
         return f"Заказ № {self.pk} | Покупатель {self.user.first_name} {self.user.last_name}"
     
 
@@ -49,8 +50,8 @@ class OrderItem(models.Model):
         
     objects = OrderitemQueryset.as_manager()
     
-    def products_price(self):
+    def products_price(self) -> Decimal:
         return round(self.price * self.quantity, 0)
         
-    def __str__(self):
+    def __str__(self) -> str:
         return f"Товар {self.name} | Заказ № {self.order.pk}"
