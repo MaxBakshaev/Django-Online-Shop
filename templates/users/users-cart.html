@@ -3,8 +3,13 @@
 
 {% block content %}
 <!-- Cart Start -->
-<div class="container-fluid pt-5 mt-3" id="cart-items-container" style="padding-left: 200px;">
-    {% include "carts/includes/included_cart.html" %}
+<div class="container-fluid pt-5 d-flex" style="justify-content: center;">
+    <div class="col-lg-9">
+        <h2 class="section-title position-relative"><span class="bg-secondary pr-3">Корзина</span></h2>
+        <div class="pt-3" id="cart-items-container" style="justify-content: center;">
+            {% include "carts/includes/included_cart.html" %}
+        </div>
+    </div>
 </div>
 <!-- Cart End -->
 {% endblock content %}

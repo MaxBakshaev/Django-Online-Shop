@@ -4,11 +4,11 @@
 {% user_carts request as carts %}
 
 <!-- Cart Start -->
-<div class="d-inline-block d-flex flex-wrap" style="padding-left: 10px;">
+<div class="mx-auto">
     <!-- Есть товар в корзине Начало -->
     {% if carts %}
         <!-- Таблица с товаром Начало -->
-        <div class="col-lg-13 table-responsive mb-3 d-inline-block d-flex" style="justify-content: center;">  
+        <div class="table-responsive mb-3" style="justify-content: center;">  
             <table class="table table-light table-borderless table-hover text-center mb-0">
                 <thead class="thead-dark">
                     <tr>
@@ -71,7 +71,7 @@
         <!-- Таблица с товаром Конец -->
 
         <!-- Итого сумма заказа Начало -->
-        <div class="col-lg-15 bg-light p-30 mb-5" style="justify-content: center;">       
+        <div class="col-lg-15 bg-light p-30 mb-5">       
             <div class="border-bottom pb-2">
                 <div class="d-flex justify-content-between mb-3">
                     <h6>Итого</h6>
@@ -97,16 +97,16 @@
 
     <!-- Пустая корзина Начало -->
     {% else %}
-        <div class="container text-center" style="padding-left: 40px;">
-            {% if title == "MultiShop - Корзина" or title == "MultiShop - Кабинет" %}
+        {% comment %} <div class="container text-center" style="padding-left: 40px;"> {% endcomment %}
+            {% comment %} {% if title == "MultiShop - Корзина" or title == "MultiShop - Кабинет" %}
                 <h3 class="text-center mb-4"><span class="bg-secondary pr-3">Корзина</span></h3>
-            {% endif %}
-            <div class="bg-light p-30 mb-5 text-center" style="min-width: 250px;">
-                <img src="{% static "img/Пустая корзина.PNG" %}" class="pb-2" style="width: 200px;">
+            {% endif %} {% endcomment %}
+            <div class="bg-light p-30 mb-5 text-center" style="min-width: 180px;">
+                <img src="{% static "img/Пустая желтая корзина.PNG" %}" class="pb-2" style="width: 200px;">
                 <h5>Пока пусто</h5>
                 <a class="h5" href="{% url "main:all_categories" %}" style="Color: #e6b400;">Перейти в каталог</a>
             </div>
-        </div>
+        {% comment %} </div> {% endcomment %}
     {% endif %}
     <!-- Пустая корзина Конец -->
 </div>

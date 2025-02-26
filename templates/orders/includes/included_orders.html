@@ -1,61 +1,66 @@
+{% load static %}
+
 <!-- Оформленные заказы -->
-<div class="container-fluid d-flex" style="justify-content: center;">
-    <div class="bg-white p-4 mb-4 mx-2">
-        <h3 class="text-center mb-4">Мои заказы</h3>
+<div class="bg-white p-4 mb-4 mx-2">
+    <h3 class="text-center mb-4">Мои заказы</h3>
+    <!-- Разметка заказов -->
+    <div class="col-md-12 d-flex">
         <!-- Разметка заказов -->
-        <div class="col-md-12 d-flex">
-            <!-- Разметка заказов -->
+        <div class="container">
             {% if orders %}
-                <div class="container">
-                    {% for order in orders %}
-                        <button class="accordion d-flex" style="justify-content: center;">
-                            <h5 style="margin: 0px; ">Заказ № {{ order.id }} - {{ order.created_timestamp }} | Статус:<strong class="mx-2">{{ order.status }}</strong></h5>
-                            <i class="fa fa-angle-down d-flex align-items-center" aria-hidden="true"></i>
-                        </button>
-                        <div class="panel">
-                            <table style="width: 100%;" border="1px;">
-                                <tbody>
-                                    <tr style="text-align: center;">
-                                        <td style="width: 40%;"><strong>Название</strong></td>
-                                        <td style="width: 30%;"><strong>Количество, шт.</strong></td>
-                                        <td style="width: 30%;"><strong>Цена, ₽</strong></td>
+                {% for order in orders %}
+                    <button class="accordion d-flex" style="justify-content: center;">
+                        <h5 style="margin: 0px; ">Заказ № {{ order.id }} - {{ order.created_timestamp }} | Статус:<strong class="mx-2">{{ order.status }}</strong></h5>
+                        <i class="fa fa-angle-down d-flex align-items-center" aria-hidden="true"></i>
+                    </button>
+                    <div class="panel">
+                        <table style="width: 100%;" border="1px;">
+                            <tbody>
+                                <tr style="text-align: center;">
+                                    <td style="width: 40%;"><strong>Название</strong></td>
+                                    <td style="width: 30%;"><strong>Количество, шт.</strong></td>
+                                    <td style="width: 30%;"><strong>Цена, ₽</strong></td>
+                                </tr>
+                                {% for item in order.orderitem_set.all %}
+                                    <tr>
+                                        <td style="text-align: center;">
+                                            <a href="{% url 'goods:product' item.product.slug %}" 
+                                            style="text-align: center; Color: #3D464D;" onmouseover="style.color='#e6b400'" onmouseout="style.color='#3D464D'">
+                                                {{ item.product.name }}
+                                            </a>
+                                        </td>
+                                        <td style="text-align: center;">{{ item.quantity }}</td>
+                                        <td style="text-align: center;">{{ item.price }}</td>
                                     </tr>
-                                    {% for item in order.orderitem_set.all %}
-                                        <tr>
-                                            <td style="text-align: center;">
-                                                <a href="{% url 'goods:product' item.product.slug %}" 
-                                                style="text-align: center; Color: #3D464D;" onmouseover="style.color='#e6b400'" onmouseout="style.color='#3D464D'">
-                                                    {{ item.product.name }}
-                                                </a>
-                                            </td>
-                                            <td style="text-align: center;">{{ item.quantity }}</td>
-                                            <td style="text-align: center;">{{ item.price }}</td>
-                                        </tr>
-                                    {% endfor %}
-                                    <tr style="text-align: center;">
-                                        <td style="width: 40%;"><strong>Способ получения</strong></td>
-                                        <td style="width: 30%;"><strong>Адрес</strong></td>
-                                        <td style="width: 30%;"><strong>Способ оплаты</strong></td>
-                                    </tr>
-                                    <tr style="text-align: center;">
-                                        {% if order.requires_delivery %}
-                                            <td>Доставка</td>
-                                            <td>{{order.delivery_address}}</td>
-                                        {% else %}
-                                            <td>Самовывоз</td>
-                                            <td>-</td>
-                                        {% endif %}
-                                        {% if order.payment_on_get %}
-                                            <td>Онлайн</td>
-                                        {% else %}
-                                            <td>Наличными/картой при плучении</td>
-                                        {% endif %}
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <p></p>
-                    {% endfor %}
+                                {% endfor %}
+                                <tr style="text-align: center;">
+                                    <td style="width: 40%;"><strong>Способ получения</strong></td>
+                                    <td style="width: 30%;"><strong>Адрес</strong></td>
+                                    <td style="width: 30%;"><strong>Способ оплаты</strong></td>
+                                </tr>
+                                <tr style="text-align: center;">
+                                    {% if order.requires_delivery %}
+                                        <td>Доставка</td>
+                                        <td>{{order.delivery_address}}</td>
+                                    {% else %}
+                                        <td>Самовывоз</td>
+                                        <td>-</td>
+                                    {% endif %}
+                                    {% if order.payment_on_get %}
+                                        <td>Онлайн</td>
+                                    {% else %}
+                                        <td>Наличными/картой при плучении</td>
+                                    {% endif %}
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p></p>
+                {% endfor %}
+            {% else %}
+                <div class="bg-light text-center" style="min-width: 250px;">
+                    <img src="{% static "img/Пустая темно-желтая коробка2.PNG" %}" class="pb-2" style="width: 250px;">
+                    <h5>Нет заказов</h5>
                 </div>
             {% endif %}
         </div>

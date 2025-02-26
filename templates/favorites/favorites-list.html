@@ -7,7 +7,7 @@
 
 {% block content %}
 <div class="container-fluid pt-5 d-flex" style="justify-content: center;">
-    <div class="col-lg-9 col-md-8">
+    <div class="col-lg-9">
         <h2 class="section-title position-relative mx-xxl-5 mb-4"><span class="bg-secondary pr-3">Избранное</span></h2>
         {% if favorite_goods %}
             <div class="row pb-3">
@@ -72,8 +72,8 @@
             </div>
         {% else %}
         <div class="bg-light p-30 mb-5 text-center">
-            <img src="{% static "img/Пустая корзина.PNG" %}" class="pb-2" style="width: 200px;">
-            <h5>Пока пусто</h5>
+            <img src="{% static "img/yellow-heart_1f49b.png" %}" class="pb-2" style="width: 160px;">
+            <h5>В избранном пока нет товаров</h5>
             <a class="h5" href="{% url "main:all_categories" %}" style="Color: #e6b400;">Перейти в каталог</a>
         </div>             
         {% endif %}
