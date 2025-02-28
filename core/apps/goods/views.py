@@ -1,13 +1,17 @@
 from typing import Any
+from django.contrib import messages
 from django.db.models import QuerySet
+from django.shortcuts import render
 from django.views.generic import DetailView, ListView
+from django.http import HttpResponse, HttpResponseRedirect
 
+from goods.forms import CreateReviewForm
 from goods.utils import q_search
 from goods.models import Categories, Products
 
 
 class CatalogView(ListView):
-    
+
     model = Products
     # queryset = Products.objects.all()
     template_name = "goods/catalog.html"
@@ -15,9 +19,9 @@ class CatalogView(ListView):
     paginate_by = 6
 
     def get_queryset(self) -> QuerySet[Any]:
-        
+
         self.category_slug = self.kwargs.get("category_slug")
-        
+
         # параметры для фильтров
         on_sale: str | None = self.request.GET.get("on_sale")
         order_by: str | None = self.request.GET.get("order_by")
@@ -31,7 +35,7 @@ class CatalogView(ListView):
         # создается базовый запрос к БД (QuerySet)
         if self.category_slug == "vse-tovary":
             goods: QuerySet[Any] = super().get_queryset()
-            
+
         elif self.query:
             goods = q_search(self.query)
 
@@ -44,7 +48,6 @@ class CatalogView(ListView):
 
         if order_by and order_by != "default":
             goods = goods.order_by(order_by)
-
 
         # Eсли выбран 1 параметр цены
         if cost_1k and not cost_10k and not cost_100k and not cost_1m and not cost_10m:
@@ -62,7 +65,6 @@ class CatalogView(ListView):
         if cost_10m and not cost_1k and not cost_10k and not cost_100k and not cost_1m:
             goods = goods.filter(price__gt=1_000_000)
 
-
         # Eсли выбрано 2 параметра цены
         if cost_1k and cost_10k and not cost_100k and not cost_1m and not cost_10m:
             goods = goods.filter(price__lt=10_000)
@@ -76,7 +78,6 @@ class CatalogView(ListView):
         if cost_1m and cost_10m and not cost_1k and not cost_10k and not cost_100k:
             goods = goods.filter(price__gt=1_000_000)
 
-
         # Eсли выбрано 3 параметра цены
         if cost_1k and cost_10k and cost_100k and not cost_1m and not cost_10m:
             goods = goods.filter(price__lt=100_000)
@@ -87,20 +88,19 @@ class CatalogView(ListView):
         if cost_100k and cost_1m and cost_10m and not cost_1k and not cost_10k:
             goods = goods.filter(price__gt=100_000)
 
-
         # Eсли выбрано 4 параметра цены
         if cost_1k and cost_10k and cost_100k and cost_1m and not cost_10m:
             goods = goods.filter(price__lt=1_000_000)
 
         if cost_10k and cost_100k and cost_1m and cost_10m and not cost_1k:
             goods = goods.filter(price__gt=1_000)
-        
+
         self.amount = len(goods)
-        
+
         return goods
-    
+
     def get_context_data(self, **kwargs) -> dict[str, Any]:
-        
+
         # контекстные переменные при поиске
         context: dict[str, Any] = super().get_context_data(**kwargs)
         context["title"] = "MultiShop - Каталог - Поиск"
@@ -113,27 +113,128 @@ class CatalogView(ListView):
             context["title"] = category.name
             context["slug_url"] = self.category_slug
             context["category"] = category
-        
+
         return context
 
 
-class ProductView(DetailView):
+def product(request, product_slug) -> HttpResponseRedirect | HttpResponse:
+    product = Products.objects.get(slug=product_slug)
+    reviews = product.reviews.all()
+    amount_reviews: int = len(reviews)
     
-    # model = Products
-    # slug_field = "slug"
-    template_name = "goods/product.html"
-    slug_url_kwarg = "product_slug"
-    context_object_name = "product"
+    rate = 0
+    for review in reviews:
+        rate += review.rating
     
-    # переопределение model = Products
-    def get_object(self, queryset=None) -> Products:
-        
-        product = Products.objects.get(slug=self.kwargs.get(self.slug_url_kwarg))
-        return product
+    try:
+        product_rating = rate/amount_reviews
+    except ZeroDivisionError:
+        product_rating = 0
     
-    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
-        
-        context: dict[str, Any] = super().get_context_data(**kwargs)
-        context["title"] = self.object.name
-        context["check_page"] = "MultiShop - Продукты"
-        return context
+    if amount_reviews == 1:
+        reviews_ending = "отзыв"
+    elif 1 < amount_reviews < 5:
+        reviews_ending = "отзыва"
+    else:
+        reviews_ending = "отзывов"
+
+    if request.method == "POST":
+        form = CreateReviewForm(request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.product = product
+            review.user = request.user
+            review.save()
+            messages.success(request, "Отзыв оставлен!")
+            return HttpResponseRedirect(request.path)
+    else:
+        form = CreateReviewForm()
+
+    return render(
+        request,
+        "goods/product.html",
+        {
+            "title": product.name,
+            "check_page": "MultiShop - Продукты",
+            "product": product,
+            "reviews": reviews,
+            "form": form,
+            "amount_reviews": amount_reviews,
+            "product_rating": product_rating,
+            "reviews_ending": reviews_ending,
+        },
+    )
+
+
+# class ProductView(DetailView):
+
+#     # model = Products
+#     # slug_field = "slug"
+#     template_name = "goods/product.html"
+#     slug_url_kwarg = "product_slug"
+#     context_object_name = "product"
+
+#     # переопределение model = Products
+#     def get_object(self, queryset=None) -> Products:
+
+#         product = Products.objects.get(slug=self.kwargs.get(self.slug_url_kwarg))
+#         return product
+
+#     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+
+#         context: dict[str, Any] = super().get_context_data(**kwargs)
+#         context["title"] = self.object.name
+#         context["check_page"] = "MultiShop - Продукты"
+
+#         reviews = Review.objects.filter(post=self.object)
+#         context["reviews"] = reviews
+#         context["amount_reviews"] = len(reviews)
+
+#         return context
+
+
+# def create_review(request, product_id):
+
+#     product = Products.objects.get(id=product_id)
+#     reviews = product.reviews.all()
+
+#     if request.method == 'POST':
+#         form = CreateReviewForm(request.POST)
+#         if form.is_valid():
+#             review = form.save(commit=False)
+#             review.product = product
+#             review.user = request.user
+#             review.save()
+#             return redirect('product_detail', product_id=product.id)
+#     else:
+#         form = CreateReviewForm()
+
+#     return render(request, 'goods/product.html', {'product': product, 'reviews': reviews, 'form': form})
+
+
+# if request.method == 'POST':
+#     form = CreateReviewForm(data=request.POST)
+
+# if form.is_valid():
+#     try:
+#         with transaction.atomic():
+
+#             Comment.objects.create(
+# post_name = form.cleaned_data['post_name'],
+# user_full_name=f"{self.user.last_name} {self.user.first_name}",
+# user_full_name=form.cleaned_data['user_full_name'],
+# user_img=form.cleaned_data['user_img'],
+# body=form.cleaned_data['body'],
+# created=form.cleaned_data['created'],
+# updated=form.cleaned_data['updated'],
+# active=form.cleaned_data['active'],
+#                 )
+
+#                 messages.success(request, 'Обзор накатан!')
+#                 return redirect(request.POST.get('url_from'))
+
+#         except ValidationError:
+#             messages.success(request, 'Обзор не написать')
+#             return redirect(request.POST.get('url_from'))
+# else:
+#     return redirect(request.POST.get('url_from'))

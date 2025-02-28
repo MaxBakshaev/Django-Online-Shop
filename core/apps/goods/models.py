@@ -1,5 +1,7 @@
 from django.db import models
 
+from users.models import User
+
 
 class Categories(models.Model):
     name = models.CharField(max_length=150, unique=True, verbose_name='Название')
@@ -50,3 +52,20 @@ class Products(models.Model):
             return round(self.price - self.price*self.discount/100, 0)
         
         return self.price
+    
+    
+class Review(models.Model):
+    product = models.ForeignKey(Products, related_name='reviews', on_delete=models.CASCADE, verbose_name='Продукт')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
+    rating = models.IntegerField(choices=[(i, str(i)) for i in range(1, 6)], verbose_name='Оценка')
+    # user_full_name = models.CharField(max_length=150, blank=True)
+    comment = models.TextField(blank=True, verbose_name='Ваш отзыв*')
+    created = models.DateTimeField(auto_now_add=True, verbose_name='Создано')
+    # updated = models.DateTimeField(auto_now=True)
+    # active = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ('created',)
+
+    def __str__(self):
+        return f'Review by {self.user} for {self.product.name}'

@@ -96,7 +96,7 @@
     <div class="container-fluid pt-1 pb-1">
         <h2 class="section-title position-relative mx-xl-5 mb-4"><span class="bg-secondary pr-3">Новинки</span></h2>
         <div class="row px-xl-5">
-            {% for new_product in new_products %}
+            {% for new_product, new_product_rating in dict_product_rating.items %}
                 <div class="col-lg-3 col-md-4 col-sm-6 pb-1 d-flex">
                     <div class="product-item bg-light mb-4">
                         <div class="product-img position-relative overflow-hidden">
@@ -133,13 +133,75 @@
                                     <h5>{{ new_product.sell_price }} ₽</h5>
                                 {% endif %}
                             </div>
-                            <div class="d-flex align-items-center justify-content-center mb-1">
-                                <small class="fa fa-star text-primary mr-1"></small>
-                                <small class="fa fa-star text-primary mr-1"></small>
-                                <small class="fa fa-star text-primary mr-1"></small>
-                                <small class="fa fa-star text-primary mr-1"></small>
-                                <small class="fa fa-star text-primary mr-1"></small>
-                                <small>(99)</small>
+                            <div class="text-primary mr-2">
+                                {% if new_product_rating < 0.25 %}
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                {% elif 0.25 <= new_product_rating and new_product_rating < 0.75 %}
+                                    <small class="fas fa-star-half-alt"></small>
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                {% elif 0.75 <= new_product_rating and new_product_rating < 1.25 %}
+                                    <small class="fas fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                {% elif 1.25 <= new_product_rating and new_product_rating < 1.75 %}
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star-half-alt"></small>
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                {% elif 1.75 <= new_product_rating and new_product_rating < 2.25 %}
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                {% elif 2.25 <= new_product_rating and new_product_rating < 2.75 %}
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star-half-alt"></small>
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                {% elif 2.75 <= new_product_rating and new_product_rating < 3.25 %}
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                {% elif 3.25 <= new_product_rating and new_product_rating < 3.75 %}
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star-half-alt"></small>
+                                    <small class="far fa-star"></small>
+                                {% elif 3.75 <= new_product_rating and new_product_rating < 4.25 %}
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                {% elif 4.25 <= new_product_rating and new_product_rating < 4.75 %}
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star-half-alt"></small>
+                                {% elif new_product_rating >= 4.75 %}
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                {% endif %}
+                                <small style="Color: #3D464D;">({{ amount_reviews }})</small>
                             </div>
                         </div>
                     </div>
@@ -232,7 +294,7 @@
                         </div>
                     </div>
                     <div class="col-md-4 mb-5">
-                        <h5 class="text-secondary text-uppercase mb-4">Мой аккаунт</h5>
+                        <h5 class="text-secondary text-uppercase mb-4">Для клиента</h5>
                         <div class="d-flex flex-column justify-content-start">
                             <a class="text-secondary mb-2" href="{% url "main:about" %}"><i class="fa fa-angle-right mr-2"></i>Сообщить о проблеме</a>
                             <a class="text-secondary mb-2" href="{% url "main:about" %}"><i class="fa fa-angle-right mr-2"></i>Политика конфиденциальности</a>
