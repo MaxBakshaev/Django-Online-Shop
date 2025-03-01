@@ -43,7 +43,7 @@
     <div class="container-fluid pt-1 pb-1">
         <h2 class="section-title position-relative mx-xl-5 mb-4"><span class="bg-secondary pr-3">Лучшие скидки</span></h2>
         <div class="row px-xl-5">
-            {% for discount_product in discount_products %}
+            {% for discount_product, discount_product_rating_amount_reviews in dict_discount_product_rating_amount_reviews.items %}
                 <div class="col-lg-3 col-md-4 col-sm-6 pb-1 d-flex">
                     <div class="product-item bg-light mb-4">
                         <div class="product-img position-relative overflow-hidden">
@@ -76,13 +76,75 @@
                             <div class="d-flex align-items-center justify-content-center mt-2">
                                 <h5>{{ discount_product.sell_price }} ₽</h5><h6 class="text-muted ml-2"><del>{{ discount_product.price }} ₽</del></h6><h5 class="badge bg-warning text-dark ml-3">-{{ discount_product.discount }} %</h5>
                             </div>
-                            <div class="d-flex align-items-center justify-content-center mb-1">
-                                <small class="fa fa-star text-primary mr-1"></small>
-                                <small class="fa fa-star text-primary mr-1"></small>
-                                <small class="fa fa-star text-primary mr-1"></small>
-                                <small class="fa fa-star text-primary mr-1"></small>
-                                <small class="fa fa-star text-primary mr-1"></small>
-                                <small>(99)</small>
+                            <div class="text-primary mr-2">
+                                {% if discount_product_rating_amount_reviews.0 < 0.25 %}
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                {% elif 0.25 <= discount_product_rating_amount_reviews.0 and discount_product_rating_amount_reviews.0 < 0.75 %}
+                                    <small class="fas fa-star-half-alt"></small>
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                {% elif 0.75 <= discount_product_rating_amount_reviews.0 and discount_product_rating_amount_reviews.0 < 1.25 %}
+                                    <small class="fas fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                {% elif 1.25 <= discount_product_rating_amount_reviews.0 and discount_product_rating_amount_reviews.0 < 1.75 %}
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star-half-alt"></small>
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                {% elif 1.75 <= discount_product_rating_amount_reviews.0 and discount_product_rating_amount_reviews.0 < 2.25 %}
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                {% elif 2.25 <= discount_product_rating_amount_reviews.0 and discount_product_rating_amount_reviews.0 < 2.75 %}
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star-half-alt"></small>
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                {% elif 2.75 <= discount_product_rating_amount_reviews.0 and discount_product_rating_amount_reviews.0 < 3.25 %}
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                {% elif 3.25 <= discount_product_rating_amount_reviews.0 and discount_product_rating_amount_reviews.0 < 3.75 %}
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star-half-alt"></small>
+                                    <small class="far fa-star"></small>
+                                {% elif 3.75 <= discount_product_rating_amount_reviews.0 and discount_product_rating_amount_reviews.0 < 4.25 %}
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                {% elif 4.25 <= discount_product_rating_amount_reviews.0 and discount_product_rating_amount_reviews.0 < 4.75 %}
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star-half-alt"></small>
+                                {% elif discount_product_rating_amount_reviews.0 >= 4.75 %}
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                {% endif %}
+                                <small style="Color: #3D464D;">({{ discount_product_rating_amount_reviews.1 }})</small>
                             </div>
                         </div>
                     </div>
@@ -96,7 +158,7 @@
     <div class="container-fluid pt-1 pb-1">
         <h2 class="section-title position-relative mx-xl-5 mb-4"><span class="bg-secondary pr-3">Новинки</span></h2>
         <div class="row px-xl-5">
-            {% for new_product, new_product_rating in dict_product_rating.items %}
+            {% for new_product, new_product_rating_amount_reviews in dict_new_product_rating_amount_reviews.items %}
                 <div class="col-lg-3 col-md-4 col-sm-6 pb-1 d-flex">
                     <div class="product-item bg-light mb-4">
                         <div class="product-img position-relative overflow-hidden">
@@ -134,74 +196,74 @@
                                 {% endif %}
                             </div>
                             <div class="text-primary mr-2">
-                                {% if new_product_rating < 0.25 %}
+                                {% if new_product_rating_amount_reviews.0 < 0.25 %}
                                     <small class="far fa-star"></small>
                                     <small class="far fa-star"></small>
                                     <small class="far fa-star"></small>
                                     <small class="far fa-star"></small>
                                     <small class="far fa-star"></small>
-                                {% elif 0.25 <= new_product_rating and new_product_rating < 0.75 %}
+                                {% elif 0.25 <= new_product_rating_amount_reviews.0 and new_product_rating_amount_reviews.0 < 0.75 %}
                                     <small class="fas fa-star-half-alt"></small>
                                     <small class="far fa-star"></small>
                                     <small class="far fa-star"></small>
                                     <small class="far fa-star"></small>
                                     <small class="far fa-star"></small>
-                                {% elif 0.75 <= new_product_rating and new_product_rating < 1.25 %}
+                                {% elif 0.75 <= new_product_rating_amount_reviews.0 and new_product_rating_amount_reviews.0 < 1.25 %}
                                     <small class="fas fa-star"></small>
                                     <small class="far fa-star"></small>
                                     <small class="far fa-star"></small>
                                     <small class="far fa-star"></small>
                                     <small class="far fa-star"></small>
-                                {% elif 1.25 <= new_product_rating and new_product_rating < 1.75 %}
+                                {% elif 1.25 <= new_product_rating_amount_reviews.0 and new_product_rating_amount_reviews.0 < 1.75 %}
                                     <small class="fas fa-star"></small>
                                     <small class="fas fa-star-half-alt"></small>
                                     <small class="far fa-star"></small>
                                     <small class="far fa-star"></small>
                                     <small class="far fa-star"></small>
-                                {% elif 1.75 <= new_product_rating and new_product_rating < 2.25 %}
+                                {% elif 1.75 <= new_product_rating_amount_reviews.0 and new_product_rating_amount_reviews.0 < 2.25 %}
                                     <small class="fas fa-star"></small>
                                     <small class="fas fa-star"></small>
                                     <small class="far fa-star"></small>
                                     <small class="far fa-star"></small>
                                     <small class="far fa-star"></small>
-                                {% elif 2.25 <= new_product_rating and new_product_rating < 2.75 %}
+                                {% elif 2.25 <= new_product_rating_amount_reviews.0 and new_product_rating_amount_reviews.0 < 2.75 %}
                                     <small class="fas fa-star"></small>
                                     <small class="fas fa-star"></small>
                                     <small class="fas fa-star-half-alt"></small>
                                     <small class="far fa-star"></small>
                                     <small class="far fa-star"></small>
-                                {% elif 2.75 <= new_product_rating and new_product_rating < 3.25 %}
+                                {% elif 2.75 <= new_product_rating_amount_reviews.0 and new_product_rating_amount_reviews.0 < 3.25 %}
                                     <small class="fas fa-star"></small>
                                     <small class="fas fa-star"></small>
                                     <small class="fas fa-star"></small>
                                     <small class="far fa-star"></small>
                                     <small class="far fa-star"></small>
-                                {% elif 3.25 <= new_product_rating and new_product_rating < 3.75 %}
+                                {% elif 3.25 <= new_product_rating_amount_reviews.0 and new_product_rating_amount_reviews.0 < 3.75 %}
                                     <small class="fas fa-star"></small>
                                     <small class="fas fa-star"></small>
                                     <small class="fas fa-star"></small>
                                     <small class="fas fa-star-half-alt"></small>
                                     <small class="far fa-star"></small>
-                                {% elif 3.75 <= new_product_rating and new_product_rating < 4.25 %}
+                                {% elif 3.75 <= new_product_rating_amount_reviews.0 and new_product_rating_amount_reviews.0 < 4.25 %}
                                     <small class="fas fa-star"></small>
                                     <small class="fas fa-star"></small>
                                     <small class="fas fa-star"></small>
                                     <small class="fas fa-star"></small>
                                     <small class="far fa-star"></small>
-                                {% elif 4.25 <= new_product_rating and new_product_rating < 4.75 %}
+                                {% elif 4.25 <= new_product_rating_amount_reviews.0 and new_product_rating_amount_reviews.0 < 4.75 %}
                                     <small class="fas fa-star"></small>
                                     <small class="fas fa-star"></small>
                                     <small class="fas fa-star"></small>
                                     <small class="fas fa-star"></small>
                                     <small class="fas fa-star-half-alt"></small>
-                                {% elif new_product_rating >= 4.75 %}
+                                {% elif new_product_rating_amount_reviews.0 >= 4.75 %}
                                     <small class="fas fa-star"></small>
                                     <small class="fas fa-star"></small>
                                     <small class="fas fa-star"></small>
                                     <small class="fas fa-star"></small>
                                     <small class="fas fa-star"></small>
                                 {% endif %}
-                                <small style="Color: #3D464D;">({{ amount_reviews }})</small>
+                                <small style="Color: #3D464D;">({{ new_product_rating_amount_reviews.1 }})</small>
                             </div>
                         </div>
                     </div>
