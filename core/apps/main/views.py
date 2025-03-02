@@ -13,18 +13,19 @@ class IndexView(TemplateView, CacheMixin):
         """
         discount_product - dp
         new_product - np
+        
+        Обозначение параметров продукта в шаблоне (for discount_product in new_products), (for new_product in new_products):
+        discount_product.0, new_product.0 - объект из queryset
+        discount_product.1.0, new_product.1.0 - оценка
+        discount_product.1.1, new_product.1.1 - количество отзывов
         """
 
         context: dict[str, Any] = super().get_context_data(**kwargs)
         context["title"] = "MultiShop - Главная"
 
         # запрос по 4 продуктам с лучшими скидками
-        discount_products = ((Products.objects.all()).filter(discount__gt=0)).order_by(
-            "-discount"
-        )[:4]
-        context["discount_products"] = self.set_get_cache(
-            discount_products, f"user_{self.request.user.id}_discount_products", 600
-        )
+        discount_products = ((Products.objects.all()).filter(discount__gt=0)).order_by("-discount")[:4]
+        context["discount_products"] = self.set_get_cache(discount_products, f"user_{self.request.user.id}_discount_products", 600)
 
         dp_rating_list = []
         dp_amount_reviews_list = []
@@ -34,7 +35,16 @@ class IndexView(TemplateView, CacheMixin):
             # получение количества отзывов о продуктах по скидке
             dp_reviews = dp.reviews.all()
             dp_amount_reviews: int = len(dp_reviews)
-            dp_amount_reviews_list.append(dp_amount_reviews)
+            
+            dp_amount = (str(dp_amount_reviews))[len(str(dp_amount_reviews))-1]
+            if dp_amount == '1' and str(dp_amount_reviews) != '11':
+                reviews_ending = "отзыв"
+            elif dp_amount in ['2', '3', '4'] and str(dp_amount_reviews) not in ['12', '13', '14']:
+                reviews_ending = "отзыва"
+            else:
+                reviews_ending = "отзывов"
+            
+            dp_amount_reviews_list.append(f'{dp_amount_reviews} {reviews_ending}')
 
             # получение оценки продуктов по скидке
             dp_rate = 0
@@ -56,10 +66,10 @@ class IndexView(TemplateView, CacheMixin):
                 dp_amount_reviews_list[dp_index],
             )
             dp_index += 1
-
-        context["dict_discount_product_rating_amount_reviews"] = (
-            dict_discount_product_rating_amount_reviews
-        )
+        
+        discount_products = list(dict_discount_product_rating_amount_reviews.items())
+            
+        context["discount_products"] = discount_products
 
         # запрос по 4 новым продуктам
         new_products = Products.objects.all().order_by("-id")[:4]
@@ -75,7 +85,16 @@ class IndexView(TemplateView, CacheMixin):
             # получение количества отзывов о новых продуктах
             np_reviews = np.reviews.all()
             np_amount_reviews: int = len(np_reviews)
-            np_amount_reviews_list.append(np_amount_reviews)
+            
+            np_amount = (str(np_amount_reviews))[len(str(np_amount_reviews))-1]
+            if np_amount == '1' and str(np_amount_reviews) != '11':
+                reviews_ending = "отзыв"
+            elif np_amount in ['2', '3', '4'] and str(np_amount_reviews) not in ['12', '13', '14']:
+                reviews_ending = "отзыва"
+            else:
+                reviews_ending = "отзывов"
+                
+            np_amount_reviews_list.append(f'{np_amount_reviews} {reviews_ending}')
 
             # получение оценки новых продуктов
             np_rate = 0
@@ -97,10 +116,10 @@ class IndexView(TemplateView, CacheMixin):
                 np_amount_reviews_list[np_index],
             )
             np_index += 1
-
-        context["dict_new_product_rating_amount_reviews"] = (
-            dict_new_product_rating_amount_reviews
-        )
+            
+        new_products = list(dict_new_product_rating_amount_reviews.items())
+            
+        context["new_products"] = new_products
 
         return context
 

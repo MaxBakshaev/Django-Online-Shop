@@ -43,108 +43,108 @@
     <div class="container-fluid pt-1 pb-1">
         <h2 class="section-title position-relative mx-xl-5 mb-4"><span class="bg-secondary pr-3">Лучшие скидки</span></h2>
         <div class="row px-xl-5">
-            {% for discount_product, discount_product_rating_amount_reviews in dict_discount_product_rating_amount_reviews.items %}
+            {% for discount_product in discount_products %}
                 <div class="col-lg-3 col-md-4 col-sm-6 pb-1 d-flex">
                     <div class="product-item bg-light mb-4">
                         <div class="product-img position-relative overflow-hidden">
-                            {% if discount_product.image %}
-                                <img class="img-fluid" src="{{ discount_product.image.url }}" alt="{{ discount_product.name }}">
+                            {% if discount_product.0.image %}
+                                <img class="img-fluid" src="{{ discount_product.0.image.url }}" alt="{{ discount_product.0.name }}">
                             {% else %}
                                 <img class="img-fluid w-100" src="{% static "img/Not found image.png" %}" alt="">
                             {% endif %}
                             <div class="product-action">
                                 <a class="btn btn-outline-dark btn-square add-to-cart" href="{% url "cart:cart_add" %}"
-                                data-product-id="{{ discount_product.id }}">
+                                data-product-id="{{ discount_product.0.id }}">
                                 {% csrf_token %}
                                 <i class="fa fa-shopping-cart"></i></a>
                                 <a class="btn btn-outline-dark btn-square">
-                                    <form action="{% url "favorites:add_to_favorites" id=discount_product.id %}" method="post">
+                                    <form action="{% url "favorites:add_to_favorites" id=discount_product.0.id %}" method="post">
                                         {% csrf_token %}
                                         <input type="hidden" name="type" value="{{ type }}">
                                         <input type="hidden" name="url_from" value="{{ request.path }}">
                                         <button class="btn btn-outline-dark btn-square" type="submit"><i class="fa fa-heart"></i></button>
                                     </form>      
                                 </a>
-                                <a class="btn btn-outline-dark btn-square" href="{% url "catalog:product" discount_product.slug %}">
+                                <a class="btn btn-outline-dark btn-square" href="{% url "catalog:product" discount_product.0.slug %}">
                                     <i class="fa fa-arrow-right"></i>
                                 </a>       
                             </div>
                         </div>
                         <div class="text-center py-4">
-                            <p> <a class="h4" href="{% url "catalog:product" discount_product.slug %}">{{ discount_product.name }}</a></p>
-                            <p class="product_id"> id: {{ discount_product.display_id }}</p>
+                            <p> <a class="h4" href="{% url "catalog:product" discount_product.0.slug %}">{{ discount_product.0.name }}</a></p>
+                            <p class="product_id"> id: {{ discount_product.0.display_id }}</p>
                             <div class="d-flex align-items-center justify-content-center mt-2">
-                                <h5>{{ discount_product.sell_price }} ₽</h5><h6 class="text-muted ml-2"><del>{{ discount_product.price }} ₽</del></h6><h5 class="badge bg-warning text-dark ml-3">-{{ discount_product.discount }} %</h5>
+                                <h5>{{ discount_product.0.sell_price }} ₽</h5><h6 class="text-muted ml-2"><del>{{ discount_product.0.price }} ₽</del></h6><h5 class="badge bg-warning text-dark ml-3">-{{ discount_product.0.discount }} %</h5>
                             </div>
                             <div class="text-primary mr-2">
-                                {% if discount_product_rating_amount_reviews.0 < 0.25 %}
+                                {% if discount_product.1.0 < 0.25 %}
                                     <small class="far fa-star"></small>
                                     <small class="far fa-star"></small>
                                     <small class="far fa-star"></small>
                                     <small class="far fa-star"></small>
                                     <small class="far fa-star"></small>
-                                {% elif 0.25 <= discount_product_rating_amount_reviews.0 and discount_product_rating_amount_reviews.0 < 0.75 %}
+                                {% elif 0.25 <= discount_product.1.0 and discount_product.1.0 < 0.75 %}
                                     <small class="fas fa-star-half-alt"></small>
                                     <small class="far fa-star"></small>
                                     <small class="far fa-star"></small>
                                     <small class="far fa-star"></small>
                                     <small class="far fa-star"></small>
-                                {% elif 0.75 <= discount_product_rating_amount_reviews.0 and discount_product_rating_amount_reviews.0 < 1.25 %}
+                                {% elif 0.75 <= discount_product.1.0 and discount_product.1.0 < 1.25 %}
                                     <small class="fas fa-star"></small>
                                     <small class="far fa-star"></small>
                                     <small class="far fa-star"></small>
                                     <small class="far fa-star"></small>
                                     <small class="far fa-star"></small>
-                                {% elif 1.25 <= discount_product_rating_amount_reviews.0 and discount_product_rating_amount_reviews.0 < 1.75 %}
+                                {% elif 1.25 <= discount_product.1.0 and discount_product.1.0 < 1.75 %}
                                     <small class="fas fa-star"></small>
                                     <small class="fas fa-star-half-alt"></small>
                                     <small class="far fa-star"></small>
                                     <small class="far fa-star"></small>
                                     <small class="far fa-star"></small>
-                                {% elif 1.75 <= discount_product_rating_amount_reviews.0 and discount_product_rating_amount_reviews.0 < 2.25 %}
+                                {% elif 1.75 <= discount_product.1.0 and discount_product.1.0 < 2.25 %}
                                     <small class="fas fa-star"></small>
                                     <small class="fas fa-star"></small>
                                     <small class="far fa-star"></small>
                                     <small class="far fa-star"></small>
                                     <small class="far fa-star"></small>
-                                {% elif 2.25 <= discount_product_rating_amount_reviews.0 and discount_product_rating_amount_reviews.0 < 2.75 %}
+                                {% elif 2.25 <= discount_product.1.0 and discount_product.1.0 < 2.75 %}
                                     <small class="fas fa-star"></small>
                                     <small class="fas fa-star"></small>
                                     <small class="fas fa-star-half-alt"></small>
                                     <small class="far fa-star"></small>
                                     <small class="far fa-star"></small>
-                                {% elif 2.75 <= discount_product_rating_amount_reviews.0 and discount_product_rating_amount_reviews.0 < 3.25 %}
+                                {% elif 2.75 <= discount_product.1.0 and discount_product.1.0 < 3.25 %}
                                     <small class="fas fa-star"></small>
                                     <small class="fas fa-star"></small>
                                     <small class="fas fa-star"></small>
                                     <small class="far fa-star"></small>
                                     <small class="far fa-star"></small>
-                                {% elif 3.25 <= discount_product_rating_amount_reviews.0 and discount_product_rating_amount_reviews.0 < 3.75 %}
+                                {% elif 3.25 <= discount_product.1.0 and discount_product.1.0 < 3.75 %}
                                     <small class="fas fa-star"></small>
                                     <small class="fas fa-star"></small>
                                     <small class="fas fa-star"></small>
                                     <small class="fas fa-star-half-alt"></small>
                                     <small class="far fa-star"></small>
-                                {% elif 3.75 <= discount_product_rating_amount_reviews.0 and discount_product_rating_amount_reviews.0 < 4.25 %}
+                                {% elif 3.75 <= discount_product.1.0 and discount_product.1.0 < 4.25 %}
                                     <small class="fas fa-star"></small>
                                     <small class="fas fa-star"></small>
                                     <small class="fas fa-star"></small>
                                     <small class="fas fa-star"></small>
                                     <small class="far fa-star"></small>
-                                {% elif 4.25 <= discount_product_rating_amount_reviews.0 and discount_product_rating_amount_reviews.0 < 4.75 %}
+                                {% elif 4.25 <= discount_product.1.0 and discount_product.1.0 < 4.75 %}
                                     <small class="fas fa-star"></small>
                                     <small class="fas fa-star"></small>
                                     <small class="fas fa-star"></small>
                                     <small class="fas fa-star"></small>
                                     <small class="fas fa-star-half-alt"></small>
-                                {% elif discount_product_rating_amount_reviews.0 >= 4.75 %}
+                                {% elif discount_product.1.0 >= 4.75 %}
                                     <small class="fas fa-star"></small>
                                     <small class="fas fa-star"></small>
                                     <small class="fas fa-star"></small>
                                     <small class="fas fa-star"></small>
                                     <small class="fas fa-star"></small>
                                 {% endif %}
-                                <small style="Color: #3D464D;">({{ discount_product_rating_amount_reviews.1 }})</small>
+                                <small style="Color: #3D464D;">({{ discount_product.1.1 }})</small>
                             </div>
                         </div>
                     </div>
@@ -158,112 +158,112 @@
     <div class="container-fluid pt-1 pb-1">
         <h2 class="section-title position-relative mx-xl-5 mb-4"><span class="bg-secondary pr-3">Новинки</span></h2>
         <div class="row px-xl-5">
-            {% for new_product, new_product_rating_amount_reviews in dict_new_product_rating_amount_reviews.items %}
+            {% for new_product in new_products %}
                 <div class="col-lg-3 col-md-4 col-sm-6 pb-1 d-flex">
                     <div class="product-item bg-light mb-4">
                         <div class="product-img position-relative overflow-hidden">
-                            {% if new_product.image %}
-                                <img class="img-fluid w-100" src="{{ new_product.image.url }}" alt="{{ new_product.name }}">
+                            {% if new_product.0.image %}
+                                <img class="img-fluid w-100" src="{{ new_product.0.image.url }}" alt="{{ new_product.0.name }}">
                             {% else %}
                                 <img class="img-fluid w-100" src="{% static "img/Not found image.png" %}" alt="">
                             {% endif %}
                             <div class="product-action">
                                 <a class="btn btn-outline-dark btn-square add-to-cart" href="{% url "cart:cart_add" %}"
-                                    data-product-id="{{ new_product.id }}">
+                                    data-product-id="{{ new_product.0.id }}">
                                         {% csrf_token %}
                                         <i class="fa fa-shopping-cart"></i></a>
                                 <a class="btn btn-outline-dark btn-square">
-                                    <form action="{% url "favorites:add_to_favorites" id=new_product.id %}" method="post">
+                                    <form action="{% url "favorites:add_to_favorites" id=new_product.0.id %}" method="post">
                                         {% csrf_token %}
                                         <input type="hidden" name="type" value="{{ type }}">
                                         <input type="hidden" name="url_from" value="{{ request.path }}">
                                         <button class="btn btn-outline-dark btn-square" type="submit"><i class="fa fa-heart"></i></button>
                                     </form>      
                                 </a>
-                                <a class="btn btn-outline-dark btn-square" href="{% url "catalog:product" new_product.slug %}">
+                                <a class="btn btn-outline-dark btn-square" href="{% url "catalog:product" new_product.0.slug %}">
                                     <i class="fa fa-arrow-right"></i>
                                 </a>
                             </div>
                         </div>
                         <div class="text-center py-4">
-                            <p><a class="h4" href="{% url "catalog:product" new_product.slug %}">{{ new_product.name }}</a></p>
-                            <p class="product_id"> id: {{ new_product.display_id }}</p>
+                            <p><a class="h4" href="{% url "catalog:product" new_product.0.slug %}">{{ new_product.0.name }}</a></p>
+                            <p class="product_id"> id: {{ new_product.0.display_id }}</p>
                             <div class="d-flex align-items-center justify-content-center mt-2">
-                                {% if new_product.discount %}
-                                    <h5>{{ new_product.sell_price }} ₽</h5><h6 class="text-muted ml-2"><del>{{ new_product.price }} ₽</del></h6><h5 class="badge bg-warning text-dark ml-3">-{{ new_product.discount }} %</h5>
+                                {% if new_product.0.discount %}
+                                    <h5>{{ new_product.0.sell_price }} ₽</h5><h6 class="text-muted ml-2"><del>{{ new_product.0.price }} ₽</del></h6><h5 class="badge bg-warning text-dark ml-3">-{{ new_product.0.discount }} %</h5>
                                 {% else %}
-                                    <h5>{{ new_product.sell_price }} ₽</h5>
+                                    <h5>{{ new_product.0.sell_price }} ₽</h5>
                                 {% endif %}
                             </div>
                             <div class="text-primary mr-2">
-                                {% if new_product_rating_amount_reviews.0 < 0.25 %}
+                                {% if new_product.1.0 < 0.25 %}
                                     <small class="far fa-star"></small>
                                     <small class="far fa-star"></small>
                                     <small class="far fa-star"></small>
                                     <small class="far fa-star"></small>
                                     <small class="far fa-star"></small>
-                                {% elif 0.25 <= new_product_rating_amount_reviews.0 and new_product_rating_amount_reviews.0 < 0.75 %}
+                                {% elif 0.25 <= new_product.1.0 and new_product.1.0 < 0.75 %}
                                     <small class="fas fa-star-half-alt"></small>
                                     <small class="far fa-star"></small>
                                     <small class="far fa-star"></small>
                                     <small class="far fa-star"></small>
                                     <small class="far fa-star"></small>
-                                {% elif 0.75 <= new_product_rating_amount_reviews.0 and new_product_rating_amount_reviews.0 < 1.25 %}
+                                {% elif 0.75 <= new_product.1.0 and new_product.1.0 < 1.25 %}
                                     <small class="fas fa-star"></small>
                                     <small class="far fa-star"></small>
                                     <small class="far fa-star"></small>
                                     <small class="far fa-star"></small>
                                     <small class="far fa-star"></small>
-                                {% elif 1.25 <= new_product_rating_amount_reviews.0 and new_product_rating_amount_reviews.0 < 1.75 %}
+                                {% elif 1.25 <= new_product.1.0 and new_product.1.0 < 1.75 %}
                                     <small class="fas fa-star"></small>
                                     <small class="fas fa-star-half-alt"></small>
                                     <small class="far fa-star"></small>
                                     <small class="far fa-star"></small>
                                     <small class="far fa-star"></small>
-                                {% elif 1.75 <= new_product_rating_amount_reviews.0 and new_product_rating_amount_reviews.0 < 2.25 %}
+                                {% elif 1.75 <= new_product.1.0 and new_product.1.0 < 2.25 %}
                                     <small class="fas fa-star"></small>
                                     <small class="fas fa-star"></small>
                                     <small class="far fa-star"></small>
                                     <small class="far fa-star"></small>
                                     <small class="far fa-star"></small>
-                                {% elif 2.25 <= new_product_rating_amount_reviews.0 and new_product_rating_amount_reviews.0 < 2.75 %}
+                                {% elif 2.25 <= new_product.1.0 and new_product.1.0 < 2.75 %}
                                     <small class="fas fa-star"></small>
                                     <small class="fas fa-star"></small>
                                     <small class="fas fa-star-half-alt"></small>
                                     <small class="far fa-star"></small>
                                     <small class="far fa-star"></small>
-                                {% elif 2.75 <= new_product_rating_amount_reviews.0 and new_product_rating_amount_reviews.0 < 3.25 %}
+                                {% elif 2.75 <= new_product.1.0 and new_product.1.0 < 3.25 %}
                                     <small class="fas fa-star"></small>
                                     <small class="fas fa-star"></small>
                                     <small class="fas fa-star"></small>
                                     <small class="far fa-star"></small>
                                     <small class="far fa-star"></small>
-                                {% elif 3.25 <= new_product_rating_amount_reviews.0 and new_product_rating_amount_reviews.0 < 3.75 %}
+                                {% elif 3.25 <= new_product.1.0 and new_product.1.0 < 3.75 %}
                                     <small class="fas fa-star"></small>
                                     <small class="fas fa-star"></small>
                                     <small class="fas fa-star"></small>
                                     <small class="fas fa-star-half-alt"></small>
                                     <small class="far fa-star"></small>
-                                {% elif 3.75 <= new_product_rating_amount_reviews.0 and new_product_rating_amount_reviews.0 < 4.25 %}
+                                {% elif 3.75 <= new_product.1.0 and new_product.1.0 < 4.25 %}
                                     <small class="fas fa-star"></small>
                                     <small class="fas fa-star"></small>
                                     <small class="fas fa-star"></small>
                                     <small class="fas fa-star"></small>
                                     <small class="far fa-star"></small>
-                                {% elif 4.25 <= new_product_rating_amount_reviews.0 and new_product_rating_amount_reviews.0 < 4.75 %}
+                                {% elif 4.25 <= new_product.1.0 and new_product.1.0 < 4.75 %}
                                     <small class="fas fa-star"></small>
                                     <small class="fas fa-star"></small>
                                     <small class="fas fa-star"></small>
                                     <small class="fas fa-star"></small>
                                     <small class="fas fa-star-half-alt"></small>
-                                {% elif new_product_rating_amount_reviews.0 >= 4.75 %}
+                                {% elif new_product.1.0 >= 4.75 %}
                                     <small class="fas fa-star"></small>
                                     <small class="fas fa-star"></small>
                                     <small class="fas fa-star"></small>
                                     <small class="fas fa-star"></small>
                                     <small class="fas fa-star"></small>
                                 {% endif %}
-                                <small style="Color: #3D464D;">({{ new_product_rating_amount_reviews.1 }})</small>
+                                <small style="Color: #3D464D;">({{ new_product.1.1 }})</small>
                             </div>
                         </div>
                     </div>

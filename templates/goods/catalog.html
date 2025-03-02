@@ -21,6 +21,10 @@
 </div>
 <!-- Breadcrumb End -->
 
+<div class="container-fluid mb-3" style="padding-left: 60px;">
+    <h2>{{ category.name }} {{ amount }} {{ goods_ending }}</h2>
+</div>
+
 <!-- Shop Start -->
 <div class="container-fluid">
     <div class="row px-xl-5">
@@ -133,181 +137,124 @@
                     {% endif %}
                 </div>
 
-                {% comment %} {% for product, product_rating_amount_reviews in dict_product_rating_amount_reviews.items %}
-                <div class="col-lg-4 col-md-5 col-sm-6 pb-1 d-flex">
-                    <div class="product-item bg-light mb-4">
-                        <div class="product-img position-relative overflow-hidden">
-                            {% if product.image %}
-                            <img class="img-fluid w-100" src="{{ product.image.url }}" alt="{{ product.name }}">
-                            {% else %}
-                            <img class="img-fluid w-100" src="{% static "img/Not found image.png" %}" alt="">
-                            {% endif %}
-                            <div class="product-action">
-                                <a class="btn btn-outline-dark btn-square add-to-cart" href="{% url "cart:cart_add" %}"
-                                data-product-id="{{ product.id }}">
-                                {% csrf_token %}
-                                <i class="fa fa-shopping-cart"></i></a>
-                                <a class="btn btn-outline-dark btn-square">
-                                    <form action="{% url "favorites:add_to_favorites" id=product.id %}" method="post">
-                                        {% csrf_token %}
-                                            <input type="hidden" name="type" value="{{ type }}">
-                                            <input type="hidden" name="url_from" value="{{ request.path }}">
-                                            <button class="btn btn-outline-dark btn-square" type="submit"><i class="fa fa-heart"></i></button>
-                                    </form>      
-                                </a>
-                                <a class="btn btn-outline-dark btn-square" href="{% url "catalog:product" product.slug %}">
-                                    <i class="fa fa-arrow-right"></i>
-                                </a>
-                            </div>
-                            </div>
-                            <div class="text-center py-3"> 
-                                <p>
-                                    <a class="h4" href="{% url "catalog:product" product.slug %}">
-                                        {% autoescape off %}
-                                        {% if product.headline %}
-                                        {{ product.headline }}
-                                        {% else %}
-                                        {{ product.name }}
-                                        {% endif %}
-                                        {% endautoescape %}
-                                    </a>
-                            </p>
-                            <p class="product_id"> id: {{ product.display_id }}</p>
-                            <div class="d-flex align-items-center justify-content-center mt-1">
-                                {% if product.discount %}
-                                <h5>{{ product.sell_price }} ₽</h5>
-                                <h6 class="text-muted ml-3"><del>{{ product.price }}</del> ₽</h6>
-                                <h5 class="badge bg-warning text-dark ml-3">-{{ product.discount }} %</h5>
-                                {% else %}
-                                <h5>{{ product.price }} ₽</h5>
-                                {% endif %}
-                            </div>
-                            <div class="text-primary mr-2">
-                                {% if product_rating_amount_reviews.0 < 0.25 %}
-                                    <small class="far fa-star"></small>
-                                    <small class="far fa-star"></small>
-                                    <small class="far fa-star"></small>
-                                    <small class="far fa-star"></small>
-                                    <small class="far fa-star"></small>
-                                {% elif 0.25 <= product_rating_amount_reviews.0 and product_rating_amount_reviews.0 < 0.75 %}
-                                    <small class="fas fa-star-half-alt"></small>
-                                    <small class="far fa-star"></small>
-                                    <small class="far fa-star"></small>
-                                    <small class="far fa-star"></small>
-                                    <small class="far fa-star"></small>
-                                {% elif 0.75 <= product_rating_amount_reviews.0 and product_rating_amount_reviews.0 < 1.25 %}
-                                    <small class="fas fa-star"></small>
-                                    <small class="far fa-star"></small>
-                                    <small class="far fa-star"></small>
-                                    <small class="far fa-star"></small>
-                                    <small class="far fa-star"></small>
-                                {% elif 1.25 <= product_rating_amount_reviews.0 and product_rating_amount_reviews.0 < 1.75 %}
-                                    <small class="fas fa-star"></small>
-                                    <small class="fas fa-star-half-alt"></small>
-                                    <small class="far fa-star"></small>
-                                    <small class="far fa-star"></small>
-                                    <small class="far fa-star"></small>
-                                {% elif 1.75 <= product_rating_amount_reviews.0 and product_rating_amount_reviews.0 < 2.25 %}
-                                    <small class="fas fa-star"></small>
-                                    <small class="fas fa-star"></small>
-                                    <small class="far fa-star"></small>
-                                    <small class="far fa-star"></small>
-                                    <small class="far fa-star"></small>
-                                {% elif 2.25 <= product_rating_amount_reviews.0 and product_rating_amount_reviews.0 < 2.75 %}
-                                    <small class="fas fa-star"></small>
-                                    <small class="fas fa-star"></small>
-                                    <small class="fas fa-star-half-alt"></small>
-                                    <small class="far fa-star"></small>
-                                    <small class="far fa-star"></small>
-                                {% elif 2.75 <= product_rating_amount_reviews.0 and product_rating_amount_reviews.0 < 3.25 %}
-                                    <small class="fas fa-star"></small>
-                                    <small class="fas fa-star"></small>
-                                    <small class="fas fa-star"></small>
-                                    <small class="far fa-star"></small>
-                                    <small class="far fa-star"></small>
-                                {% elif 3.25 <= product_rating_amount_reviews.0 and product_rating_amount_reviews.0 < 3.75 %}
-                                    <small class="fas fa-star"></small>
-                                    <small class="fas fa-star"></small>
-                                    <small class="fas fa-star"></small>
-                                    <small class="fas fa-star-half-alt"></small>
-                                    <small class="far fa-star"></small>
-                                {% elif 3.75 <= product_rating_amount_reviews.0 and product_rating_amount_reviews.0 < 4.25 %}
-                                    <small class="fas fa-star"></small>
-                                    <small class="fas fa-star"></small>
-                                    <small class="fas fa-star"></small>
-                                    <small class="fas fa-star"></small>
-                                    <small class="far fa-star"></small>
-                                {% elif 4.25 <= product_rating_amount_reviews.0 and product_rating_amount_reviews.0 < 4.75 %}
-                                    <small class="fas fa-star"></small>
-                                    <small class="fas fa-star"></small>
-                                    <small class="fas fa-star"></small>
-                                    <small class="fas fa-star"></small>
-                                    <small class="fas fa-star-half-alt"></small>
-                                {% elif product_rating_amount_reviews.0 >= 4.75 %}
-                                    <small class="fas fa-star"></small>
-                                    <small class="fas fa-star"></small>
-                                    <small class="fas fa-star"></small>
-                                    <small class="fas fa-star"></small>
-                                    <small class="fas fa-star"></small>
-                                {% endif %}
-                                <small style="Color: #3D464D;">({{ product_rating_amount_reviews.1 }})</small> {% endcomment %}
-
                 {% for product in goods %}
                 <div class="col-lg-4 col-md-5 col-sm-6 pb-1 d-flex">
                     <div class="product-item bg-light mb-4">
                         <div class="product-img position-relative overflow-hidden">
-                            {% if product.image %}
-                            <img class="img-fluid w-100" src="{{ product.image.url }}" alt="{{ product.name }}">
+                            {% if product.0.image %}
+                            <img class="img-fluid w-100" src="{{ product.0.image.url }}" alt="{{ product.0.name }}">
                             {% else %}
                             <img class="img-fluid w-100" src="{% static "img/Not found image.png" %}" alt="">
                             {% endif %}
                             <div class="product-action">
                                 <a class="btn btn-outline-dark btn-square add-to-cart" href="{% url "cart:cart_add" %}"
-                                data-product-id="{{ product.id }}">
+                                data-product-id="{{ product.0.id }}">
                                 {% csrf_token %}
                                 <i class="fa fa-shopping-cart"></i></a>
                                 <a class="btn btn-outline-dark btn-square">
-                                    <form action="{% url "favorites:add_to_favorites" id=product.id %}" method="post">
+                                    <form action="{% url "favorites:add_to_favorites" id=product.0.id %}" method="post">
                                         {% csrf_token %}
                                             <input type="hidden" name="type" value="{{ type }}">
                                             <input type="hidden" name="url_from" value="{{ request.path }}">
                                             <button class="btn btn-outline-dark btn-square" type="submit"><i class="fa fa-heart"></i></button>
                                     </form>      
                                 </a>
-                                <a class="btn btn-outline-dark btn-square" href="{% url "catalog:product" product.slug %}">
+                                <a class="btn btn-outline-dark btn-square" href="{% url "catalog:product" product.0.slug %}">
                                     <i class="fa fa-arrow-right"></i>
                                 </a>
                             </div>
                             </div>
                             <div class="text-center py-3"> 
                                 <p>
-                                    <a class="h4" href="{% url "catalog:product" product.slug %}">
+                                    <a class="h4" href="{% url "catalog:product" product.0.slug %}">
                                         {% autoescape off %}
-                                        {% if product.headline %}
-                                        {{ product.headline }}
+                                        {% if product.0.headline %}
+                                        {{ product.0.headline }}
                                         {% else %}
-                                        {{ product.name }}
+                                        {{ product.0.name }}
                                         {% endif %}
                                         {% endautoescape %}
                                     </a>
                             </p>
-                            <p class="product_id"> id: {{ product.display_id }}</p>
+                            <p class="product_id"> id: {{ product.0.display_id }}</p>
                             <div class="d-flex align-items-center justify-content-center mt-1">
-                                {% if product.discount %}
-                                <h5>{{ product.sell_price }} ₽</h5>
-                                <h6 class="text-muted ml-3"><del>{{ product.price }}</del> ₽</h6>
-                                <h5 class="badge bg-warning text-dark ml-3">-{{ product.discount }} %</h5>
+                                {% if product.0.discount %}
+                                <h5>{{ product.0.sell_price }} ₽</h5>
+                                <h6 class="text-muted ml-3"><del>{{ product.0.price }}</del> ₽</h6>
+                                <h5 class="badge bg-warning text-dark ml-3">-{{ product.0.discount }} %</h5>
                                 {% else %}
-                                <h5>{{ product.price }} ₽</h5>
+                                <h5>{{ product.0.price }} ₽</h5>
                                 {% endif %}
                             </div>
-                            <div class="d-flex align-items-center justify-content-center">
-                                <small class="fa fa-star text-primary mr-1"></small>
-                                <small class="fa fa-star text-primary mr-1"></small>
-                                <small class="fa fa-star text-primary mr-1"></small>
-                                <small class="fa fa-star text-primary mr-1"></small>
-                                <small class="fa fa-star text-primary mr-1"></small>
-                                <small>(99)</small>
+                            <div class="text-primary mr-2">
+                                {% if product.1.0 < 0.25 %}
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                {% elif 0.25 <= product.1.0 and product.1.0 < 0.75 %}
+                                    <small class="fas fa-star-half-alt"></small>
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                {% elif 0.75 <= product.1.0 and product.1.0 < 1.25 %}
+                                    <small class="fas fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                {% elif 1.25 <= product.1.0 and product.1.0 < 1.75 %}
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star-half-alt"></small>
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                {% elif 1.75 <= product.1.0 and product.1.0 < 2.25 %}
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                {% elif 2.25 <= product.1.0 and product.1.0 < 2.75 %}
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star-half-alt"></small>
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                {% elif 2.75 <= product.1.0 and product.1.0 < 3.25 %}
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                {% elif 3.25 <= product.1.0 and product.1.0 < 3.75 %}
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star-half-alt"></small>
+                                    <small class="far fa-star"></small>
+                                {% elif 3.75 <= product.1.0 and product.1.0 < 4.25 %}
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                {% elif 4.25 <= product.1.0 and product.1.0 < 4.75 %}
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star-half-alt"></small>
+                                {% elif product.1.0 >= 4.75 %}
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                {% endif %}
+                                <small style="Color: #3D464D;">({{ product.1.1 }})</small>
                             </div>
                         </div>
                     </div>

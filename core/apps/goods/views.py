@@ -11,6 +11,12 @@ from goods.models import Categories, Products
 
 
 class CatalogView(ListView):
+    """
+    Обозначение параметров продукта в шаблоне (for product in goods):
+    product.0 - объект из queryset
+    product.1.0 - оценка
+    product.1.1 - количество отзывов
+    """
 
     model = Products
     # queryset = Products.objects.all()
@@ -96,7 +102,56 @@ class CatalogView(ListView):
             goods = goods.filter(price__gt=1_000)
 
         self.amount = len(goods)
+        products_amount = (str(self.amount))[len(str(self.amount))-1]
+        if products_amount == '1' and str(self.amount) != '11':
+            self.goods_ending = "товар"
+        elif products_amount in ['2', '3', '4'] and str(self.amount) not in ['12', '13', '14']:
+            self.goods_ending = "товара"
+        else:
+            self.goods_ending = "товаров"
+        
+        goods_rating_list = []
+        goods_amount_reviews_list = []
 
+        for product in goods:
+
+            # получение количества отзывов о продуктах
+            product_reviews = product.reviews.all()
+            product_amount_reviews: int = len(product_reviews)
+            
+            product_amount = (str(product_amount_reviews))[len(str(product_amount_reviews))-1]
+            if product_amount == '1' and str(product_amount_reviews) != '11':
+                reviews_ending = "отзыв"
+            elif product_amount in ['2', '3', '4'] and str(product_amount_reviews) not in ['12', '13', '14']:
+                reviews_ending = "отзыва"
+            else:
+                reviews_ending = "отзывов"
+            
+            goods_amount_reviews_list.append(f'{product_amount_reviews} {reviews_ending}')
+
+            # получение оценки продуктов
+            product_rate = 0
+            for product_review in product_reviews:
+                product_rate += product_review.rating
+            try:
+                product_rating = product_rate / product_amount_reviews
+            except ZeroDivisionError:
+                product_rating = 0
+
+            goods_rating_list.append(product_rating)
+
+        dict_product_rating_amount_reviews = {}
+        product_index = 0
+        for product_element in goods:
+            # в словарь передаются идентификатор продукта - ключ, оценка и количество отзывов - значение
+            dict_product_rating_amount_reviews[goods[product_index]] = (
+                goods_rating_list[product_index],
+                goods_amount_reviews_list[product_index],
+            )
+            product_index += 1
+
+        goods = list(dict_product_rating_amount_reviews.items())
+        
         return goods
 
     def get_context_data(self, **kwargs) -> dict[str, Any]:
@@ -106,6 +161,7 @@ class CatalogView(ListView):
         context["title"] = "MultiShop - Каталог - Поиск"
         context["check_page"] = "MultiShop - Категории"
         context["amount"] = self.amount
+        context["goods_ending"] = self.goods_ending
 
         # если не поиск, то добавляются переменные
         if not self.query:
@@ -131,9 +187,10 @@ def product(request, product_slug) -> HttpResponseRedirect | HttpResponse:
     except ZeroDivisionError:
         product_rating = 0
     
-    if amount_reviews == 1:
+    a = (str(amount_reviews))[len(str(amount_reviews))-1]
+    if a == '1' and str(amount_reviews) != '11':
         reviews_ending = "отзыв"
-    elif 1 < amount_reviews < 5:
+    elif a in ['2', '3', '4'] and str(amount_reviews) not in ['12', '13', '14']:
         reviews_ending = "отзыва"
     else:
         reviews_ending = "отзывов"
