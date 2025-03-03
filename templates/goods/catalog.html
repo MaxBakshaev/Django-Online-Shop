@@ -21,8 +21,10 @@
 </div>
 <!-- Breadcrumb End -->
 
-<div class="container-fluid mb-3" style="padding-left: 60px;">
-    <h2>{{ category.name }} {{ amount }} {{ goods_ending }}</h2>
+<div class="container-fluid mb-3">
+    <div class="row px-xl-5">
+        <h2 style="padding-left: 15px;">{{ category.name }} {{ amount }} {{ goods_ending }}</h2>
+    </div>
 </div>
 
 <!-- Shop Start -->
@@ -130,10 +132,10 @@
                 <!-- Карты товара Start -->
                 <div class="col-12 pb-3">
                     {% if request.GET.q %}
-                    <h3 class="mt-4">Результаты поиска по запросу {{ request.GET.q }}:</h3>
-                    {% if not goods %}
-                        <h2 class="mt-4">По запросу ничего не найдено</h2>
-                    {% endif %}
+                        <h3 class="mt-4">Результаты поиска по запросу {{ request.GET.q }}:</h3>
+                        {% if not goods %}
+                            <h2 class="mt-4">По запросу ничего не найдено</h2>
+                        {% endif %}
                     {% endif %}
                 </div>
 
@@ -142,9 +144,11 @@
                     <div class="product-item bg-light mb-4">
                         <div class="product-img position-relative overflow-hidden">
                             {% if product.0.image %}
-                            <img class="img-fluid w-100" src="{{ product.0.image.url }}" alt="{{ product.0.name }}">
+                                <a href="{% url "catalog:product" product.0.slug %}">
+                                    <img class="img-fluid w-100" src="{{ product.0.image.url }}" alt="{{ product.0.name }}">
+                                </a>
                             {% else %}
-                            <img class="img-fluid w-100" src="{% static "img/Not found image.png" %}" alt="">
+                                <img class="img-fluid w-100" src="{% static "img/Not found image.png" %}" alt="">
                             {% endif %}
                             <div class="product-action">
                                 <a class="btn btn-outline-dark btn-square add-to-cart" href="{% url "cart:cart_add" %}"
