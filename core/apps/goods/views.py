@@ -1,18 +1,16 @@
 from typing import Any, Literal
 from django.contrib import messages
 from django.db.models import QuerySet
-from django.shortcuts import redirect, render
-from django.template.loader import render_to_string
-from django.urls import reverse, reverse_lazy
 from django.views.generic import DetailView, FormView, ListView
-from django.http import HttpResponse, HttpResponseRedirect, request
+from django.http import HttpResponse
 
 from goods.forms import CreateReviewForm
 from goods.utils import q_search
+from goods.mixins import GoodsMixin
 from goods.models import Categories, Products
 
 
-class CatalogView(ListView):
+class CatalogView(ListView, GoodsMixin):
     """
     Обозначение параметров продукта в шаблоне (for product in goods):
     product.0 - продукт (объект из queryset)
@@ -25,39 +23,6 @@ class CatalogView(ListView):
     template_name = "goods/catalog.html"
     context_object_name = "goods"
     paginate_by = 6
-
-    def get_goods_ending(self) -> Literal["товар"] | Literal["товара"] | Literal["товаров"]:
-        """Возвращает слово 'товар' в правильном падеже"""
-        last_number_of_amount: str = (str(self.amount))[len(str(self.amount)) - 1]
-        if last_number_of_amount == "1" and str(self.amount) != "11":
-            goods_ending = "товар"
-        elif last_number_of_amount in ["2", "3", "4"] and str(self.amount) not in ["12","13","14",]:
-            goods_ending = "товара"
-        else:
-            goods_ending = "товаров"
-        return goods_ending
-
-    def get_reviews_ending(self) -> Literal["отзыв"] | Literal["отзыва"] | Literal["отзывов"]:
-        """Возвращает слово 'отзыв' в правильном падеже"""
-        last_number_of_amount: str = (str(self.amount_reviews))[len(str(self.amount_reviews)) - 1]
-        if last_number_of_amount == "1" and str(self.amount_reviews) != "11":
-            reviews_ending = "отзыв"
-        elif last_number_of_amount in ["2", "3", "4"] and str(self.amount_reviews) not in ["12", "13", "14"]:
-            reviews_ending = "отзыва"
-        else:
-            reviews_ending = "отзывов"
-        return reviews_ending
-
-    def get_product_rating(self) -> Any | float | Literal[0]:
-        """Возвращает оценку продукта"""
-        rate = 0
-        for review in self.reviews:
-            rate += review.rating
-        try:
-            rating = rate / self.amount_reviews
-        except ZeroDivisionError:
-            rating = 0
-        return rating
 
     def filter_on_sale(self) -> QuerySet[Any]:
         """Возвращает запрос отфильтрованный по товару со скидкой"""
@@ -199,44 +164,12 @@ class CatalogView(ListView):
             self.goods = self.goods.filter(price__gt=1_000)
         return self.goods
 
-    def get_products_list(self) -> list[tuple]:
-        """
-        Возвращает список товаров, где элементы:
-        Первый кортеж - продукт (объект из queryset)
-        Второй кортеж - оценка и количество отзывов о продукте
-        """
-        goods_rating_list = []
-        goods_amount_reviews_list = []
-
-        for product in self.goods:
-
-            # получение количества отзывов о продуктах
-            self.reviews = product.reviews.all()
-            self.amount_reviews: int = len(self.reviews)
-            reviews_ending = self.get_reviews_ending()
-            goods_amount_reviews_list.append(f"{self.amount_reviews} {reviews_ending}")
-
-            # получение оценки продуктов
-            rating = self.get_product_rating()
-            goods_rating_list.append(rating)
-
-        dict_product_rating_amount_reviews = {}
-        product_index = 0
-        for product_element in self.goods:
-            dict_product_rating_amount_reviews[self.goods[product_index]] = (
-                goods_rating_list[product_index],
-                goods_amount_reviews_list[product_index],
-            )
-            product_index += 1
-
-        return list(dict_product_rating_amount_reviews.items())
-
     def get_queryset(self) -> QuerySet[Any]:
 
         self.category_slug = self.kwargs.get("category_slug")
+        self.query: str | None = self.request.GET.get("q")
         self.on_sale: str | None = self.request.GET.get("on_sale")
         self.order_by: str | None = self.request.GET.get("order_by")
-        self.query: str | None = self.request.GET.get("q")
         self.cost_1k: str | None = self.request.GET.get("cost_1k")
         self.cost_10k: str | None = self.request.GET.get("cost_10k")
         self.cost_100k: str | None = self.request.GET.get("cost_100k")
@@ -260,9 +193,8 @@ class CatalogView(ListView):
         goods = self.filter_three_cost()
         goods = self.filter_four_cost()
 
-        # количество товаров по запросу
+        # количество товаров
         self.amount = len(self.goods)
-        self.goods_ending = self.get_goods_ending()
 
         goods = self.get_products_list()
 
@@ -275,7 +207,7 @@ class CatalogView(ListView):
         context["title"] = "MultiShop - Каталог - Поиск"
         context["check_page"] = "MultiShop - Категории"
         context["amount"] = self.amount
-        context["goods_ending"] = self.goods_ending
+        context["goods_ending"] = self.get_goods_ending()
 
         # если не поиск, то добавляются переменные
         if not self.query:
@@ -287,7 +219,7 @@ class CatalogView(ListView):
         return context
 
 
-class ProductView(DetailView, FormView):
+class ProductView(DetailView, FormView, GoodsMixin):
 
     template_name = "goods/product.html"
     slug_url_kwarg = "product_slug"
@@ -314,28 +246,6 @@ class ProductView(DetailView, FormView):
             form = CreateReviewForm()
             
         return super().form_valid(form)
-    
-    def get_product_rating(self) -> Any | float | Literal[0]:
-        """ Возвращает оценку продукта """
-        rate = 0
-        for review in self.reviews:
-            rate += review.rating
-        try:
-            product_rating = rate / self.amount_reviews
-        except ZeroDivisionError:
-            product_rating = 0
-        return product_rating
-    
-    def get_reviews_ending(self) -> Literal['отзыв'] | Literal['отзыва'] | Literal['отзывов']:
-        """Возвращает слово 'отзыв' в правильном падеже"""
-        a = (str(self.amount_reviews))[len(str(self.amount_reviews)) - 1]
-        if a == "1" and str(self.amount_reviews) != "11":
-            reviews_ending = "отзыв"
-        elif a in ["2", "3", "4"] and str(self.amount_reviews) not in ["12", "13", "14"]:
-            reviews_ending = "отзыва"
-        else:
-            reviews_ending = "отзывов"
-        return reviews_ending
     
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         
