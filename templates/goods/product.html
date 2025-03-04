@@ -215,43 +215,30 @@
                                 {% endif %}
                             </div>
                             <!-- Напишите отзыв Start -->
-                            <div class="col-md-6" style="padding-left: 30px;">
+                            <div class="col-md-6 pt-3" style="padding-left: 30px;">
                                 {% if user.is_authenticated %}
-                                    <h4 class="mb-4">Напишите отзыв</h4>
-                                    {% comment %} <div class="d-flex my-3">
-                                        <p class="mb-0 mr-2">Оценка * :</p>
-                                        <div class="text-primary">
-                                            <i class="far fa-star"></i>
-                                            <i class="far fa-star"></i>
-                                            <i class="far fa-star"></i>
-                                            <i class="far fa-star"></i>
-                                            <i class="far fa-star"></i>
-                                        </div>
-                                    </div> {% endcomment %}
-                                    {% comment %} <form action="{% url "goods:create_review" %}" method="post">
+                                    <h4 class="mb-4">Напишите отзыв</h4>                                             
+                                    <form action="" method="post">
                                         {% csrf_token %}
                                         <div class="form-group">
-                                            <label for="id_body">Ваш отзыв *</label>
-                                            <textarea id="id_body" class="form-control" 
-                                            value="{% if form.body.value %}{{ form.body.value }}{% endif %}"
-                                            name="body" cols="30" rows="5">
-                                            </textarea>
+                                            <div class="rating-area">
+                                                <text style="margin-bot: 5px !important;">Ваша оценка :</text>
+                                                <input type="radio" id="star-5" name="rating" value="5">
+                                                <label for="star-5" title="Оценка «5»"></label>	
+                                                <input type="radio" id="star-4" name="rating" value="4">
+                                                <label for="star-4" title="Оценка «4»"></label>    
+                                                <input type="radio" id="star-3" name="rating" value="3">
+                                                <label for="star-3" title="Оценка «3»"></label>  
+                                                <input type="radio" id="star-2" name="rating" value="2">
+                                                <label for="star-2" title="Оценка «2»"></label>    
+                                                <input type="radio" id="star-1" name="rating" value="1" checked>
+                                                <label for="star-1" title="Оценка «1»"></label>
+                                            </div>
+                                            <p></p>
+                                            <label for="id_comment">Ваш отзыв : *</label>
+                                            <textarea class="form-control" id="id_comment"
+                                            name="comment" cols="30" rows="5"></textarea>
                                         </div>
-                                        <button class="btn btn-primary px-3" type="submit">
-                                            <i class="fa fa-comment mr-1"></i>Оставить отзыв</button>
-                                    </form> {% endcomment %}
-                                    {% comment %} <form action="." method="post">
-                                        {{ review_form.as_p }}
-                                        {% csrf_token %}
-                                        <label for="id_body">Ваш отзыв *</label>
-                                        <textarea id="id_body" class="form-control" 
-                                        name="body" cols="30" rows="5">
-                                        </textarea>
-                                        <p><input type="submit" value="Add comment"></p>
-                                    </form> {% endcomment %}
-                                    <form method="post">
-                                        {% csrf_token %}
-                                        {{ form.as_p }}
                                         <button class="btn btn-primary px-3" type="submit">
                                             <i class="fa fa-comment mr-1"></i>Отправить отзыв</button>
                                     </form>

@@ -59,7 +59,7 @@ class Review(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
     rating = models.IntegerField(choices=[(i, str(i)) for i in range(1, 6)], verbose_name='Оценка')
     # user_full_name = models.CharField(max_length=150, blank=True)
-    comment = models.TextField(blank=True, verbose_name='Ваш отзыв*')
+    comment = models.TextField(blank=True, null=True, verbose_name='Ваш отзыв*')
     created = models.DateTimeField(auto_now_add=True, verbose_name='Создано')
     # updated = models.DateTimeField(auto_now=True)
     # active = models.BooleanField(default=True)
