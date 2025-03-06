@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load cache %}
 {% load goods_tags %}
 
 {% block modal_cart %}
@@ -7,29 +8,110 @@
 {% endblock modal_cart %}
 
 {% block content %}
+    <!-- Carousel Start -->
+    {% cache 600 carousel_cache %}
+    <div class="container-fluid mb-3">
+        <div class="row px-xl-5">
+            <div class="col-lg-8">
+                <div id="header-carousel" class="carousel slide carousel-fade mb-30 mb-lg-0" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#header-carousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#header-carousel" data-slide-to="1"></li>
+                        <li data-target="#header-carousel" data-slide-to="2"></li>
+                    </ol>
+                    <div class="carousel-inner">
+                        <div class="carousel-item position-relative active" style="height: 430px;">
+                            <img class="position-absolute w-100 h-100" src="{% static "img/Полезные мелочи/7739.jpg" %}" style="object-fit: cover;">
+                            <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                                <div class="p-3" style="max-width: 700px;">
+                                    {% tag_categories as categories %}
+                                    {% for category in categories %}
+                                        {% if category.name == "Полезные мелочи" %}
+                                            <a class="btn btn-primary py-2 px-4 mt-3 animate__animated animate__fadeInUp" 
+                                            href="{% url "catalog:index" category.slug %}">Перейти</a>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item position-relative" style="height: 430px;">
+                            <img class="position-absolute w-100 h-100" src="{% static "img/Книги/Книги.png" %}" style="object-fit: cover;">
+                            <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                                <div class="p-3" style="max-width: 700px;">
+                                    <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">Секреты успеха в один клик!</h1>
+                                    {% tag_categories as categories %}
+                                    {% for category in categories %}
+                                        {% if category.name == "Книги" %}
+                                            <a class="btn btn-primary py-2 px-4 mt-3 animate__animated animate__fadeInUp" 
+                                            href="{% url "catalog:index" category.slug %}">Перейти</a>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item position-relative" style="height: 430px;">
+                            <img class="position-absolute w-100 h-100" src="{% static "img/Одежда/ModnyPrigovor.jpg" %}" style="object-fit: cover;">
+                            <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                                <div class="p-3" style="max-width: 700px;">
+                                    <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">Последний писк моды</h1>
+                                    {% tag_categories as categories %}
+                                    {% for category in categories %}
+                                        {% if category.name == "Одежда" %}
+                                            <a class="btn btn-primary py-2 px-4 mt-3 animate__animated animate__fadeInUp" 
+                                            href="{% url "catalog:index" category.slug %}">Перейти</a>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="product-offer mb-30" style="height: 200px;">
+                    <img class="img-fluid" src="{% static "img/Хозяйственно-бытовые товары/Щипцы для отжима чайных пакетиков-resized-resized2.PNG" %}" alt="">
+                    <div class="offer-text">
+                        <h6 class="text-white text-uppercase">Выгода {{ special_product_1.discount }}%</h6>
+                        <h3 class="text-white mb-3">Специальное предложение</h3>
+                        <a href="{% url "catalog:product" special_product_1.slug %}" class="btn btn-primary">К товару</a>
+                    </div>
+                </div>
+                <div class="product-offer mb-30" style="height: 200px;">
+                    <img class="img-fluid" src="{% static "img/Полезные мелочи/Грива для собаки-resized-resized3.jpg" %}" alt="">
+                    <div class="offer-text">
+                        <h6 class="text-white text-uppercase">Выгода {{ special_product_2.discount }}%</h6>
+                        <h3 class="text-white mb-3">Специальное предложение</h3>
+                        <a href="{% url "catalog:product" special_product_2.slug %}" class="btn btn-primary">К товару</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Carousel End -->
+    
     <!-- Featured Start -->
     <div class="container-fluid pt-3">
         <div class="row px-xl-5 pb-2">
             <div class="col-lg-3 col-md-6 col-sm-12 pb-1 d-flex">
-                <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px; width: 100%;">
+                <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px; width: 100%; border: 1px solid rgba(0, 0, 0, 0.125);">
                     <h1 class="fa fa-check text-primary m-0 mr-3"></h1>
                     <h5 class="font-weight-semi-bold m-0">Качество продукции</h5>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 col-sm-12 pb-1 d-flex">
-                <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px; width: 100%;">
+                <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px; width: 100%; border: 1px solid rgba(0, 0, 0, 0.125);">
                     <h1 class="fa fa-shipping-fast text-primary m-0 mr-2"></h1>
                     <h5 class="font-weight-semi-bold m-0">Бесплатная доставка</h5>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 col-sm-12 pb-1 d-flex">
-                <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px; width: 100%;">
+                <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px; width: 100%; border: 1px solid rgba(0, 0, 0, 0.125);">
                     <h1 class="fas fa-exchange-alt text-primary m-0 mr-3"></h1>
                     <h5 class="font-weight-semi-bold m-0">Возврат в течение 14 дней</h5>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 col-sm-12 pb-1 d-flex">
-                <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px; width: 100%;">
+                <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px; width: 100%; border: 1px solid rgba(0, 0, 0, 0.125);">
                     <h1 class="fa fa-phone-volume text-primary m-0 mr-3"></h1>
                     <h5 class="font-weight-semi-bold m-0">Поддержка 24/7</h5>
                 </div>
@@ -37,15 +119,166 @@
         </div>
     </div>
     <!-- Featured End -->
+    {% endcache %}
 
     
+    <!-- Популярные Start -->
+    <div class="container-fluid pt-1 pb-1">
+        <h2 class="section-title position-relative mx-xl-5 mb-4"><span class="bg-secondary pr-3">Популярные</span></h2>
+        <div class="row px-xl-5">
+            {% for popular_product in popular_products %}
+                <div class="col-lg-3 col-md-4 col-sm-6 pb-1 d-flex">
+                    <div class="product-item bg-light mb-4" style="border: 1px solid rgba(0, 0, 0, 0.125);">
+                        <div class="product-img position-relative overflow-hidden">
+                            {% if popular_product.0.image %}
+                                <img class="img-fluid" src="{{ popular_product.0.image.url }}" alt="{{ popular_product.0.name }}">
+                            {% else %}
+                                <img class="img-fluid w-100" src="{% static "img/Not found image.png" %}" alt="">
+                            {% endif %}
+                            <div class="product-action">
+                                <a class="btn btn-outline-dark btn-square add-to-cart" href="{% url "cart:cart_add" %}"
+                                data-product-id="{{ popular_product.0.id }}">
+                                {% csrf_token %}
+                                <i class="fa fa-shopping-cart"></i></a>
+                                <a class="btn btn-outline-dark btn-square">
+                                    <form action="{% url "favorites:add_to_favorites" id=popular_product.0.id %}" method="post">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="type" value="{{ type }}">
+                                        <input type="hidden" name="url_from" value="{{ request.path }}">
+                                        <button class="btn btn-outline-dark btn-square" type="submit"><i class="fa fa-heart"></i></button>
+                                    </form>      
+                                </a>
+                                <a class="btn btn-outline-dark btn-square" href="{% url "catalog:product" popular_product.0.slug %}">
+                                    <i class="fa fa-arrow-right"></i>
+                                </a>       
+                            </div>
+                        </div>
+                        <div class="text-center py-4">
+                            <p> <a class="h4" href="{% url "catalog:product" popular_product.0.slug %}">{{ popular_product.0.name }}</a></p>
+                            <p class="product_id"> id: {{ popular_product.0.display_id }}</p>
+                            <div class="d-flex align-items-center justify-content-center mt-2">
+                                {% if popular_product.0.discount %}
+                                    <h5>{{ popular_product.0.sell_price }} ₽</h5>
+                                    <h6 class="text-muted ml-2"><del>{{ popular_product.0.price }} ₽</del></h6>
+                                    <h5 class="badge bg-warning text-dark ml-3">-{{ popular_product.0.discount }} %</h5>
+                                {% else %}
+                                    <h5>{{ popular_product.0.sell_price }} ₽</h5>
+                                {% endif %}
+                            </div>
+                            <div class="text-primary mr-2">
+                                {% if popular_product.1.0 < 0.25 %}
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                {% elif 0.25 <= popular_product.1.0 and popular_product.1.0 < 0.75 %}
+                                    <small class="fas fa-star-half-alt"></small>
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                {% elif 0.75 <= popular_product.1.0 and popular_product.1.0 < 1.25 %}
+                                    <small class="fas fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                {% elif 1.25 <= popular_product.1.0 and popular_product.1.0 < 1.75 %}
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star-half-alt"></small>
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                {% elif 1.75 <= popular_product.1.0 and popular_product.1.0 < 2.25 %}
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                {% elif 2.25 <= popular_product.1.0 and popular_product.1.0 < 2.75 %}
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star-half-alt"></small>
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                {% elif 2.75 <= popular_product.1.0 and popular_product.1.0 < 3.25 %}
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                {% elif 3.25 <= popular_product.1.0 and popular_product.1.0 < 3.75 %}
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star-half-alt"></small>
+                                    <small class="far fa-star"></small>
+                                {% elif 3.75 <= popular_product.1.0 and popular_product.1.0 < 4.25 %}
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="far fa-star"></small>
+                                {% elif 4.25 <= popular_product.1.0 and popular_product.1.0 < 4.75 %}
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star-half-alt"></small>
+                                {% elif popular_product.1.0 >= 4.75 %}
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                {% endif %}
+                                <small style="Color: #3D464D;">({{ popular_product.1.1 }})</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <!-- Популярные End -->
+
+    {% cache 600 carousel_special_products_3_4 %}
+    <!-- Offer Start -->
+    <div class="container-fluid pt-5 pb-3">
+        <div class="row px-xl-5">
+            <div class="col-md-6">
+                <div class="product-offer mb-30" style="height: 270px;">
+                    <img class="img-fluid" src="{{ special_product_3.image.url }}" alt="">
+                    <div class="offer-text">
+                        <h6 class="text-white text-uppercase">Выгода {{ special_product_3.discount }}%</h6>
+                        <h3 class="text-white mb-3">Специальное предложение</h3>
+                        <a href="{% url "catalog:product" special_product_3.slug %}" class="btn btn-primary">К товару</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="product-offer mb-30" style="height: 270px;">
+                    <img class="img-fluid" src="{{ special_product_4.image.url }}" alt="">
+                    <div class="offer-text">
+                        <h6 class="text-white text-uppercase">Выгода {{ special_product_4.discount }}%</h6>
+                        <h3 class="text-white mb-3">Специальное предложение</h3>
+                        <a href="{% url "catalog:product" special_product_4.slug %}" class="btn btn-primary">К товару</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Offer End -->
+    {% endcache %}
+
     <!-- Скидки Start -->
     <div class="container-fluid pt-1 pb-1">
         <h2 class="section-title position-relative mx-xl-5 mb-4"><span class="bg-secondary pr-3">Лучшие скидки</span></h2>
         <div class="row px-xl-5">
             {% for discount_product in discount_products %}
                 <div class="col-lg-3 col-md-4 col-sm-6 pb-1 d-flex">
-                    <div class="product-item bg-light mb-4">
+                    <div class="product-item bg-light mb-4" style="border: 1px solid rgba(0, 0, 0, 0.125);">
                         <div class="product-img position-relative overflow-hidden">
                             {% if discount_product.0.image %}
                                 <img class="img-fluid" src="{{ discount_product.0.image.url }}" alt="{{ discount_product.0.name }}">
@@ -74,7 +307,9 @@
                             <p> <a class="h4" href="{% url "catalog:product" discount_product.0.slug %}">{{ discount_product.0.name }}</a></p>
                             <p class="product_id"> id: {{ discount_product.0.display_id }}</p>
                             <div class="d-flex align-items-center justify-content-center mt-2">
-                                <h5>{{ discount_product.0.sell_price }} ₽</h5><h6 class="text-muted ml-2"><del>{{ discount_product.0.price }} ₽</del></h6><h5 class="badge bg-warning text-dark ml-3">-{{ discount_product.0.discount }} %</h5>
+                                <h5>{{ discount_product.0.sell_price }} ₽</h5>
+                                <h6 class="text-muted ml-2"><del>{{ discount_product.0.price }} ₽</del></h6>
+                                <h5 class="badge bg-warning text-dark ml-3">-{{ discount_product.0.discount }} %</h5>
                             </div>
                             <div class="text-primary mr-2">
                                 {% if discount_product.1.0 < 0.25 %}
@@ -154,13 +389,52 @@
     </div>
     <!-- Скидки End -->
 
+    {% cache 600 carousel_special_products_5_6_7 %}
+    <!-- Offer Start -->
+    <div class="container-fluid pt-5 pb-3">
+        <div class="row px-xl-5">
+            <div class="col-md-4">
+                <div class="product-offer mb-30" style="height: 490px; max-width: 490px;">
+                    <img class="img-fluid" src="{% static "img/Автомобили/peel_p50_1 (1).jpg" %}" alt="">
+                    <div class="offer-text">
+                        <h6 class="text-white text-uppercase">Выгода {{ special_product_5.discount }}%</h6>
+                        <h3 class="text-white mb-3">Специальное предложение</h3>
+                        <a href="{% url "catalog:product" special_product_5.slug %}" class="btn btn-primary">К товару</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="product-offer mb-30" style="height: 490px; max-width: 490px;">
+                    <img class="img-fluid" src="{% static "img/Автомобили/Tango T600 (1)-resized.jpg" %}" alt="">
+                    <div class="offer-text">
+                        <h6 class="text-white text-uppercase">Выгода {{ special_product_7.discount }}%</h6>
+                        <h3 class="text-white mb-3">Специальное предложение</h3>
+                        <a href="{% url "catalog:product" special_product_7.slug %}" class="btn btn-primary">К товару</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="product-offer mb-30" style="height: 490px; max-width: 490px;">
+                    <img class="img-fluid" src="{% static "img/Автомобили/citicar.png" %}" alt="">
+                    <div class="offer-text">
+                        <h6 class="text-white text-uppercase">Выгода {{ special_product_6.discount }}%</h6>
+                        <h3 class="text-white mb-3">Специальное предложение</h3>
+                        <a href="{% url "catalog:product" special_product_6.slug %}" class="btn btn-primary">К товару</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Offer End -->
+    {% endcache %}
+
     <!-- Новинки Start -->
     <div class="container-fluid pt-1 pb-1">
         <h2 class="section-title position-relative mx-xl-5 mb-4"><span class="bg-secondary pr-3">Новинки</span></h2>
         <div class="row px-xl-5">
             {% for new_product in new_products %}
                 <div class="col-lg-3 col-md-4 col-sm-6 pb-1 d-flex">
-                    <div class="product-item bg-light mb-4">
+                    <div class="product-item bg-light mb-4" style="border: 1px solid rgba(0, 0, 0, 0.125);">
                         <div class="product-img position-relative overflow-hidden">
                             {% if new_product.0.image %}
                                 <img class="img-fluid w-100" src="{{ new_product.0.image.url }}" alt="{{ new_product.0.name }}">
@@ -190,7 +464,9 @@
                             <p class="product_id"> id: {{ new_product.0.display_id }}</p>
                             <div class="d-flex align-items-center justify-content-center mt-2">
                                 {% if new_product.0.discount %}
-                                    <h5>{{ new_product.0.sell_price }} ₽</h5><h6 class="text-muted ml-2"><del>{{ new_product.0.price }} ₽</del></h6><h5 class="badge bg-warning text-dark ml-3">-{{ new_product.0.discount }} %</h5>
+                                    <h5>{{ new_product.0.sell_price }} ₽</h5>
+                                    <h6 class="text-muted ml-2"><del>{{ new_product.0.price }} ₽</del></h6>
+                                    <h5 class="badge bg-warning text-dark ml-3">-{{ new_product.0.discount }} %</h5>
                                 {% else %}
                                     <h5>{{ new_product.0.sell_price }} ₽</h5>
                                 {% endif %}
@@ -273,7 +549,8 @@
     </div>
     <!-- Новинки End -->
     
-    <!-- Vendor Start -->
+    {% cache 600 carousel_categories %}
+    <!-- Категории Start -->
     <div class="container-fluid py-1">
         <h2 class="section-title position-relative mx-xl-5 mb-4"><span class="bg-secondary pr-3">Категории</span></h2>
         <div class="row px-xl-5">
@@ -282,39 +559,39 @@
                     {% tag_categories as categories %}
                     {% for category in categories %}
                         {% if category.name == 'Автомобили' %}
-                            <div class="bg-light p-4">
+                            <div class="bg-light p-4" style="border: 1px solid rgba(0, 0, 0, 0.125);">
                                 <a href="{% url "catalog:index" category.slug %}"><img src="{% static "img/Машина.png" %}" alt=""></a>
                             </div>
                         {% elif category.name == 'Книги' %}
-                            <div class="bg-light p-4">    
+                            <div class="bg-light p-4" style="border: 1px solid rgba(0, 0, 0, 0.125);">    
                                 <a href="{% url "catalog:index" category.slug %}"><img src="{% static "img/Книги.png" %}" alt=""></a>
                             </div>
                         {% elif category.name == 'Мебель' %}
-                            <div class="bg-light p-4">    
+                            <div class="bg-light p-4" style="border: 1px solid rgba(0, 0, 0, 0.125);">    
                                 <a href="{% url "catalog:index" category.slug %}"><img src="{% static "img/Диван.png" %}" alt=""></a>
                             </div>
                         {% elif category.name == 'Музыкальные инструменты' %}
-                            <div class="bg-light p-4">    
+                            <div class="bg-light p-4" style="border: 1px solid rgba(0, 0, 0, 0.125);">    
                                 <a href="{% url "catalog:index" category.slug %}"><img src="{% static "img/Музыкальные инструменты.png" %}" alt=""></a>
                             </div>
                         {% elif category.name == 'Предметы интерьера' %}
-                            <div class="bg-light p-4">    
+                            <div class="bg-light p-4" style="border: 1px solid rgba(0, 0, 0, 0.125);">    
                                 <a href="{% url "catalog:index" category.slug %}"><img src="{% static "img/Настольная лампа.png" %}" alt=""></a>
                             </div>
                         {% elif category.name == 'Полезные мелочи' %}
-                            <div class="bg-light p-4">    
+                            <div class="bg-light p-4" style="border: 1px solid rgba(0, 0, 0, 0.125);">    
                                 <a href="{% url "catalog:index" category.slug %}"><img src="{% static "img/Вещи.png" %}" alt=""></a>
                             </div>
                         {% elif category.name == 'Недвижимость' %}
-                            <div class="bg-light p-4">    
+                            <div class="bg-light p-4" style="border: 1px solid rgba(0, 0, 0, 0.125);">    
                                 <a href="{% url "catalog:index" category.slug %}"><img src="{% static "img/Недвижимость.png" %}" alt=""></a>
                             </div>
                         {% elif category.name == 'Хозяйственно-бытовые товары' %}
-                            <div class="bg-light p-4">    
+                            <div class="bg-light p-4" style="border: 1px solid rgba(0, 0, 0, 0.125);">    
                                 <a href="{% url "catalog:index" category.slug %}"><img src="{% static "img/Хозтовары.png" %}" alt=""></a>
                             </div>
                         {% elif category.name == 'Одежда' %}
-                            <div class="bg-light p-4">    
+                            <div class="bg-light p-4" style="border: 1px solid rgba(0, 0, 0, 0.125);">    
                                 <a href="{% url "catalog:index" category.slug %}"><img src="{% static "img/Одежда.png" %}" alt=""></a>
                             </div>
                         {% endif %}
@@ -323,7 +600,8 @@
             </div>
         </div>
     </div>
-    <!-- Vendor End -->
+    <!-- Категории End -->
+    {% endcache %}
     
 {% endblock %}
 
@@ -359,11 +637,11 @@
                         <h5 class="text-secondary text-uppercase mb-4">Для клиента</h5>
                         <div class="d-flex flex-column justify-content-start">
                             <a class="text-secondary mb-2" href="{% url "main:about" %}"><i class="fa fa-angle-right mr-2"></i>Сообщить о проблеме</a>
-                            <a class="text-secondary mb-2" href="{% url "main:about" %}"><i class="fa fa-angle-right mr-2"></i>Политика конфиденциальности</a>
-                            <a class="text-secondary mb-2" href="{% url "main:about" %}"><i class="fa fa-angle-right mr-2"></i>Персональные данные</a>
-                            <a class="text-secondary mb-2" href="{% url "main:about" %}"><i class="fa fa-angle-right mr-2"></i>Правила продаж</a>
-                            <a class="text-secondary mb-2" href="{% url "main:about" %}"><i class="fa fa-angle-right mr-2"></i>Правила пользования сайта</a>
-                            <a class="text-secondary" href="{% url "main:about" %}"><i class="fa fa-angle-right mr-2"></i>Сотрудничество</a>
+                            <a class="text-secondary mb-2" href="{% url "main:about" %}#confidencial-politics"><i class="fa fa-angle-right mr-2"></i>Политика конфиденциальности</a>
+                            <a class="text-secondary mb-2" href="{% url "main:about" %}#personal-data"><i class="fa fa-angle-right mr-2"></i>Персональные данные</a>
+                            <a class="text-secondary mb-2" href="{% url "main:about" %}#sale-rules"><i class="fa fa-angle-right mr-2"></i>Правила продаж</a>
+                            <a class="text-secondary mb-2" href="{% url "main:about" %}#site-rules"><i class="fa fa-angle-right mr-2"></i>Правила пользования сайта</a>
+                            <a class="text-secondary" href="{% url "main:about" %}#partnership"><i class="fa fa-angle-right mr-2"></i>Сотрудничество</a>
                         </div>
                     </div>
                     <div class="col-md-4 mb-5">

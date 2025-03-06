@@ -12,7 +12,7 @@
 <div class="container-fluid">
     <div class="row px-xl-5">
         <div class="col-12">
-            <nav class="breadcrumb bg-light mb-30">
+            <nav class="breadcrumb bg-light mb-30" style="border: 1px solid rgba(0, 0, 0, 0.125);">
                 <a class="breadcrumb-item text-dark" href="{% url "main:all_categories" %}">Каталог</a>
                 <span class="breadcrumb-item active">{{ category.name }}</span>
             </nav>
@@ -34,7 +34,7 @@
         <div class="col-lg-3 col-md-4">
             <!-- Filter by price Start -->
             <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Фильтр по цене</span></h5>
-            <div class="bg-light p-3 mb-30">
+            <div class="bg-light p-3 mb-30" style="border: 1px solid rgba(0, 0, 0, 0.125);">
                 <form action="{% if request.GET.q %}{% url "catalog:search" %}{% else %}{% url "catalog:index" slug_url %}{% endif %}" method="get">
                     <div class="custom-control custom-checkbox d-flex align-items-cente0r justify-content-between mb-3">
                         <input type="checkbox" class="custom-control-input" id="price-all" name="order_by" value="default" 
@@ -141,7 +141,7 @@
 
                 {% for product in goods %}
                 <div class="col-lg-4 col-md-5 col-sm-6 pb-1 d-flex">
-                    <div class="product-item bg-light mb-4">
+                    <div class="product-item bg-light mb-4" style="border: 1px solid rgba(0, 0, 0, 0.125);">
                         <div class="product-img position-relative overflow-hidden">
                             {% if product.0.image %}
                                 <a href="{% url "catalog:product" product.0.slug %}">
@@ -336,11 +336,11 @@
                         <h5 class="text-secondary text-uppercase mb-4">Для клиента</h5>
                         <div class="d-flex flex-column justify-content-start">
                             <a class="text-secondary mb-2" href="{% url "main:about" %}"><i class="fa fa-angle-right mr-2"></i>Сообщить о проблеме</a>
-                            <a class="text-secondary mb-2" href="{% url "main:about" %}"><i class="fa fa-angle-right mr-2"></i>Политика конфиденциальности</a>
-                            <a class="text-secondary mb-2" href="{% url "main:about" %}"><i class="fa fa-angle-right mr-2"></i>Персональные данные</a>
-                            <a class="text-secondary mb-2" href="{% url "main:about" %}"><i class="fa fa-angle-right mr-2"></i>Правила продаж</a>
-                            <a class="text-secondary mb-2" href="{% url "main:about" %}"><i class="fa fa-angle-right mr-2"></i>Правила пользования сайта</a>
-                            <a class="text-secondary" href="{% url "main:about" %}"><i class="fa fa-angle-right mr-2"></i>Сотрудничество</a>
+                            <a class="text-secondary mb-2" href="{% url "main:about" %}#confidencial-politics"><i class="fa fa-angle-right mr-2"></i>Политика конфиденциальности</a>
+                            <a class="text-secondary mb-2" href="{% url "main:about" %}#personal-data"><i class="fa fa-angle-right mr-2"></i>Персональные данные</a>
+                            <a class="text-secondary mb-2" href="{% url "main:about" %}#sale-rules"><i class="fa fa-angle-right mr-2"></i>Правила продаж</a>
+                            <a class="text-secondary mb-2" href="{% url "main:about" %}#site-rules"><i class="fa fa-angle-right mr-2"></i>Правила пользования сайта</a>
+                            <a class="text-secondary" href="{% url "main:about" %}#partnership"><i class="fa fa-angle-right mr-2"></i>Сотрудничество</a>
                         </div>
                     </div>
                     <div class="col-md-4 mb-5">

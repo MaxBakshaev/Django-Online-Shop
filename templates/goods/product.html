@@ -11,7 +11,7 @@
 <div class="container-fluid">
     <div class="row px-xl-5">
         <div class="col-12">
-            <nav class="breadcrumb bg-light mb-30">
+            <nav class="breadcrumb bg-light mb-30" style="border: 1px solid rgba(0, 0, 0, 0.125);">
                 <a class="breadcrumb-item text-dark" href="{% url "main:all_categories" %}">Каталог</a>
                 <a class="breadcrumb-item text-dark" href="{% url "catalog:index" product.category.slug %}">{{ product.category.name }}</a>
                 <span class="breadcrumb-item active">{{ product.name }}</span>
@@ -25,7 +25,7 @@
 <div class="container-fluid pb-5">
     <div class="row px-xl-5">
         <div class="col-lg-5 mb-30">
-            <div id="product-carousel" class="carousel slide" data-ride="carousel">
+            <div id="product-carousel" class="carousel slide" data-ride="carousel" style="border: 1px solid rgba(0, 0, 0, 0.125);">
                 <div class="carousel-inner bg-light">
                     <div class="carousel-item active">
                         {% if product.image %}
@@ -39,7 +39,7 @@
         </div>
     <!-- Информация о товаре Start -->
         <div class="col-lg-7 h-auto mb-30">
-            <div class="h-100 bg-light p-30">
+            <div class="h-100 bg-light p-30" style="border: 1px solid rgba(0, 0, 0, 0.125);">
                 <h3>{{ product.name }}</h3>
                 <p class="product_id">id: {{ product.display_id }}</p>
                 <div class="d-flex mb-3">
@@ -114,10 +114,16 @@
                     </div>
                     <small class="pt-1">({{ amount_reviews }} {{ reviews_ending }})</small>
                 </div>
-                <div class="d-flex align-items-center">
-                    <h3 class="font-weight-semi-bold mb-4">{{ product.sell_price }} ₽</h3>
-                </div>
-                <p class="mb-4">{{ product.description }}</p>
+                {% if product.discount %}
+                    <div class="d-flex align-items-center">
+                        <p><h5 class="text-muted"><del>{{ product.price }} ₽</del></h5>
+                        <h5 class="bg-warning text-dark ml-3" 
+                        style="padding: 5px 10px; border-radius: 5px; font-size: 1rem;">
+                        -{{ product.discount }} %</h5></p>
+                    </div>
+                {% endif %}
+                <p class="mb-4" style="text-align: justify; white-space: pre-line;">{{ product.description }}</p>
+                <p><h3 class="font-weight-semi-bold mb-4">{{ product.sell_price }} ₽</h3></p>
                 <div class="d-flex align-items-center mb-4 pt-2">
                     <a class="btn btn-primary px-3 add-to-cart" href="{% url "cart:cart_add"%}"
                     data-product-id="{{ product.id }}">
@@ -146,7 +152,7 @@
     <!-- Отзывы Start -->
     <div class="row px-xl-5">
         <div class="col">
-            <div class="bg-light p-30">
+            <div class="bg-light p-30" style="border: 1px solid rgba(0, 0, 0, 0.125);">
                 <div class="nav nav-tabs mb-4">
                     <a class="nav-item nav-link text-dark active" data-toggle="tab" href="#tab-pane-1">Отзывы ({{ amount_reviews }})</a>
                 </div>
@@ -292,11 +298,11 @@
                         <h5 class="text-secondary text-uppercase mb-4">Для клиента</h5>
                         <div class="d-flex flex-column justify-content-start">
                             <a class="text-secondary mb-2" href="{% url "main:about" %}"><i class="fa fa-angle-right mr-2"></i>Сообщить о проблеме</a>
-                            <a class="text-secondary mb-2" href="{% url "main:about" %}"><i class="fa fa-angle-right mr-2"></i>Политика конфиденциальности</a>
-                            <a class="text-secondary mb-2" href="{% url "main:about" %}"><i class="fa fa-angle-right mr-2"></i>Персональные данные</a>
-                            <a class="text-secondary mb-2" href="{% url "main:about" %}"><i class="fa fa-angle-right mr-2"></i>Правила продаж</a>
-                            <a class="text-secondary mb-2" href="{% url "main:about" %}"><i class="fa fa-angle-right mr-2"></i>Правила пользования сайта</a>
-                            <a class="text-secondary" href="{% url "main:about" %}"><i class="fa fa-angle-right mr-2"></i>Сотрудничество</a>
+                            <a class="text-secondary mb-2" href="{% url "main:about" %}#confidencial-politics"><i class="fa fa-angle-right mr-2"></i>Политика конфиденциальности</a>
+                            <a class="text-secondary mb-2" href="{% url "main:about" %}#personal-data"><i class="fa fa-angle-right mr-2"></i>Персональные данные</a>
+                            <a class="text-secondary mb-2" href="{% url "main:about" %}#sale-rules"><i class="fa fa-angle-right mr-2"></i>Правила продаж</a>
+                            <a class="text-secondary mb-2" href="{% url "main:about" %}#site-rules"><i class="fa fa-angle-right mr-2"></i>Правила пользования сайта</a>
+                            <a class="text-secondary" href="{% url "main:about" %}#partnership"><i class="fa fa-angle-right mr-2"></i>Сотрудничество</a>
                         </div>
                     </div>
                     <div class="col-md-4 mb-5">

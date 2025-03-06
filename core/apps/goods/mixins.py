@@ -47,12 +47,14 @@ class GoodsMixin:
         goods_rating_list = []
         # список количества отзывов продуктов
         goods_amount_reviews_list = []
+        goods_amount_reviews_list_only_number = []
 
         for product in self.goods:
 
             # получение количества отзывов о продуктах и слово "отзыв" в правильном падеже
             self.reviews = product.reviews.all()
             self.amount_reviews: int = len(self.reviews)
+            goods_amount_reviews_list_only_number.append(self.amount_reviews)
             reviews_ending = self.get_reviews_ending()
             goods_amount_reviews_list.append(f"{self.amount_reviews} {reviews_ending}")
 
@@ -66,6 +68,7 @@ class GoodsMixin:
             dict_product_rating_amount_reviews[self.goods[product_index]] = (
                 goods_rating_list[product_index],
                 goods_amount_reviews_list[product_index],
+                goods_amount_reviews_list_only_number[product_index],
             )
             product_index += 1
         return list(dict_product_rating_amount_reviews.items())

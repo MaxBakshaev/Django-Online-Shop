@@ -13,7 +13,7 @@
             <div class="row pb-3">
                 {% for product in favorite_goods %}
                 <div class="col-lg-4 col-md-5 col-sm-6 pb-1 d-flex">
-                    <div class="product-item bg-light mb-4">
+                    <div class="product-item bg-light mb-4" style="border: 1px solid rgba(0, 0, 0, 0.125);">
                         <div class="product-img position-relative overflow-hidden">
                             {% if product.image %}
                                 <img class="img-fluid w-100" src="{{ product.image.url }}" alt="{{ product.name }}">
@@ -70,7 +70,7 @@
                 {% endfor %}   
             </div>
         {% else %}
-        <div class="bg-light p-30 mb-5 text-center">
+        <div class="bg-light p-30 mb-5 text-center" style="border: 1px solid rgba(0, 0, 0, 0.125);">
             <img src="{% static "img/yellow-heart_1f49b.png" %}" class="pb-2" style="width: 160px;">
             <h5>В избранном пока нет товаров</h5>
             <a class="h5" href="{% url "main:all_categories" %}" style="Color: #e6b400;">Перейти в каталог</a>

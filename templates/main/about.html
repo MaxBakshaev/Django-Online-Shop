@@ -6,42 +6,232 @@
 {% endblock modal_cart %}
 
 {% block content %}
-        <!-- Featured Start -->
-        <div class="container-fluid pt-3">
-            <div class="row px-xl-5 pb-2">
-                <div class="col-lg-3 col-md-6 col-sm-12 pb-1 d-flex">
-                    <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px; width: 100%;">
-                        <h1 class="fa fa-check text-primary m-0 mr-3"></h1>
-                        <h5 class="font-weight-semi-bold m-0">Качество продукции</h5>
-                    </div>
+    <!-- Featured Start -->
+    <div class="container-fluid pt-3">
+        <div class="row px-xl-5 pb-2">
+            <div class="col-lg-3 col-md-6 col-sm-12 pb-1 d-flex">
+                <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px; width: 100%; border: 1px solid rgba(0, 0, 0, 0.125);">
+                    <h1 class="fa fa-check text-primary m-0 mr-3"></h1>
+                    <h5 class="font-weight-semi-bold m-0">Качество продукции</h5>
                 </div>
-                <div class="col-lg-3 col-md-6 col-sm-12 pb-1 d-flex">
-                    <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px; width: 100%;">
-                        <h1 class="fa fa-shipping-fast text-primary m-0 mr-2"></h1>
-                        <h5 class="font-weight-semi-bold m-0">Бесплатная доставка</h5>
-                    </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12 pb-1 d-flex">
+                <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px; width: 100%; border: 1px solid rgba(0, 0, 0, 0.125);">
+                    <h1 class="fa fa-shipping-fast text-primary m-0 mr-2"></h1>
+                    <h5 class="font-weight-semi-bold m-0">Бесплатная доставка</h5>
                 </div>
-                <div class="col-lg-3 col-md-6 col-sm-12 pb-1 d-flex">
-                    <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px; width: 100%;">
-                        <h1 class="fas fa-exchange-alt text-primary m-0 mr-3"></h1>
-                        <h5 class="font-weight-semi-bold m-0">Возврат в течение 14 дней</h5>
-                    </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12 pb-1 d-flex">
+                <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px; width: 100%; border: 1px solid rgba(0, 0, 0, 0.125);">
+                    <h1 class="fas fa-exchange-alt text-primary m-0 mr-3"></h1>
+                    <h5 class="font-weight-semi-bold m-0">Возврат в течение 14 дней</h5>
                 </div>
-                <div class="col-lg-3 col-md-6 col-sm-12 pb-1 d-flex">
-                    <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px; width: 100%;">
-                        <h1 class="fa fa-phone-volume text-primary m-0 mr-3"></h1>
-                        <h5 class="font-weight-semi-bold m-0">Поддержка 24/7</h5>
-                    </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12 pb-1 d-flex">
+                <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px; width: 100%; border: 1px solid rgba(0, 0, 0, 0.125);">
+                    <h1 class="fa fa-phone-volume text-primary m-0 mr-3"></h1>
+                    <h5 class="font-weight-semi-bold m-0">Поддержка 24/7</h5>
                 </div>
             </div>
         </div>
-        <!-- Featured End -->
-    <div class="container-fluid pt-5">
-        <div class="mt-5 pt-5 bg-white">
-            <h3 class="m-2"> <strong>{{ content }}</strong></h3>
-            <p class="m-2">{{ text_on_page }}</p>
+    </div>
+    <!-- Featured End -->
+
+    <!-- Contact Start -->
+    <div class="container-fluid">
+        <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Сообщить о проблеме</span></h2>
+        <div class="row px-xl-5">
+            <div class="col-lg-7 mb-5">
+                <div class="contact-form bg-light p-30">
+                    <div id="success"></div>
+                    <form name="sentMessage" id="contactForm" novalidate="novalidate">
+                        <div class="control-group">
+                            <input type="text" class="form-control" id="name" placeholder="Ваше имя"
+                                required="required" data-validation-required-message="Please enter your name" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="control-group">
+                            <input type="email" class="form-control" id="email" placeholder="Ваш почтовый адрес"
+                                required="required" data-validation-required-message="Please enter your email" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="control-group">
+                            <input type="text" class="form-control" id="subject" placeholder="Тема"
+                                required="required" data-validation-required-message="Please enter a subject" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="control-group">
+                            <textarea class="form-control" rows="8" id="message" placeholder="Текст проблемы"
+                                required="required"
+                                data-validation-required-message="Please enter your message"></textarea>
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div>
+                            <button class="btn btn-primary py-2 px-4" type="submit" id="sendMessageButton">Отправить сообщение</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-5 mb-5">
+                <div class="bg-light p-30 mb-3">
+                    <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>123 Street, Blagoveshchensk, Russia</p>
+                    <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>info@example.com</p>
+                    <p class="mb-2"><i class="fa fa-phone-alt text-primary mr-3"></i>+012 345 67890 (c 09:00 до 18:00)</p>
+                </div>
+            </div>
         </div>
     </div>
+    <!-- Contact End -->
+    <div class="container-fluid">
+        <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Правовая информация</span></h2>
+    </div>    
+    <div class="row px-xl-5">
+        <div class="container-fluid mb-5 d-flex">
+            <div class="container-fluid bg-light p-30 mx-xl-5" style="min-width: 300px; width: 300px;">
+                <p><a href="#confidencial-politics" style="Color: #3D464D;" 
+                    onmouseover="style.color='#e6b400'" onmouseout="style.color='#3D464D'"><b>1. Политика конфиденциальности</b></a></p>
+                <p><a href="#confidencial-politics1" style="Color: #3D464D;" 
+                    onmouseover="style.color='#e6b400'" onmouseout="style.color='#3D464D'">1.1. Lorem ipsum</a></p>
+                <p><a href="#confidencial-politics2" style="Color: #3D464D;" 
+                    onmouseover="style.color='#e6b400'" onmouseout="style.color='#3D464D'">1.2. Lorem ipsum</a></p>
+                <p><a href="#confidencial-politics3" style="Color: #3D464D;" 
+                    onmouseover="style.color='#e6b400'" onmouseout="style.color='#3D464D'">1.3. Lorem ipsum</a></p>
+                <p><a href="#confidencial-politics4" style="Color: #3D464D;" 
+                    onmouseover="style.color='#e6b400'" onmouseout="style.color='#3D464D'">1.4. Lorem ipsum</a></p>
+                <p><a href="#confidencial-politics5" style="Color: #3D464D;" 
+                    onmouseover="style.color='#e6b400'" onmouseout="style.color='#3D464D'">1.5. Lorem ipsum</a></p>
+
+                <p class="pt-3"><a href="#personal-data" style="Color: #3D464D;" 
+                    onmouseover="style.color='#e6b400'" onmouseout="style.color='#3D464D'"><b>2. Персональные данные</b></a></p>
+                <p><a href="#personal-data1" style="Color: #3D464D;" 
+                    onmouseover="style.color='#e6b400'" onmouseout="style.color='#3D464D'">2.1. Lorem ipsum</a></p>
+                <p><a href="#personal-data2" style="Color: #3D464D;" 
+                    onmouseover="style.color='#e6b400'" onmouseout="style.color='#3D464D'">2.2. Lorem ipsum</a></p>
+                <p><a href="#personal-data3" style="Color: #3D464D;" 
+                    onmouseover="style.color='#e6b400'" onmouseout="style.color='#3D464D'">2.3. Lorem ipsum</a></p>
+                <p><a href="#personal-data4" style="Color: #3D464D;" 
+                    onmouseover="style.color='#e6b400'" onmouseout="style.color='#3D464D'">2.4. Lorem ipsum</a></p>
+                <p><a href="#personal-data5" style="Color: #3D464D;" 
+                    onmouseover="style.color='#e6b400'" onmouseout="style.color='#3D464D'">2.5. Lorem ipsum</a></p>
+
+                <p class="pt-3"><a href="#sale-rules" style="Color: #3D464D;" 
+                    onmouseover="style.color='#e6b400'" onmouseout="style.color='#3D464D'"><b>3. Правила продаж</b></a></p>
+                <p><a href="#sale-rules1" style="Color: #3D464D;" 
+                    onmouseover="style.color='#e6b400'" onmouseout="style.color='#3D464D'">3.1. Lorem ipsum</a></p>
+                <p><a href="#sale-rules2" style="Color: #3D464D;" 
+                    onmouseover="style.color='#e6b400'" onmouseout="style.color='#3D464D'">3.2. Lorem ipsum</a></p>
+                <p><a href="#sale-rules3" style="Color: #3D464D;" 
+                    onmouseover="style.color='#e6b400'" onmouseout="style.color='#3D464D'">3.3. Lorem ipsum</a></p>
+                <p><a href="#sale-rules4" style="Color: #3D464D;" 
+                    onmouseover="style.color='#e6b400'" onmouseout="style.color='#3D464D'">3.4. Lorem ipsum</a></p>
+                <p><a href="#sale-rules5" style="Color: #3D464D;" 
+                    onmouseover="style.color='#e6b400'" onmouseout="style.color='#3D464D'">3.5. Lorem ipsum</a></p>
+
+                <p class="pt-3"><a href="#site-rules" style="Color: #3D464D;" 
+                    onmouseover="style.color='#e6b400'" onmouseout="style.color='#3D464D'"><b>4. Правила пользования сайта</b></a></p>
+                <p><a href="#site-rules1" style="Color: #3D464D;" 
+                    onmouseover="style.color='#e6b400'" onmouseout="style.color='#3D464D'">4.1. Lorem ipsum</a></p>
+                <p><a href="#site-rules2" style="Color: #3D464D;" 
+                    onmouseover="style.color='#e6b400'" onmouseout="style.color='#3D464D'">4.2. Lorem ipsum</a></p>
+                <p><a href="#site-rules3" style="Color: #3D464D;" 
+                    onmouseover="style.color='#e6b400'" onmouseout="style.color='#3D464D'">4.3. Lorem ipsum</a></p>
+                <p><a href="#site-rules4" style="Color: #3D464D;" 
+                    onmouseover="style.color='#e6b400'" onmouseout="style.color='#3D464D'">4.4. Lorem ipsum</a></p>
+                <p><a href="#site-rules5" style="Color: #3D464D;" 
+                    onmouseover="style.color='#e6b400'" onmouseout="style.color='#3D464D'">4.5. Lorem ipsum</a></p>
+
+                <p class="pt-3"><a href="#partnership" style="Color: #3D464D;" 
+                    onmouseover="style.color='#e6b400'" onmouseout="style.color='#3D464D'"><b>5. Сотрудничество</b></a></p>
+                <p><a href="#partnership1" style="Color: #3D464D;" 
+                    onmouseover="style.color='#e6b400'" onmouseout="style.color='#3D464D'">5.1. Lorem ipsum</a></p>
+                <p><a href="#partnership2" style="Color: #3D464D;" 
+                    onmouseover="style.color='#e6b400'" onmouseout="style.color='#3D464D'">5.2. Lorem ipsum</a></p>
+                <p><a href="#partnership3" style="Color: #3D464D;" 
+                    onmouseover="style.color='#e6b400'" onmouseout="style.color='#3D464D'">5.3. Lorem ipsum</a></p>
+                <p><a href="#partnership4" style="Color: #3D464D;" 
+                    onmouseover="style.color='#e6b400'" onmouseout="style.color='#3D464D'">5.4. Lorem ipsum</a></p>
+                <p><a href="#partnership5" style="Color: #3D464D;" 
+                    onmouseover="style.color='#e6b400'" onmouseout="style.color='#3D464D'">5.5. Lorem ipsum</a></p>
+
+            </div>
+            <div class="container-fluid bg-white" style="margin-right: 45px;">  
+                <div class="container-fluid mt-2 pt-3 mb-4" style="text-align: justify;">
+                    <a name="confidencial-politics"></a>
+                    <h3 class="section-title position-relative text-uppercase mb-2">1. Политика конфиденциальности</h3>
+                    <a name="confidencial-politics1"></a>
+                    <p>1.1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque id nibh hendrerit, accumsan mauris dignissim, sollicitudin lectus. Sed risus elit, tincidunt sed imperdiet non, bibendum eget enim. Vivamus eget egestas dui, eu imperdiet ipsum. Pellentesque mauris arcu, volutpat ac quam quis, interdum laoreet nulla. Nullam felis sapien, dapibus ac leo sed, sodales sodales nulla. Nullam varius mauris eu leo ullamcorper, nec commodo nunc auctor. Suspendisse feugiat, sem at tincidunt dignissim, dui enim convallis massa, sed vehicula tortor orci eu dolor. Nullam imperdiet dignissim diam, non varius odio egestas in. Donec hendrerit tincidunt gravida. Pellentesque auctor tristique tortor ut mollis. Nulla mauris metus, pharetra vel luctus eu, commodo sit amet lacus. Suspendisse nec est consectetur, lobortis ipsum et, cursus nisl. Nullam pulvinar est lacus, ut interdum nisi elementum et. Aliquam nec iaculis purus. Vestibulum ut magna congue, pharetra turpis id, dignissim neque. Integer dignissim eu orci id fermentum.</p>
+                    <a name="confidencial-politics2"></a>
+                    <p>1.2. Nulla aliquam ex et ipsum ornare eleifend. Phasellus bibendum a nulla vel viverra. Integer lorem nulla, ornare in congue nec, dignissim ac erat. Integer porttitor est a nisi lacinia, egestas varius sem varius. Vestibulum magna dolor, ultrices et venenatis a, tincidunt gravida turpis. Mauris sed sem pellentesque velit lobortis lacinia finibus nec nisl. Ut pretium mauris vel justo feugiat vestibulum. Pellentesque tempor turpis magna, quis varius libero sollicitudin eu. Fusce tristique risus at scelerisque luctus. Aliquam tempor odio odio, in pellentesque lorem bibendum ac. Nam gravida libero vitae orci faucibus consectetur. Donec dignissim, orci eu pulvinar dignissim, dolor lorem fringilla neque, vel iaculis dui dolor porta leo. Nam ac ligula in dolor tincidunt tempor non nec dui. Etiam quis placerat erat, nec cursus risus.</p>
+                    <a name="confidencial-politics3"></a>
+                    <p>1.3. Nam eget nunc in dolor faucibus porttitor. In leo erat, egestas id tellus vel, viverra feugiat lorem. Curabitur sed tempus tellus, et sollicitudin nulla. Quisque venenatis velit felis, eu vestibulum elit porttitor sit amet. Proin luctus massa enim, at condimentum risus sodales vitae. Vivamus sit amet mi et nunc placerat placerat. Sed eleifend metus id lacus convallis, in ultricies erat suscipit. Fusce in lorem ac velit blandit convallis vel vel libero. Nam eget justo ut ipsum maximus mattis condimentum sit amet lacus. Morbi diam libero, feugiat a rutrum et, convallis in tortor.</p>
+                    <a name="confidencial-politics4"></a>
+                    <p>1.4. Praesent sodales est vel tincidunt convallis. Cras quis ultrices felis. Fusce eu nisi condimentum, bibendum turpis id, porttitor mauris. In id sodales lectus. Vivamus tempor dui at pretium venenatis. Etiam tristique velit et scelerisque fringilla. Donec et lectus vitae nunc interdum molestie sit amet et libero.</p>
+                    <a name="confidencial-politics5"></a>
+                    <p>1.5. Fusce gravida ipsum sem, et dapibus mi mattis sit amet. Etiam neque eros, iaculis a volutpat nec, facilisis nec nulla. In ultricies ipsum ante, vel aliquam dui tempor quis. Cras ut neque non metus vehicula interdum. Aenean finibus nunc vel ante vehicula luctus. Fusce et ante vitae eros porta ultrices. Suspendisse vehicula vitae velit vel finibus. Curabitur vitae accumsan sapien. Vivamus ultrices, erat sed placerat malesuada, mauris enim efficitur ligula, nec tristique ipsum dolor sit amet lacus.</p>
+                </div>
+                <div class="container-fluid mt-2 pt-3 mb-4" style="text-align: justify;">
+                    <a name="personal-data"></a>
+                    <h2 class="section-title position-relative text-uppercase mb-2">2. Персональные данные</h2>
+                    <a name="personal-data1"></a>
+                    <p>2.1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque id nibh hendrerit, accumsan mauris dignissim, sollicitudin lectus. Sed risus elit, tincidunt sed imperdiet non, bibendum eget enim. Vivamus eget egestas dui, eu imperdiet ipsum. Pellentesque mauris arcu, volutpat ac quam quis, interdum laoreet nulla. Nullam felis sapien, dapibus ac leo sed, sodales sodales nulla. Nullam varius mauris eu leo ullamcorper, nec commodo nunc auctor. Suspendisse feugiat, sem at tincidunt dignissim, dui enim convallis massa, sed vehicula tortor orci eu dolor. Nullam imperdiet dignissim diam, non varius odio egestas in. Donec hendrerit tincidunt gravida. Pellentesque auctor tristique tortor ut mollis. Nulla mauris metus, pharetra vel luctus eu, commodo sit amet lacus. Suspendisse nec est consectetur, lobortis ipsum et, cursus nisl. Nullam pulvinar est lacus, ut interdum nisi elementum et. Aliquam nec iaculis purus. Vestibulum ut magna congue, pharetra turpis id, dignissim neque. Integer dignissim eu orci id fermentum.</p>
+                    <a name="personal-data2"></a>
+                    <p>2.2. Nulla aliquam ex et ipsum ornare eleifend. Phasellus bibendum a nulla vel viverra. Integer lorem nulla, ornare in congue nec, dignissim ac erat. Integer porttitor est a nisi lacinia, egestas varius sem varius. Vestibulum magna dolor, ultrices et venenatis a, tincidunt gravida turpis. Mauris sed sem pellentesque velit lobortis lacinia finibus nec nisl. Ut pretium mauris vel justo feugiat vestibulum. Pellentesque tempor turpis magna, quis varius libero sollicitudin eu. Fusce tristique risus at scelerisque luctus. Aliquam tempor odio odio, in pellentesque lorem bibendum ac. Nam gravida libero vitae orci faucibus consectetur. Donec dignissim, orci eu pulvinar dignissim, dolor lorem fringilla neque, vel iaculis dui dolor porta leo. Nam ac ligula in dolor tincidunt tempor non nec dui. Etiam quis placerat erat, nec cursus risus.</p>
+                    <a name="personal-data3"></a>
+                    <p>2.3. Nam eget nunc in dolor faucibus porttitor. In leo erat, egestas id tellus vel, viverra feugiat lorem. Curabitur sed tempus tellus, et sollicitudin nulla. Quisque venenatis velit felis, eu vestibulum elit porttitor sit amet. Proin luctus massa enim, at condimentum risus sodales vitae. Vivamus sit amet mi et nunc placerat placerat. Sed eleifend metus id lacus convallis, in ultricies erat suscipit. Fusce in lorem ac velit blandit convallis vel vel libero. Nam eget justo ut ipsum maximus mattis condimentum sit amet lacus. Morbi diam libero, feugiat a rutrum et, convallis in tortor.</p>
+                    <a name="personal-data4"></a>
+                    <p>2.4. Praesent sodales est vel tincidunt convallis. Cras quis ultrices felis. Fusce eu nisi condimentum, bibendum turpis id, porttitor mauris. In id sodales lectus. Vivamus tempor dui at pretium venenatis. Etiam tristique velit et scelerisque fringilla. Donec et lectus vitae nunc interdum molestie sit amet et libero.</p>
+                    <a name="personal-data5"></a>
+                    <p>2.5. Fusce gravida ipsum sem, et dapibus mi mattis sit amet. Etiam neque eros, iaculis a volutpat nec, facilisis nec nulla. In ultricies ipsum ante, vel aliquam dui tempor quis. Cras ut neque non metus vehicula interdum. Aenean finibus nunc vel ante vehicula luctus. Fusce et ante vitae eros porta ultrices. Suspendisse vehicula vitae velit vel finibus. Curabitur vitae accumsan sapien. Vivamus ultrices, erat sed placerat malesuada, mauris enim efficitur ligula, nec tristique ipsum dolor sit amet lacus.</p>
+                </div>
+                <div class="container-fluid mt-2 pt-3 mb-4" style="text-align: justify;">
+                    <a name="sale-rules"></a>
+                    <h2 class="section-title position-relative text-uppercase mb-2">3. Правила продаж</h2>
+                    <a name="sale-rules1"></a>
+                    <p>3.1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque id nibh hendrerit, accumsan mauris dignissim, sollicitudin lectus. Sed risus elit, tincidunt sed imperdiet non, bibendum eget enim. Vivamus eget egestas dui, eu imperdiet ipsum. Pellentesque mauris arcu, volutpat ac quam quis, interdum laoreet nulla. Nullam felis sapien, dapibus ac leo sed, sodales sodales nulla. Nullam varius mauris eu leo ullamcorper, nec commodo nunc auctor. Suspendisse feugiat, sem at tincidunt dignissim, dui enim convallis massa, sed vehicula tortor orci eu dolor. Nullam imperdiet dignissim diam, non varius odio egestas in. Donec hendrerit tincidunt gravida. Pellentesque auctor tristique tortor ut mollis. Nulla mauris metus, pharetra vel luctus eu, commodo sit amet lacus. Suspendisse nec est consectetur, lobortis ipsum et, cursus nisl. Nullam pulvinar est lacus, ut interdum nisi elementum et. Aliquam nec iaculis purus. Vestibulum ut magna congue, pharetra turpis id, dignissim neque. Integer dignissim eu orci id fermentum.</p>
+                    <a name="sale-rules2"></a>
+                    <p>3.2. Nulla aliquam ex et ipsum ornare eleifend. Phasellus bibendum a nulla vel viverra. Integer lorem nulla, ornare in congue nec, dignissim ac erat. Integer porttitor est a nisi lacinia, egestas varius sem varius. Vestibulum magna dolor, ultrices et venenatis a, tincidunt gravida turpis. Mauris sed sem pellentesque velit lobortis lacinia finibus nec nisl. Ut pretium mauris vel justo feugiat vestibulum. Pellentesque tempor turpis magna, quis varius libero sollicitudin eu. Fusce tristique risus at scelerisque luctus. Aliquam tempor odio odio, in pellentesque lorem bibendum ac. Nam gravida libero vitae orci faucibus consectetur. Donec dignissim, orci eu pulvinar dignissim, dolor lorem fringilla neque, vel iaculis dui dolor porta leo. Nam ac ligula in dolor tincidunt tempor non nec dui. Etiam quis placerat erat, nec cursus risus.</p>
+                    <a name="sale-rules3"></a>
+                    <p>3.3. Nam eget nunc in dolor faucibus porttitor. In leo erat, egestas id tellus vel, viverra feugiat lorem. Curabitur sed tempus tellus, et sollicitudin nulla. Quisque venenatis velit felis, eu vestibulum elit porttitor sit amet. Proin luctus massa enim, at condimentum risus sodales vitae. Vivamus sit amet mi et nunc placerat placerat. Sed eleifend metus id lacus convallis, in ultricies erat suscipit. Fusce in lorem ac velit blandit convallis vel vel libero. Nam eget justo ut ipsum maximus mattis condimentum sit amet lacus. Morbi diam libero, feugiat a rutrum et, convallis in tortor.</p>
+                    <a name="sale-rules4"></a>
+                    <p>3.4. Praesent sodales est vel tincidunt convallis. Cras quis ultrices felis. Fusce eu nisi condimentum, bibendum turpis id, porttitor mauris. In id sodales lectus. Vivamus tempor dui at pretium venenatis. Etiam tristique velit et scelerisque fringilla. Donec et lectus vitae nunc interdum molestie sit amet et libero.</p>
+                    <a name="sale-rules5"></a>
+                    <p>3.5. Fusce gravida ipsum sem, et dapibus mi mattis sit amet. Etiam neque eros, iaculis a volutpat nec, facilisis nec nulla. In ultricies ipsum ante, vel aliquam dui tempor quis. Cras ut neque non metus vehicula interdum. Aenean finibus nunc vel ante vehicula luctus. Fusce et ante vitae eros porta ultrices. Suspendisse vehicula vitae velit vel finibus. Curabitur vitae accumsan sapien. Vivamus ultrices, erat sed placerat malesuada, mauris enim efficitur ligula, nec tristique ipsum dolor sit amet lacus.</p>
+                </div>
+                <div class="container-fluid mt-2 pt-3 mb-4" style="text-align: justify;">
+                    <a name="site-rules"></a>
+                    <h2 class="section-title position-relative text-uppercase mb-2">4. Правила пользования сайта</h2>
+                    <a name="site-rules1"></a>
+                    <p>4.1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque id nibh hendrerit, accumsan mauris dignissim, sollicitudin lectus. Sed risus elit, tincidunt sed imperdiet non, bibendum eget enim. Vivamus eget egestas dui, eu imperdiet ipsum. Pellentesque mauris arcu, volutpat ac quam quis, interdum laoreet nulla. Nullam felis sapien, dapibus ac leo sed, sodales sodales nulla. Nullam varius mauris eu leo ullamcorper, nec commodo nunc auctor. Suspendisse feugiat, sem at tincidunt dignissim, dui enim convallis massa, sed vehicula tortor orci eu dolor. Nullam imperdiet dignissim diam, non varius odio egestas in. Donec hendrerit tincidunt gravida. Pellentesque auctor tristique tortor ut mollis. Nulla mauris metus, pharetra vel luctus eu, commodo sit amet lacus. Suspendisse nec est consectetur, lobortis ipsum et, cursus nisl. Nullam pulvinar est lacus, ut interdum nisi elementum et. Aliquam nec iaculis purus. Vestibulum ut magna congue, pharetra turpis id, dignissim neque. Integer dignissim eu orci id fermentum.</p>
+                    <a name="site-rules2"></a>
+                    <p>4.2. Nulla aliquam ex et ipsum ornare eleifend. Phasellus bibendum a nulla vel viverra. Integer lorem nulla, ornare in congue nec, dignissim ac erat. Integer porttitor est a nisi lacinia, egestas varius sem varius. Vestibulum magna dolor, ultrices et venenatis a, tincidunt gravida turpis. Mauris sed sem pellentesque velit lobortis lacinia finibus nec nisl. Ut pretium mauris vel justo feugiat vestibulum. Pellentesque tempor turpis magna, quis varius libero sollicitudin eu. Fusce tristique risus at scelerisque luctus. Aliquam tempor odio odio, in pellentesque lorem bibendum ac. Nam gravida libero vitae orci faucibus consectetur. Donec dignissim, orci eu pulvinar dignissim, dolor lorem fringilla neque, vel iaculis dui dolor porta leo. Nam ac ligula in dolor tincidunt tempor non nec dui. Etiam quis placerat erat, nec cursus risus.</p>
+                    <a name="site-rules3"></a>
+                    <p>4.3. Nam eget nunc in dolor faucibus porttitor. In leo erat, egestas id tellus vel, viverra feugiat lorem. Curabitur sed tempus tellus, et sollicitudin nulla. Quisque venenatis velit felis, eu vestibulum elit porttitor sit amet. Proin luctus massa enim, at condimentum risus sodales vitae. Vivamus sit amet mi et nunc placerat placerat. Sed eleifend metus id lacus convallis, in ultricies erat suscipit. Fusce in lorem ac velit blandit convallis vel vel libero. Nam eget justo ut ipsum maximus mattis condimentum sit amet lacus. Morbi diam libero, feugiat a rutrum et, convallis in tortor.</p>
+                    <a name="site-rules4"></a>
+                    <p>4.4. Praesent sodales est vel tincidunt convallis. Cras quis ultrices felis. Fusce eu nisi condimentum, bibendum turpis id, porttitor mauris. In id sodales lectus. Vivamus tempor dui at pretium venenatis. Etiam tristique velit et scelerisque fringilla. Donec et lectus vitae nunc interdum molestie sit amet et libero.</p>
+                    <a name="site-rules5"></a>
+                    <p>4.5. Fusce gravida ipsum sem, et dapibus mi mattis sit amet. Etiam neque eros, iaculis a volutpat nec, facilisis nec nulla. In ultricies ipsum ante, vel aliquam dui tempor quis. Cras ut neque non metus vehicula interdum. Aenean finibus nunc vel ante vehicula luctus. Fusce et ante vitae eros porta ultrices. Suspendisse vehicula vitae velit vel finibus. Curabitur vitae accumsan sapien. Vivamus ultrices, erat sed placerat malesuada, mauris enim efficitur ligula, nec tristique ipsum dolor sit amet lacus.</p>
+                </div>
+                <div class="container-fluid mt-2 pt-3 mb-4" style="text-align: justify;">
+                    <a name="partnership"></a>
+                    <h2 class="section-title position-relative text-uppercase mb-2">5. Сотрудничество</h2>
+                    <a name="partnership1"></a>
+                    <p>5.1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque id nibh hendrerit, accumsan mauris dignissim, sollicitudin lectus. Sed risus elit, tincidunt sed imperdiet non, bibendum eget enim. Vivamus eget egestas dui, eu imperdiet ipsum. Pellentesque mauris arcu, volutpat ac quam quis, interdum laoreet nulla. Nullam felis sapien, dapibus ac leo sed, sodales sodales nulla. Nullam varius mauris eu leo ullamcorper, nec commodo nunc auctor. Suspendisse feugiat, sem at tincidunt dignissim, dui enim convallis massa, sed vehicula tortor orci eu dolor. Nullam imperdiet dignissim diam, non varius odio egestas in. Donec hendrerit tincidunt gravida. Pellentesque auctor tristique tortor ut mollis. Nulla mauris metus, pharetra vel luctus eu, commodo sit amet lacus. Suspendisse nec est consectetur, lobortis ipsum et, cursus nisl. Nullam pulvinar est lacus, ut interdum nisi elementum et. Aliquam nec iaculis purus. Vestibulum ut magna congue, pharetra turpis id, dignissim neque. Integer dignissim eu orci id fermentum.</p>
+                    <a name="partnership2"></a>
+                    <p>5.2. Nulla aliquam ex et ipsum ornare eleifend. Phasellus bibendum a nulla vel viverra. Integer lorem nulla, ornare in congue nec, dignissim ac erat. Integer porttitor est a nisi lacinia, egestas varius sem varius. Vestibulum magna dolor, ultrices et venenatis a, tincidunt gravida turpis. Mauris sed sem pellentesque velit lobortis lacinia finibus nec nisl. Ut pretium mauris vel justo feugiat vestibulum. Pellentesque tempor turpis magna, quis varius libero sollicitudin eu. Fusce tristique risus at scelerisque luctus. Aliquam tempor odio odio, in pellentesque lorem bibendum ac. Nam gravida libero vitae orci faucibus consectetur. Donec dignissim, orci eu pulvinar dignissim, dolor lorem fringilla neque, vel iaculis dui dolor porta leo. Nam ac ligula in dolor tincidunt tempor non nec dui. Etiam quis placerat erat, nec cursus risus.</p>
+                    <a name="partnership3"></a>
+                    <p>5.3. Nam eget nunc in dolor faucibus porttitor. In leo erat, egestas id tellus vel, viverra feugiat lorem. Curabitur sed tempus tellus, et sollicitudin nulla. Quisque venenatis velit felis, eu vestibulum elit porttitor sit amet. Proin luctus massa enim, at condimentum risus sodales vitae. Vivamus sit amet mi et nunc placerat placerat. Sed eleifend metus id lacus convallis, in ultricies erat suscipit. Fusce in lorem ac velit blandit convallis vel vel libero. Nam eget justo ut ipsum maximus mattis condimentum sit amet lacus. Morbi diam libero, feugiat a rutrum et, convallis in tortor.</p>
+                    <a name="partnership4"></a>
+                    <p>5.4. Praesent sodales est vel tincidunt convallis. Cras quis ultrices felis. Fusce eu nisi condimentum, bibendum turpis id, porttitor mauris. In id sodales lectus. Vivamus tempor dui at pretium venenatis. Etiam tristique velit et scelerisque fringilla. Donec et lectus vitae nunc interdum molestie sit amet et libero.</p>
+                    <a name="partnership5"></a>
+                    <p>5.5. Fusce gravida ipsum sem, et dapibus mi mattis sit amet. Etiam neque eros, iaculis a volutpat nec, facilisis nec nulla. In ultricies ipsum ante, vel aliquam dui tempor quis. Cras ut neque non metus vehicula interdum. Aenean finibus nunc vel ante vehicula luctus. Fusce et ante vitae eros porta ultrices. Suspendisse vehicula vitae velit vel finibus. Curabitur vitae accumsan sapien. Vivamus ultrices, erat sed placerat malesuada, mauris enim efficitur ligula, nec tristique ipsum dolor sit amet lacus.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
 {% endblock %}
     
 <!-- Footer Start -->
@@ -76,11 +266,11 @@
                         <h5 class="text-secondary text-uppercase mb-4">Для клиента</h5>
                         <div class="d-flex flex-column justify-content-start">
                             <a class="text-secondary mb-2" href="{% url "main:about" %}"><i class="fa fa-angle-right mr-2"></i>Сообщить о проблеме</a>
-                            <a class="text-secondary mb-2" href="{% url "main:about" %}"><i class="fa fa-angle-right mr-2"></i>Политика конфиденциальности</a>
-                            <a class="text-secondary mb-2" href="{% url "main:about" %}"><i class="fa fa-angle-right mr-2"></i>Персональные данные</a>
-                            <a class="text-secondary mb-2" href="{% url "main:about" %}"><i class="fa fa-angle-right mr-2"></i>Правила продаж</a>
-                            <a class="text-secondary mb-2" href="{% url "main:about" %}"><i class="fa fa-angle-right mr-2"></i>Правила пользования сайта</a>
-                            <a class="text-secondary" href="{% url "main:about" %}"><i class="fa fa-angle-right mr-2"></i>Сотрудничество</a>
+                            <a class="text-secondary mb-2" href="#confidencial-politics"><i class="fa fa-angle-right mr-2"></i>Политика конфиденциальности</a>
+                            <a class="text-secondary mb-2" href="#personal-data"><i class="fa fa-angle-right mr-2"></i>Персональные данные</a>
+                            <a class="text-secondary mb-2" href="#sale-rules"><i class="fa fa-angle-right mr-2"></i>Правила продаж</a>
+                            <a class="text-secondary mb-2" href="#site-rules"><i class="fa fa-angle-right mr-2"></i>Правила пользования сайта</a>
+                            <a class="text-secondary" href="#partnership"><i class="fa fa-angle-right mr-2"></i>Сотрудничество</a>
                         </div>
                     </div>
                     <div class="col-md-4 mb-5">

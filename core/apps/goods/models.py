@@ -65,6 +65,8 @@ class Review(models.Model):
     # active = models.BooleanField(default=True)
 
     class Meta:
+        verbose_name = 'Отзыв'
+        verbose_name_plural = 'Отзывы'
         ordering = ('created',)
 
     def __str__(self):

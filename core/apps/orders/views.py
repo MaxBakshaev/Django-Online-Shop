@@ -21,6 +21,7 @@ class CreateOrderView(LoginRequiredMixin, FormView):
     form_class = CreateOrderForm
     success_url = reverse_lazy("users:profile")
 
+    # Автоматическое заполнение полей фамилии и имени
     def get_initial(self) -> dict[str, Any]:
         initial: dict[str, Any] = super().get_initial()
         initial["first_name"] = self.request.user.first_name
