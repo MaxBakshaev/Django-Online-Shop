@@ -44,27 +44,48 @@
             <div class="col-lg-7 mb-5">
                 <div class="contact-form bg-light p-30">
                     <div id="success"></div>
-                    <form name="sentMessage" id="contactForm" novalidate="novalidate">
+                    <form action="{% url "main:about" %}" name="sentMessage" id="contactForm" method="post" novalidate="novalidate">
+                        {% csrf_token %}
                         <div class="control-group">
-                            <input type="text" class="form-control" id="name" placeholder="Ваше имя"
+                            <input type="text" class="form-control" id="user_name" placeholder="Ваше имя"
+                                value="{% if form.user_name.value %}{{ form.user_name.value }}{% endif %}"
+                                name="user_name"
                                 required="required" data-validation-required-message="Please enter your name" />
-                            <p class="help-block text-danger"></p>
+                                {% if form.user_name.errors %}
+                                <div class="alert alert-danger alert-dismissible fade show">{{ form.user_name.errors }}</div>
+                                {% endif %}
+                                <p></p>
                         </div>
                         <div class="control-group">
-                            <input type="email" class="form-control" id="email" placeholder="Ваш почтовый адрес"
+                            <input type="email" class="form-control" id="user_email" placeholder="Ваш почтовый адрес"
+                                value="{% if form.user_email.value %}{{ form.user_email.value }}{% endif %}"
+                                name="user_email"
                                 required="required" data-validation-required-message="Please enter your email" />
-                            <p class="help-block text-danger"></p>
+                                {% if form.user_email.errors %}
+                                <div class="alert alert-danger alert-dismissible fade show">{{ form.user_email.errors }}</div>
+                                {% endif %}
+                                <p></p>
                         </div>
                         <div class="control-group">
-                            <input type="text" class="form-control" id="subject" placeholder="Тема"
+                            <input type="text" class="form-control" id="user_subject" placeholder="Тема"
+                                value="{% if form.user_subject.value %}{{ form.user_subject.value }}{% endif %}"
+                                name="user_subject"
                                 required="required" data-validation-required-message="Please enter a subject" />
-                            <p class="help-block text-danger"></p>
+                                {% if form.user_subject.errors %}
+                                <div class="alert alert-danger alert-dismissible fade show">{{ form.user_subject.errors }}</div>
+                                {% endif %}
+                                <p></p>
                         </div>
                         <div class="control-group">
-                            <textarea class="form-control" rows="8" id="message" placeholder="Текст проблемы"
+                            <textarea class="form-control" rows="8" id="user_message" placeholder="Текст проблемы"
+                                value="{% if form.user_message.value %}{{ form.user_message.value }}{% endif %}"
+                                name="user_message"
                                 required="required"
                                 data-validation-required-message="Please enter your message"></textarea>
-                            <p class="help-block text-danger"></p>
+                                {% if form.user_message.errors %}
+                                <div class="alert alert-danger alert-dismissible fade show">{{ form.user_message.errors }}</div>
+                                {% endif %}
+                                <p></p>
                         </div>
                         <div>
                             <button class="btn btn-primary py-2 px-4" type="submit" id="sendMessageButton">Отправить сообщение</button>

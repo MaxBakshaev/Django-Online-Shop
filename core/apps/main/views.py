@@ -1,7 +1,12 @@
 from typing import Any
-from django.views.generic import TemplateView
+from django.contrib import messages
+from django.core.mail import send_mail
+from django.http import HttpResponse
+from django.views.generic import FormView, TemplateView
 
 from common.mixins import CacheMixin
+from core.project.settings import EMAIL_HOST_USER
+from main.forms import SendEmailForm
 from goods.mixins import GoodsMixin
 from goods.models import Products
 
@@ -73,9 +78,30 @@ class IndexView(TemplateView, CacheMixin, GoodsMixin):
         return context
 
 
-class AboutView(TemplateView):
+class AboutView(TemplateView, SendEmailForm, FormView):
 
     template_name = "main/about.html"
+    form_class = SendEmailForm
+
+    def get_success_url(self) -> str:
+        """ Возвращает URL для перенаправления на эту же страницу """
+        return self.request.path
+    
+    def form_valid(self, form) -> HttpResponse:
+        if form.is_valid():
+            user_name = form.cleaned_data["user_name"]
+            user_email = form.cleaned_data["user_email"]
+            user_subject = form.cleaned_data["user_subject"]
+            user_message = f'Тема: {user_subject}\n\nИмя: {user_name}\n\nПочта: {user_email}\n\n{form.cleaned_data["user_message"]}'
+            
+            send_mail(user_subject, user_message, EMAIL_HOST_USER, [EMAIL_HOST_USER])
+            sent = True
+
+            messages.success(self.request, "Сообщение отправлено!")
+        else:
+            form = SendEmailForm()
+
+        return super().form_valid(form)
 
     def get_context_data(self, **kwargs) -> dict[str, Any]:
 
