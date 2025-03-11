@@ -15,9 +15,6 @@
     <!-- Favicon -->
     <link href="{% static "favicon/favicon.ico" %}" rel="icon">
 
-    <!-- Стиль footer-a для главной страницы -->
-    <link rel="stylesheet" href="{% static "deps/css/my_footer_css.css" %}">
-
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">  
@@ -31,7 +28,6 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="{% static "css/style.css" %}" rel="stylesheet">
-    {% comment %} <link href="{% static "deps/css/bootstrap/bootstrap.min.css" %}" rel="stylesheet"> {% endcomment %}
 </head>
 
 <body>
@@ -183,11 +179,9 @@
 
     <!-- Template Javascript -->
     <script src="{% static "js/main.js" %}"></script>
-
-
-    <script src="{% static "deps/js/jquery/jquery-3.7.0.min.js" %}"></script>
-    <script src="{% static "deps/js/jquery-ajax.js" %}"></script>
-    <script src="{% static "deps/js/bootstrap/bootstrap.bundle.min.js" %}"></script>
+    <script src="{% static "js/jquery/jquery-3.7.0.min.js" %}"></script>
+    <script src="{% static "js/jquery-ajax.js" %}"></script>
+    <script src="{% static "js/bootstrap/bootstrap.bundle.min.js" %}"></script>
 
 
 </body>

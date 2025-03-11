@@ -6,6 +6,4 @@ cache/
 *.pyc
 *.sqlite*
 db.sqlite3
-media/
 .env
-static/
