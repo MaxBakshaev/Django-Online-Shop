@@ -40,7 +40,7 @@
                                     {{ cart.product.name }}
                                 </a>
                             </td>
-                            <td class="align-middle" style="min-width: 50px; max-width: 170px; white-space: nowrap;">{{ cart.product.sell_price }} ₽</td>
+                            <td class="align-middle" style="min-width: 50px; max-width: 170px; white-space: nowrap;">{{ cart.product.sell_price_str }} ₽</td>
                             <td class="align-middle">
                                 <div class="input-group mx-auto" style="width: 100px;">
                                     <div class="input-group-btn">
@@ -65,7 +65,7 @@
                             </td>
                             <td class="align-middle" 
                             style="min-width: 50px; max-width: 200px; white-space: nowrap;">
-                            {{ cart.products_price }} ₽</td>
+                            {{ cart.products_sum_price_str }} ₽</td>
                             <td class="align-middle"><a class="remove-from-cart align-middle" href="{% url "cart:cart_remove" %}"
                                 data-cart-id="{{ cart.id }}">
                                 {% csrf_token %}

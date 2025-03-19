@@ -158,11 +158,11 @@
                             <p class="product_id"> id: {{ popular_product.0.display_id }}</p>
                             <div class="d-flex align-items-center justify-content-center mt-2">
                                 {% if popular_product.0.discount %}
-                                    <h5>{{ popular_product.0.sell_price }} ₽</h5>
-                                    <h6 class="text-muted ml-2"><del>{{ popular_product.0.price }} ₽</del></h6>
+                                    <h5>{{ popular_product.0.sell_price_str }} ₽</h5>
+                                    <h6 class="text-muted ml-2"><del>{{ popular_product.0.price_str }} ₽</del></h6>
                                     <h5 class="badge bg-warning text-dark ml-3">-{{ popular_product.0.discount }} %</h5>
                                 {% else %}
-                                    <h5>{{ popular_product.0.sell_price }} ₽</h5>
+                                    <h5>{{ popular_product.0.price_str }} ₽</h5>
                                 {% endif %}
                             </div>
                             <div class="text-primary mr-2">
@@ -307,7 +307,7 @@
                             <p> <a class="h4" href="{% url "catalog:product" discount_product.0.slug %}">{{ discount_product.0.name }}</a></p>
                             <p class="product_id"> id: {{ discount_product.0.display_id }}</p>
                             <div class="d-flex align-items-center justify-content-center mt-2">
-                                <h5>{{ discount_product.0.sell_price }} ₽</h5>
+                                <h5>{{ discount_product.0.sell_price_str }} ₽</h5>
                                 <h6 class="text-muted ml-2"><del>{{ discount_product.0.price }} ₽</del></h6>
                                 <h5 class="badge bg-warning text-dark ml-3">-{{ discount_product.0.discount }} %</h5>
                             </div>
@@ -464,11 +464,11 @@
                             <p class="product_id"> id: {{ new_product.0.display_id }}</p>
                             <div class="d-flex align-items-center justify-content-center mt-2">
                                 {% if new_product.0.discount %}
-                                    <h5>{{ new_product.0.sell_price }} ₽</h5>
-                                    <h6 class="text-muted ml-2"><del>{{ new_product.0.price }} ₽</del></h6>
+                                    <h5>{{ new_product.0.sell_price_str }} ₽</h5>
+                                    <h6 class="text-muted ml-2"><del>{{ new_product.0.price_str }} ₽</del></h6>
                                     <h5 class="badge bg-warning text-dark ml-3">-{{ new_product.0.discount }} %</h5>
                                 {% else %}
-                                    <h5>{{ new_product.0.sell_price }} ₽</h5>
+                                    <h5>{{ new_product.0.price_str }} ₽</h5>
                                 {% endif %}
                             </div>
                             <div class="text-primary mr-2">
@@ -614,7 +614,7 @@
                 <h5 class="text-secondary text-uppercase mb-4">Оставайтесь на связи</h5>
                 <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>123 Street, Blagoveshchensk, Russia</p>
                 <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>info@example.com</p>
-                <p class="mb-0"><i class="fa fa-phone-alt text-primary mr-3"></i>+012 345 67890  (c 09:00 до 18:00)</p>
+                <p class="mb-0"><i class="fa fa-phone-alt text-primary mr-3"></i>+7 (914) 558-07-25  (c 09:00 до 18:00)</p>
             </div>
             <div class="col-lg-8 col-md-12">
                 <div class="row">
@@ -667,7 +667,7 @@
         <div class="row border-top mx-xl-5 py-4" style="border-color: rgba(256, 256, 256, .1) !important;">
             <div class="col-md-6 px-xl-0">
                 <p class="mb-md-0 text-center text-md-left text-secondary">
-                    &copy; 2025 - <a class="text-primary" href="#">Domain</a>. All Rights Reserved. Designed by
+                    &copy; 2025 - <a class="text-primary" href="https://beget.com/ru">Beget.com</a>. All Rights Reserved. Designed by
                     <a class="text-primary" href="https://github.com/MaxBakshaev/">MaxBakshaev</a>
                 </p>
             </div>

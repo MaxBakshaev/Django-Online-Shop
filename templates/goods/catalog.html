@@ -51,16 +51,24 @@
                         <label class="custom-control-label" for="price-discount">Товары по акции</label>
                         {% if request.GET.on_sale == 'on' and not request.GET.cost_1k == 'on' and not request.GET.cost_10k == 'on' and not request.GET.cost_100k == 'on' and not request.GET.cost_1m == 'on' and not request.GET.cost_10m == 'on' %}<span class="badge border font-weight-normal">{{ amount }}</span>{% endif %}
                     </div>
+
+                    <script>
+                        function toggleCheckbox(checkbox) {
+                            const otherCheckbox = checkbox === document.getElementById('checkbox1') ? document.getElementById('checkbox2') : document.getElementById('checkbox1');
+                            if (checkbox.checked) {otherCheckbox.checked = false; } // Снимаеется отметка с другого чекбокса
+                        }
+                    </script>
                     <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="checkbox" class="custom-control-input" id="price-cheap" name="order_by" value="price" 
+                        <input type="checkbox" class="custom-control-input" id="checkbox1" name="order_by" value="price" onclick="toggleCheckbox(this)"
                         {% if request.GET.order_by == 'price' %}checked{% endif %}>
-                        <label class="custom-control-label" for="price-cheap">От дешевых к дорогим</label>
+                        <label class="custom-control-label" for="checkbox1">От дешевых к дорогим</label>
                     </div>
                     <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="checkbox" class="custom-control-input" id="price-costly" name="order_by" value="-price" 
+                        <input type="checkbox" class="custom-control-input" id="checkbox2" name="order_by" value="-price" onclick="toggleCheckbox(this)"
                         {% if request.GET.order_by == '-price' %}checked{% endif %}>
-                        <label class="custom-control-label" for="price-costly">От дорогих к дешевым</label>
+                        <label class="custom-control-label" for="checkbox2">От дорогих к дешевым</label>
                     </div>
+                    
                     <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                         <input type="checkbox" class="custom-control-input" id="price_1" name="cost_1k"
                         {% if request.GET.cost_1k == 'on' %}checked{% endif %}>
@@ -183,11 +191,11 @@
                             <p class="product_id"> id: {{ product.0.display_id }}</p>
                             <div class="d-flex align-items-center justify-content-center mt-1">
                                 {% if product.0.discount %}
-                                <h5>{{ product.0.sell_price }} ₽</h5>
-                                <h6 class="text-muted ml-3"><del>{{ product.0.price }}</del> ₽</h6>
+                                <h5>{{ product.0.sell_price_str }} ₽</h5>
+                                <h6 class="text-muted ml-3"><del>{{ product.0.price_str }}</del> ₽</h6>
                                 <h5 class="badge bg-warning text-dark ml-3">-{{ product.0.discount }} %</h5>
                                 {% else %}
-                                <h5>{{ product.0.price }} ₽</h5>
+                                <h5>{{ product.0.price_str }} ₽</h5>
                                 {% endif %}
                             </div>
                             <div class="text-primary mr-2">
@@ -313,7 +321,7 @@
                 <h5 class="text-secondary text-uppercase mb-4">Оставайтесь на связи</h5>
                 <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>123 Street, Blagoveshchensk, Russia</p>
                 <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>info@example.com</p>
-                <p class="mb-0"><i class="fa fa-phone-alt text-primary mr-3"></i>+012 345 67890  (c 09:00 до 18:00)</p>
+                <p class="mb-0"><i class="fa fa-phone-alt text-primary mr-3"></i>+7 (914) 558-07-25  (c 09:00 до 18:00)</p>
             </div>
             <div class="col-lg-8 col-md-12">
                 <div class="row">
@@ -366,7 +374,7 @@
         <div class="row border-top mx-xl-5 py-4" style="border-color: rgba(256, 256, 256, .1) !important;">
             <div class="col-md-6 px-xl-0">
                 <p class="mb-md-0 text-center text-md-left text-secondary">
-                    &copy; 2025 - <a class="text-primary" href="#">Domain</a>. All Rights Reserved. Designed by
+                    &copy; 2025 - <a class="text-primary" href="https://beget.com/ru">Beget.com</a>. All Rights Reserved. Designed by
                     <a class="text-primary" href="https://github.com/MaxBakshaev/">MaxBakshaev</a>
                 </p>
             </div>

@@ -53,6 +53,36 @@ class Products(models.Model):
         
         return self.price
     
+    def price_str(self):
+        # Преобразует число в строку
+        number_str = str(self.price)
+        # Разделяет строку на части по три цифры с конца
+        parts = []
+        while len(number_str) > 3:
+            parts.append(number_str[-3:])
+            number_str = number_str[:-3]
+        if number_str:
+            parts.append(number_str)
+        # Объединяет части в обратном порядке с пробелами
+        return ' '.join(reversed(parts))
+    
+    def sell_price_str(self):
+        if self.discount:
+            # Преобразует число в строку
+            number_str = str(round(self.price - self.price*self.discount/100, 0))
+        else:
+            number_str = str(self.price)
+            
+        # Разделяет строку на части по три цифры с конца
+        parts = []
+        while len(number_str) > 3:
+            parts.append(number_str[-3:])
+            number_str = number_str[:-3]
+        if number_str:
+            parts.append(number_str)
+        # Объединяет части в обратном порядке с пробелами
+        return ' '.join(reversed(parts))
+    
     
 class Review(models.Model):
     product = models.ForeignKey(Products, related_name='reviews', on_delete=models.CASCADE, verbose_name='Продукт')

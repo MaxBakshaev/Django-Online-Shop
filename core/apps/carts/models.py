@@ -10,8 +10,19 @@ from users.models import User
 class CartQueryset(models.QuerySet):
     
     # суммарная цена всех корзин пользователя
-    def total_price(self) -> int:
-        return sum(cart.products_price() for cart in self)
+    def total_price(self):
+        sum_price = sum(cart.products_price() for cart in self)
+        # Преобразует число в строку
+        number_str = str(sum_price)
+        # Разделяет строку на части по три цифры с конца
+        parts = []
+        while len(number_str) > 3:
+            parts.append(number_str[-3:])
+            number_str = number_str[:-3]
+        if number_str:
+            parts.append(number_str)
+        # Объединяет части в обратном порядке с пробелами
+        return ' '.join(reversed(parts))
 
     # количество всех товаров
     def total_quantity(self) -> int:
@@ -39,6 +50,20 @@ class Cart(models.Model):
         
     def products_price(self) -> Any:
         return round(self.product.sell_price() * self.quantity, 0)
+    
+    def products_sum_price_str(self):
+        sum_price = round(self.product.sell_price() * self.quantity, 0)
+        # Преобразует число в строку
+        number_str = str(sum_price)
+        # Разделяет строку на части по три цифры с конца
+        parts = []
+        while len(number_str) > 3:
+            parts.append(number_str[-3:])
+            number_str = number_str[:-3]
+        if number_str:
+            parts.append(number_str)
+        # Объединяет части в обратном порядке с пробелами
+        return ' '.join(reversed(parts))
       
     def __str__(self) -> str:
         if self.user:
