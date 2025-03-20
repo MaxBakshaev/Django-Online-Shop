@@ -6,7 +6,6 @@ from goods.models import Products
 
 
 def favorites_list(request) -> HttpResponse:
-
     if request.session.get('favorites'):
         list_id = []
         for item in request.session['favorites']:

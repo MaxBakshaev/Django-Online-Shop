@@ -1,10 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block modal_cart %}
-{% include "includes/cart_button.html" %}
-{% endblock modal_cart %}
-
 {% block content %}
 
 <!-- Breadcrumb Start -->
@@ -168,9 +164,9 @@
                                     {% for review in reviews %}
                                         <div class="media mb-4">
                                             {% if review.user.image %}
-                                                <img src="{{ review.user.image.url }}" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
+                                                <img src="{{ review.user.image.url }}" alt="Image" class="img-fluid mr-3 mt-1" style="width: 60px;">
                                             {% else %}
-                                                <img src="{% static "img\baseavatar.PNG" %}" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
+                                                <img src="{% static "img\baseavatar.PNG" %}" alt="Image" class="img-fluid mr-3 mt-1 rounded-circle" style="width: 60px;">
                                             {% endif %}
                                             <div class="media-body">
                                                 <h6>{{ review.user.username }}<small> - <i>{{ review.created }}</i></small></h6>

@@ -1,6 +1,7 @@
 {% load static %}
 {% load cache %}
 {% load goods_tags %}
+{% load carts_tags %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -9,8 +10,8 @@
     <meta charset="utf-8">
     <title>{{ title }}</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="Free HTML Templates" name="keywords">
-    <meta content="Free HTML Templates" name="description">
+    <meta content="Товары на все случаи жизни" name="keywords">
+    <meta content="Товары на все случаи жизни" name="description">
 
     <!-- Favicon -->
     <link href="{% static "favicon/favicon.ico" %}" rel="icon">
@@ -66,11 +67,13 @@
     <div class="container-fluid bg-dark mb-30">
         <div class="row px-xl-5">
             <div class="col-lg-3 d-none d-lg-block d-flex">
-                <a class="btn d-flex align-items-center justify-content-between bg-primary w-100" data-toggle="collapse" href="#navbar-vertical" style="max-width: 300px; height: 65px; padding: 0 30px;">
+                <a class="btn d-flex align-items-center justify-content-between bg-primary w-100" id="dropdownButton" 
+                data-toggle="collapse" href="#navbar-vertical" style="max-width: 300px; height: 65px; padding: 0 30px;">
                     <h6 class="text-dark m-0"><i class="fa fa-bars mr-2"></i>Каталог</h6>
                     <i class="fa fa-angle-down text-dark"></i>
                 </a>
-                <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 bg-light" id="navbar-vertical" style="width: calc(100% - 30px); z-index: 999;">
+                <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 bg-light" 
+                id="navbar-vertical" style="width: calc(100% - 30px); z-index: 999; border: 1px solid rgba(0, 0, 0, 0.25);">
                     <div class="navbar-nav w-100">
                         {% cache 600 catalog_categories %}
                         {% tag_categories as categories %}
@@ -94,42 +97,16 @@
                             {% else %}
                                 <a href="{% url "main:all_categories" %}" class="nav-item nav-link">Каталог</a>
                             {% endif %}
-                            {% if title == "MultiShop - Избранное" %}
-                                <a href="{% url "favorite:favorites_list" %}" class="nav-item nav-link active">Избранное</a>
-                            {% else %}
-                                <a href="{% url "favorite:favorites_list" %}" class="nav-item nav-link">Избранное</a>
-                            {% endif %}
-                            {% if title == "MultiShop - Корзина" %}
-                                <a href="{% url "user:users_cart" %}" class="nav-item nav-link active">Корзина</a>
-                            {% else %}
-                                <a href="{% url "user:users_cart" %}" class="nav-item nav-link">Корзина</a>
-                            {% endif %}
                             {% if not user.is_authenticated %}
                                 {% if title == "MultiShop - Авторизация" %}
                                     <a href="{% url "users:registration" %}" class="nav-item nav-link">Регистрация</a>
-                                    <a href="{% url "users:login" %}" class="nav-item nav-link active">Войти</a>
                                 {% elif title == "MultiShop - Регистрация" %}
                                     <a href="{% url "users:registration" %}" class="nav-item nav-link active">Регистрация</a>
-                                    <a href="{% url "users:login" %}" class="nav-item nav-link">Войти</a>
                                 {% else %}
                                     <a href="{% url "users:registration" %}" class="nav-item nav-link">Регистрация</a>
-                                    <a href="{% url "users:login" %}" class="nav-item nav-link">Войти</a>
                                 {% endif %}
                             {% else %}
-                                <div class="nav-item dropdown">
-                                    {% if title == "MultiShop - Кабинет" %}
-                                        <a href="{% url "users:profile" %}" class="nav-link active dropdown-toggle" data-toggle="dropdown">Профиль <i class="fa fa-angle-down mt-1"></i></a>
-                                    {% else %}
-                                        <a href="{% url "users:profile" %}" class="nav-link dropdown-toggle" data-toggle="dropdown">Профиль <i class="fa fa-angle-down mt-1"></i></a>
-                                    {% endif %}
-                                    <div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
-                                        <a href="{% url "users:profile" %}" class="dropdown-item">Личный кабинет</a>
-                                        {% if user.is_admin or user.is_staff %}
-                                            <a href="{% url "admin:index" %}" class="dropdown-item">Админ панель</a>
-                                        {% endif %}
-                                        <a href="{% url "users:logout" %}" class="dropdown-item">Выйти</a>
-                                    </div>
-                                </div>
+                                
                                 {% if title == "MultiShop - Оформление заказа" or title == "MultiShop - Заказы"  %}
                                     <a href="{% url "orders:my_orders" %}" class="nav-item nav-link active">Заказы</a>
                                 {% else %}
@@ -143,10 +120,83 @@
                             {% endif %}
                         </div>
                         
-                        <!-- Значек корзины, вызывает модальное окно -->
-                        {% block modal_cart %}
-                        {% endblock modal_cart %}
-                        <!-- Закончилась разметка модального окна -->
+                        <!-- Значек Избранного -->
+                        {% if title == "MultiShop - Избранное" %}
+                            <a href="{% url "favorites:favorites_list" %}" class="btn btn-dark btn-secondary" style="color: #FFD333;">
+                                Избранное <i class="fas fa-heart text-primary"></i>
+                                <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">{{ request.session.favorites|length }}</span>
+                            </a>
+                        {% else %}
+                            <a href="{% url "favorites:favorites_list" %}" class="btn btn-dark btn-secondary">
+                                Избранное <i class="fas fa-heart text-primary"></i>
+                                <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">{{ request.session.favorites|length }}</span>
+                            </a>
+                        {% endif %}
+                        <!-- Закончилась разметка Значек Избранного -->
+
+                        <!-- Значек корзины -->
+                        {% user_carts request as carts %}
+
+                        {% if title == "MultiShop - Корзина" %}
+                            <a class="btn btn-dark btn-secondary"
+                                aria-expanded="false" href="{% url "users:users_cart" %}" style="color: #FFD333;">
+                                Корзина <i class="fas fa-shopping-cart text-primary"></i>
+                                <span class="badge text-secondary border border-secondary rounded-circle" 
+                                style="padding-bottom: 2px;" 
+                                id="goods-in-cart-count">
+                                {{ carts.total_quantity }}</span>
+                            </a>
+                        {% else %}
+                            <a class="btn btn-dark btn-secondary"
+                                aria-expanded="false" href="{% url "users:users_cart" %}">
+                                Корзина <i class="fas fa-shopping-cart text-primary"></i>
+                                <span class="badge text-secondary border border-secondary rounded-circle" 
+                                style="padding-bottom: 2px;" 
+                                id="goods-in-cart-count">
+                                {{ carts.total_quantity }}</span>
+                            </a>
+                        {% endif %}
+                        <!-- Закончилась разметка корзины -->
+
+                        {% if not user.is_authenticated %}
+                            {% if title == "MultiShop - Авторизация" %}
+                                <a href="{% url "users:login" %}" class="btn btn-dark btn-secondary" style="color: #FFD333;">Войти</a>
+                            {% elif title == "MultiShop - Регистрация" %}
+                                <a href="{% url "users:login" %}" class="btn btn-dark btn-secondary">Войти</a>
+                            {% else %}
+                                <a href="{% url "users:login" %}" class="btn btn-dark btn-secondary">Войти</a>
+                            {% endif %}
+                        {% else %}
+                            <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-0">
+                                <div class="collapse navbar-collapse justify-content-between d-flex" id="navbarCollapse">
+                                    <div class="navbar-nav mr-auto py-0">
+                                        <div class="nav-item dropdown">
+                                            {% if title == "MultiShop - Кабинет" %}
+                                                <a href="{% url "users:profile" %}" class="nav-link active dropdown-toggle" data-toggle="dropdown">Профиль <i class="fa fa-angle-down mt-1"></i></a>
+                                            {% else %}
+                                                <a href="{% url "users:profile" %}" class="nav-link dropdown-toggle" data-toggle="dropdown">Профиль <i class="fa fa-angle-down mt-1"></i></a>
+                                            {% endif %}
+                                            <div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
+                                                <a href="{% url "users:profile" %}" class="dropdown-item">Личный кабинет</a>
+                                                {% if user.is_admin or user.is_staff %}
+                                                    <a href="{% url "admin:index" %}" class="dropdown-item">Админ панель</a>
+                                                {% endif %}
+                                                <a href="{% url "users:logout" %}" class="dropdown-item">Выйти</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% if user.image %}
+                                        <img src="{{ user.image.url }}"
+                                            alt="Аватар пользователя" class="img-fluid"
+                                            style="max-width: 50px;">
+                                    {% else %}
+                                        <img src="{% static "img/baseavatar.PNG" %}"
+                                            alt="Аватар пользователя" class="img-fluid rounded-circle"
+                                            style="max-width: 50px;">
+                                    {% endif %}
+                                </div>
+                            </nav>
+                        {% endif %}
 
                     </div>
                 </nav>
@@ -181,6 +231,7 @@
     <script src="{% static "js/main.js" %}"></script>
     <script src="{% static "js/jquery/jquery-3.7.0.min.js" %}"></script>
     <script src="{% static "js/jquery-ajax.js" %}"></script>
+    <script src="{% static "js/navbar.js" %}"></script>
     <script src="{% static "js/bootstrap/bootstrap.bundle.min.js" %}"></script>
 
 

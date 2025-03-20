@@ -3,10 +3,6 @@
 {% load cache %}
 {% load goods_tags %}
 
-{% block modal_cart %}
-{% include "includes/cart_button.html" %}
-{% endblock modal_cart %}
-
 {% block content %}
     <!-- Carousel Start -->
     {% cache 600 carousel_cache %}
@@ -308,7 +304,7 @@
                             <p class="product_id"> id: {{ discount_product.0.display_id }}</p>
                             <div class="d-flex align-items-center justify-content-center mt-2">
                                 <h5>{{ discount_product.0.sell_price_str }} ₽</h5>
-                                <h6 class="text-muted ml-2"><del>{{ discount_product.0.price }} ₽</del></h6>
+                                <h6 class="text-muted ml-2"><del>{{ discount_product.0.price_str }} ₽</del></h6>
                                 <h5 class="badge bg-warning text-dark ml-3">-{{ discount_product.0.discount }} %</h5>
                             </div>
                             <div class="text-primary mr-2">
@@ -549,7 +545,7 @@
     </div>
     <!-- Новинки End -->
     
-    {% cache 600 carousel_categories %}
+   {% cache 5 carousel_categories %}
     <!-- Категории Start -->
     <div class="container-fluid py-1">
         <h2 class="section-title position-relative mx-xl-5 mb-4"><span class="bg-secondary pr-3">Категории</span></h2>
@@ -559,40 +555,66 @@
                     {% tag_categories as categories %}
                     {% for category in categories %}
                         {% if category.name == 'Автомобили' %}
-                            <div class="bg-light p-4" style="border: 1px solid rgba(0, 0, 0, 0.125);">
-                                <a href="{% url "catalog:index" category.slug %}"><img src="{% static "img/Машина.png" %}" alt=""></a>
+                            <div class="bg-light p-4" style="border: 1px solid rgba(0, 0, 0, 0.125); ">
+                                <a href="{% url "catalog:index" category.slug %}" style="text-decoration: none;">
+                                    <h5 style="text-align: center;">Автомобили</h5>
+                                    <img src="{% static "img/Машина.png" %}" alt=""></a> 
                             </div>
                         {% elif category.name == 'Книги' %}
                             <div class="bg-light p-4" style="border: 1px solid rgba(0, 0, 0, 0.125);">    
-                                <a href="{% url "catalog:index" category.slug %}"><img src="{% static "img/Книги.png" %}" alt=""></a>
+                                <a href="{% url "catalog:index" category.slug %}" style="text-decoration: none;">
+                                    <h5 style="text-align: center;">Книги</h5>
+                                    <img src="{% static "img/Книги.png" %}" alt="">
+                                </a>
                             </div>
                         {% elif category.name == 'Мебель' %}
                             <div class="bg-light p-4" style="border: 1px solid rgba(0, 0, 0, 0.125);">    
-                                <a href="{% url "catalog:index" category.slug %}"><img src="{% static "img/Диван.png" %}" alt=""></a>
+                                <a href="{% url "catalog:index" category.slug %}" style="text-decoration: none;">
+                                    <h5 style="text-align: center;">Мебель</h5>
+                                    <img src="{% static "img/Диван.png" %}" alt="">
+                                </a>
                             </div>
                         {% elif category.name == 'Музыкальные инструменты' %}
                             <div class="bg-light p-4" style="border: 1px solid rgba(0, 0, 0, 0.125);">    
-                                <a href="{% url "catalog:index" category.slug %}"><img src="{% static "img/Музыкальные инструменты.png" %}" alt=""></a>
+                                <a href="{% url "catalog:index" category.slug %}" style="text-decoration: none;">
+                                    <h5 style="text-align: center;">Музыка</h5>
+                                    <img src="{% static "img/Музыкальные инструменты.png" %}" alt="">
+                                </a>
                             </div>
                         {% elif category.name == 'Предметы интерьера' %}
                             <div class="bg-light p-4" style="border: 1px solid rgba(0, 0, 0, 0.125);">    
-                                <a href="{% url "catalog:index" category.slug %}"><img src="{% static "img/Настольная лампа.png" %}" alt=""></a>
+                                <a href="{% url "catalog:index" category.slug %}" style="text-decoration: none;">
+                                    <h5 style="text-align: center;">Интерьер</h5>
+                                    <img src="{% static "img/Настольная лампа.png" %}" alt="">
+                                </a>
                             </div>
                         {% elif category.name == 'Полезные мелочи' %}
                             <div class="bg-light p-4" style="border: 1px solid rgba(0, 0, 0, 0.125);">    
-                                <a href="{% url "catalog:index" category.slug %}"><img src="{% static "img/Вещи.png" %}" alt=""></a>
+                                <a href="{% url "catalog:index" category.slug %}" style="text-decoration: none;">
+                                    <h5 style="text-align: center;">Безделушки</h5>
+                                    <img src="{% static "img/Вещи.png" %}" alt="">
+                                </a>
                             </div>
                         {% elif category.name == 'Недвижимость' %}
                             <div class="bg-light p-4" style="border: 1px solid rgba(0, 0, 0, 0.125);">    
-                                <a href="{% url "catalog:index" category.slug %}"><img src="{% static "img/Недвижимость.png" %}" alt=""></a>
+                                <a href="{% url "catalog:index" category.slug %}" style="text-decoration: none;">
+                                    <h5 style="text-align: center;">Недвижимость</h5>
+                                    <img src="{% static "img/Недвижимость.png" %}" alt="">
+                                </a>
                             </div>
                         {% elif category.name == 'Хозяйственно-бытовые товары' %}
                             <div class="bg-light p-4" style="border: 1px solid rgba(0, 0, 0, 0.125);">    
-                                <a href="{% url "catalog:index" category.slug %}"><img src="{% static "img/Хозтовары.png" %}" alt=""></a>
+                                <a href="{% url "catalog:index" category.slug %}" style="text-decoration: none;">
+                                    <h5 style="text-align: center;">Хозтовары</h5>
+                                    <img src="{% static "img/Хозтовары.png" %}" alt="">
+                                </a>
                             </div>
                         {% elif category.name == 'Одежда' %}
                             <div class="bg-light p-4" style="border: 1px solid rgba(0, 0, 0, 0.125);">    
-                                <a href="{% url "catalog:index" category.slug %}"><img src="{% static "img/Одежда.png" %}" alt=""></a>
+                                <a href="{% url "catalog:index" category.slug %}" style="text-decoration: none;">
+                                    <h5 style="text-align: center;">Одежда</h5>
+                                    <img src="{% static "img/Одежда.png" %}" alt="">
+                                </a>
                             </div>
                         {% endif %}
                     {% endfor %}
@@ -601,7 +623,7 @@
         </div>
     </div>
     <!-- Категории End -->
-    {% endcache %}
+{% endcache %}
     
 {% endblock %}
 

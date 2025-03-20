@@ -3,7 +3,27 @@
 
 {% user_carts request as carts %}
 
-<div>
+{% if title == "MultiShop - Корзина" %}
+    <a class="btn btn-dark btn-secondary"
+        aria-expanded="false" href="{% url "users:users_cart" %}" style="color: #FFD333;">
+        Корзина <i class="fas fa-shopping-cart text-primary"></i>
+        <span class="badge text-secondary border border-secondary rounded-circle" 
+        style="padding-bottom: 2px;" 
+        id="goods-in-cart-count">
+        {{ carts.total_quantity }}</span>
+    </a>
+{% else %}
+    <a class="btn btn-dark btn-secondary"
+        aria-expanded="false" href="{% url "users:users_cart" %}">
+        Корзина <i class="fas fa-shopping-cart text-primary"></i>
+        <span class="badge text-secondary border border-secondary rounded-circle" 
+        style="padding-bottom: 2px;" 
+        id="goods-in-cart-count">
+        {{ carts.total_quantity }}</span>
+    </a>
+{% endif %}
+
+{% comment %}<div>
     <button type="button" class="btn btn-dark btn-secondary" id="modalButton"
         aria-expanded="false">
         <i class="fas fa-shopping-cart text-primary"></i>
@@ -35,4 +55,4 @@
             </div>
         </div>
     </div>
-</div>
+</div>{% endcomment %}

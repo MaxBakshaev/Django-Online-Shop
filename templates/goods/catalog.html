@@ -2,10 +2,6 @@
 {% load static %}
 {% load goods_tags %}
 
-{% block modal_cart %}
-{% include "includes/cart_button.html" %}
-{% endblock modal_cart %}
-
 {% block content %}
 
 <!-- Breadcrumb Start -->
@@ -109,34 +105,6 @@
         <!-- Shop Product Start -->
         <div class="col-lg-9 col-md-8">
             <div class="row pb-3">
-                {% comment %} <div class="col-12 pb-1">
-                    <div class="d-flex align-items-center justify-content-between mb-4">
-                        <div>
-                            <button class="btn btn-sm btn-light"><i class="fa fa-th-large"></i></button>
-                            <button class="btn btn-sm btn-light ml-2"><i class="fa fa-bars"></i></button>
-                        </div>
-                        <div class="ml-2">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Сортировать</button>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="#">По новинкам</a>
-                                    <a class="dropdown-item" href="#">По популярным</a>
-                                    <a class="dropdown-item" href="#">По рейтингу</a>
-                                </div>
-                            </div>
-                            <div class="btn-group ml-2">
-                                <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Показывать</button>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="{% url "catalog:index" slug_url %}" name="show_three">3</a>
-                                    <a class="dropdown-item" href="{% url "catalog:index" slug_url %}" name="show_six">6</a>
-                                    <a class="dropdown-item" href="{% url "catalog:index" slug_url %}" name="show_nine">9</a>
-                                    <a class="dropdown-item" href="{% url "catalog:index" slug_url %}" name="show_twelve">12</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> {% endcomment %}
-
                 <!-- Карты товара Start -->
                 <div class="col-12 pb-3">
                     {% if request.GET.q %}
@@ -146,132 +114,137 @@
                         {% endif %}
                     {% endif %}
                 </div>
-
-                {% for product in goods %}
-                <div class="col-lg-4 col-md-5 col-sm-6 pb-1 d-flex">
-                    <div class="product-item bg-light mb-4" style="border: 1px solid rgba(0, 0, 0, 0.125);">
-                        <div class="product-img position-relative overflow-hidden">
-                            {% if product.0.image %}
-                                <a href="{% url "catalog:product" product.0.slug %}">
-                                    <img class="img-fluid w-100" src="{{ product.0.image.url }}" alt="{{ product.0.name }}">
-                                </a>
-                            {% else %}
-                                <img class="img-fluid w-100" src="{% static "img/Not found image.png" %}" alt="">
-                            {% endif %}
-                            <div class="product-action">
-                                <a class="btn btn-outline-dark btn-square add-to-cart" href="{% url "cart:cart_add" %}"
-                                data-product-id="{{ product.0.id }}">
-                                {% csrf_token %}
-                                <i class="fa fa-shopping-cart"></i></a>
-                                <a class="btn btn-outline-dark btn-square">
-                                    <form action="{% url "favorites:add_to_favorites" id=product.0.id %}" method="post">
-                                        {% csrf_token %}
-                                            <input type="hidden" name="type" value="{{ type }}">
-                                            <input type="hidden" name="url_from" value="{{ request.path }}">
-                                            <button class="btn btn-outline-dark btn-square" type="submit"><i class="fa fa-heart"></i></button>
-                                    </form>      
-                                </a>
-                                <a class="btn btn-outline-dark btn-square" href="{% url "catalog:product" product.0.slug %}">
-                                    <i class="fa fa-arrow-right"></i>
-                                </a>
-                            </div>
-                            </div>
-                            <div class="text-center py-3"> 
-                                <p>
-                                    <a class="h4" href="{% url "catalog:product" product.0.slug %}">
-                                        {% autoescape off %}
-                                        {% if product.0.headline %}
-                                        {{ product.0.headline }}
-                                        {% else %}
-                                        {{ product.0.name }}
-                                        {% endif %}
-                                        {% endautoescape %}
+                {% if goods %}
+                    {% for product in goods %}
+                    <div class="col-lg-4 col-md-5 col-sm-6 pb-1 d-flex">
+                        <div class="product-item bg-light mb-4" style="border: 1px solid rgba(0, 0, 0, 0.125);">
+                            <div class="product-img position-relative overflow-hidden">
+                                {% if product.0.image %}
+                                    <a href="{% url "catalog:product" product.0.slug %}">
+                                        <img class="img-fluid w-100" src="{{ product.0.image.url }}" alt="{{ product.0.name }}">
                                     </a>
-                            </p>
-                            <p class="product_id"> id: {{ product.0.display_id }}</p>
-                            <div class="d-flex align-items-center justify-content-center mt-1">
-                                {% if product.0.discount %}
-                                <h5>{{ product.0.sell_price_str }} ₽</h5>
-                                <h6 class="text-muted ml-3"><del>{{ product.0.price_str }}</del> ₽</h6>
-                                <h5 class="badge bg-warning text-dark ml-3">-{{ product.0.discount }} %</h5>
                                 {% else %}
-                                <h5>{{ product.0.price_str }} ₽</h5>
+                                    <img class="img-fluid w-100" src="{% static "img/Not found image.png" %}" alt="">
                                 {% endif %}
-                            </div>
-                            <div class="text-primary mr-2">
-                                {% if product.1.0 < 0.25 %}
-                                    <small class="far fa-star"></small>
-                                    <small class="far fa-star"></small>
-                                    <small class="far fa-star"></small>
-                                    <small class="far fa-star"></small>
-                                    <small class="far fa-star"></small>
-                                {% elif 0.25 <= product.1.0 and product.1.0 < 0.75 %}
-                                    <small class="fas fa-star-half-alt"></small>
-                                    <small class="far fa-star"></small>
-                                    <small class="far fa-star"></small>
-                                    <small class="far fa-star"></small>
-                                    <small class="far fa-star"></small>
-                                {% elif 0.75 <= product.1.0 and product.1.0 < 1.25 %}
-                                    <small class="fas fa-star"></small>
-                                    <small class="far fa-star"></small>
-                                    <small class="far fa-star"></small>
-                                    <small class="far fa-star"></small>
-                                    <small class="far fa-star"></small>
-                                {% elif 1.25 <= product.1.0 and product.1.0 < 1.75 %}
-                                    <small class="fas fa-star"></small>
-                                    <small class="fas fa-star-half-alt"></small>
-                                    <small class="far fa-star"></small>
-                                    <small class="far fa-star"></small>
-                                    <small class="far fa-star"></small>
-                                {% elif 1.75 <= product.1.0 and product.1.0 < 2.25 %}
-                                    <small class="fas fa-star"></small>
-                                    <small class="fas fa-star"></small>
-                                    <small class="far fa-star"></small>
-                                    <small class="far fa-star"></small>
-                                    <small class="far fa-star"></small>
-                                {% elif 2.25 <= product.1.0 and product.1.0 < 2.75 %}
-                                    <small class="fas fa-star"></small>
-                                    <small class="fas fa-star"></small>
-                                    <small class="fas fa-star-half-alt"></small>
-                                    <small class="far fa-star"></small>
-                                    <small class="far fa-star"></small>
-                                {% elif 2.75 <= product.1.0 and product.1.0 < 3.25 %}
-                                    <small class="fas fa-star"></small>
-                                    <small class="fas fa-star"></small>
-                                    <small class="fas fa-star"></small>
-                                    <small class="far fa-star"></small>
-                                    <small class="far fa-star"></small>
-                                {% elif 3.25 <= product.1.0 and product.1.0 < 3.75 %}
-                                    <small class="fas fa-star"></small>
-                                    <small class="fas fa-star"></small>
-                                    <small class="fas fa-star"></small>
-                                    <small class="fas fa-star-half-alt"></small>
-                                    <small class="far fa-star"></small>
-                                {% elif 3.75 <= product.1.0 and product.1.0 < 4.25 %}
-                                    <small class="fas fa-star"></small>
-                                    <small class="fas fa-star"></small>
-                                    <small class="fas fa-star"></small>
-                                    <small class="fas fa-star"></small>
-                                    <small class="far fa-star"></small>
-                                {% elif 4.25 <= product.1.0 and product.1.0 < 4.75 %}
-                                    <small class="fas fa-star"></small>
-                                    <small class="fas fa-star"></small>
-                                    <small class="fas fa-star"></small>
-                                    <small class="fas fa-star"></small>
-                                    <small class="fas fa-star-half-alt"></small>
-                                {% elif product.1.0 >= 4.75 %}
-                                    <small class="fas fa-star"></small>
-                                    <small class="fas fa-star"></small>
-                                    <small class="fas fa-star"></small>
-                                    <small class="fas fa-star"></small>
-                                    <small class="fas fa-star"></small>
-                                {% endif %}
-                                <small style="Color: #3D464D;">({{ product.1.1 }})</small>
+                                <div class="product-action">
+                                    <a class="btn btn-outline-dark btn-square add-to-cart" href="{% url "cart:cart_add" %}"
+                                    data-product-id="{{ product.0.id }}">
+                                    {% csrf_token %}
+                                    <i class="fa fa-shopping-cart"></i></a>
+                                    <a class="btn btn-outline-dark btn-square">
+                                        <form action="{% url "favorites:add_to_favorites" id=product.0.id %}" method="post">
+                                            {% csrf_token %}
+                                                <input type="hidden" name="type" value="{{ type }}">
+                                                <input type="hidden" name="url_from" value="{{ request.path }}">
+                                                <button class="btn btn-outline-dark btn-square" type="submit"><i class="fa fa-heart"></i></button>
+                                        </form>      
+                                    </a>
+                                    <a class="btn btn-outline-dark btn-square" href="{% url "catalog:product" product.0.slug %}">
+                                        <i class="fa fa-arrow-right"></i>
+                                    </a>
+                                </div>
+                                </div>
+                                <div class="text-center py-3"> 
+                                    <p>
+                                        <a class="h4" href="{% url "catalog:product" product.0.slug %}">
+                                            {% autoescape off %}
+                                            {% if product.0.headline %}
+                                            {{ product.0.headline }}
+                                            {% else %}
+                                            {{ product.0.name }}
+                                            {% endif %}
+                                            {% endautoescape %}
+                                        </a>
+                                </p>
+                                <p class="product_id"> id: {{ product.0.display_id }}</p>
+                                <div class="d-flex align-items-center justify-content-center mt-1">
+                                    {% if product.0.discount %}
+                                    <h5>{{ product.0.sell_price_str }} ₽</h5>
+                                    <h6 class="text-muted ml-3"><del>{{ product.0.price_str }}</del> ₽</h6>
+                                    <h5 class="badge bg-warning text-dark ml-3">-{{ product.0.discount }} %</h5>
+                                    {% else %}
+                                    <h5>{{ product.0.price_str }} ₽</h5>
+                                    {% endif %}
+                                </div>
+                                <div class="text-primary mr-2">
+                                    {% if product.1.0 < 0.25 %}
+                                        <small class="far fa-star"></small>
+                                        <small class="far fa-star"></small>
+                                        <small class="far fa-star"></small>
+                                        <small class="far fa-star"></small>
+                                        <small class="far fa-star"></small>
+                                    {% elif 0.25 <= product.1.0 and product.1.0 < 0.75 %}
+                                        <small class="fas fa-star-half-alt"></small>
+                                        <small class="far fa-star"></small>
+                                        <small class="far fa-star"></small>
+                                        <small class="far fa-star"></small>
+                                        <small class="far fa-star"></small>
+                                    {% elif 0.75 <= product.1.0 and product.1.0 < 1.25 %}
+                                        <small class="fas fa-star"></small>
+                                        <small class="far fa-star"></small>
+                                        <small class="far fa-star"></small>
+                                        <small class="far fa-star"></small>
+                                        <small class="far fa-star"></small>
+                                    {% elif 1.25 <= product.1.0 and product.1.0 < 1.75 %}
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star-half-alt"></small>
+                                        <small class="far fa-star"></small>
+                                        <small class="far fa-star"></small>
+                                        <small class="far fa-star"></small>
+                                    {% elif 1.75 <= product.1.0 and product.1.0 < 2.25 %}
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star"></small>
+                                        <small class="far fa-star"></small>
+                                        <small class="far fa-star"></small>
+                                        <small class="far fa-star"></small>
+                                    {% elif 2.25 <= product.1.0 and product.1.0 < 2.75 %}
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star-half-alt"></small>
+                                        <small class="far fa-star"></small>
+                                        <small class="far fa-star"></small>
+                                    {% elif 2.75 <= product.1.0 and product.1.0 < 3.25 %}
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star"></small>
+                                        <small class="far fa-star"></small>
+                                        <small class="far fa-star"></small>
+                                    {% elif 3.25 <= product.1.0 and product.1.0 < 3.75 %}
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star-half-alt"></small>
+                                        <small class="far fa-star"></small>
+                                    {% elif 3.75 <= product.1.0 and product.1.0 < 4.25 %}
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star"></small>
+                                        <small class="far fa-star"></small>
+                                    {% elif 4.25 <= product.1.0 and product.1.0 < 4.75 %}
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star-half-alt"></small>
+                                    {% elif product.1.0 >= 4.75 %}
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star"></small>
+                                    {% endif %}
+                                    <small style="Color: #3D464D;">({{ product.1.1 }})</small>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                {% endfor %}                
+                    {% endfor %}
+                {% else %}
+                    <div class="container-fluid mt-4" style="width: 700px;">
+                        <img class="img-fluid" src="{% static "img/Товар не найден.png" %}" style="border: 1px solid rgba(0, 0, 0, 0.125);">
+                    </div>
+                {% endif %}            
                 <!-- Карты товара End -->
                 
                 <!-- Пагинация Start -->
