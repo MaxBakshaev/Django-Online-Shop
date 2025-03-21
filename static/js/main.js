@@ -37,7 +37,8 @@
     $('.vendor-carousel').owlCarousel({
         loop: true,
         margin: 29,
-        nav: false,
+        nav: true,
+        navText: ["<button class='owl-prev'>←</button>", "<button class='owl-next'>→</button>"],
         autoplay: true,
         smartSpeed: 1000,
         responsive: {
@@ -101,4 +102,3 @@
     });
     
 })(jQuery);
-

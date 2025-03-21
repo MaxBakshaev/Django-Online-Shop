@@ -544,8 +544,7 @@
         </div>
     </div>
     <!-- Новинки End -->
-    
-   {% cache 5 carousel_categories %}
+   {% cache 600 carousel_categories %}
     <!-- Категории Start -->
     <div class="container-fluid py-1">
         <h2 class="section-title position-relative mx-xl-5 mb-4"><span class="bg-secondary pr-3">Категории</span></h2>
@@ -623,7 +622,7 @@
         </div>
     </div>
     <!-- Категории End -->
-{% endcache %}
+    {% endcache %}
     
 {% endblock %}
 

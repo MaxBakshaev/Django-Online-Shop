@@ -9860,3 +9860,29 @@ a.text-dark:hover, a.text-dark:focus {
     transform: translateY(-15px);
   }
 }
+
+.owl-nav {
+  position: absolute;
+  top: 110%;
+  left: 0;
+  right: 0;
+  display: flex;
+  margin-top: 0px;
+  text-align: center;
+  justify-content: center;
+  transform: translateY(-50%);
+}
+
+.owl-nav button {
+  font-size: 24px;
+  cursor: pointer;
+  border-color: #000;
+  background-color: white;
+  color: #000; /* Цвет стрелок */
+  margin: 0 3px; /* Отступы между стрелками */
+}
+
+.owl-nav button:hover {
+  background-color: #FFD333; /* Цвет фона кнопок при наведении */
+}
+

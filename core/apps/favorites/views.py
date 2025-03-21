@@ -1,28 +1,49 @@
+from typing import Any
 from django.contrib import messages
-from django.http import HttpResponse, HttpResponsePermanentRedirect, HttpResponseRedirect
-from django.shortcuts import redirect, render
+from django.db.models import QuerySet
+from django.http import HttpResponsePermanentRedirect, HttpResponseRedirect
+from django.shortcuts import redirect
+from django.views.generic import ListView
 
 from goods.models import Products
+from goods.mixins import GoodsMixin
 
-
-def favorites_list(request) -> HttpResponse:
-    if request.session.get('favorites'):
-        list_id = []
-        for item in request.session['favorites']:
-            product_id = item['id']
-            list_id.append(product_id)
-
-        favorite_goods = Products.objects.filter(pk__in=list_id)
-        
-    else:
-        favorite_goods = False
+class FavoritesListView(ListView, GoodsMixin):
+    """
+    Обозначение параметров продукта в шаблоне (for product in goods):
+    product.0 - продукт (объект из queryset)
+    product.1.0 - оценка
+    product.1.1 - количество отзывов
+    """
     
-    context = {
-        'title': 'MultiShop - Избранное',
-        'favorite_goods': favorite_goods,
-    }
-    return render(request, "favorites/favorites-list.html", context=context)
+    model = Products
+    template_name = "favorites/favorites-list.html"
+    context_object_name = "goods"
+    
+    def get_queryset(self) -> QuerySet[Any]:
+        if self.request.session.get('favorites'):
+            list_id = []
+            for item in self.request.session['favorites']:
+                product_id = item['id']
+                list_id.append(product_id)
+            
+            self.goods = Products.objects.filter(pk__in=list_id)
+            self.amount = len(self.goods)
+            goods = self.get_products_list()
+            
+        else:
+            goods = 0
+            self.amount = 0
 
+        return goods
+    
+    def get_context_data(self, **kwargs) -> dict[str, Any]:
+        
+        context: dict[str, Any] = super().get_context_data(**kwargs)
+        context['title'] = 'MultiShop - Избранное'
+
+        return context
+    
 
 def add_to_favorites(request, id) -> HttpResponseRedirect | HttpResponsePermanentRedirect:
     if request.method == 'POST':
