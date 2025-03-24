@@ -42,6 +42,17 @@ django = ">=4.2.9"
 sqlparse = ">=0.2"
 
 [[package]]
+name = "dotenv"
+version = "0.9.9"
+description = "Deprecated package"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+python-dotenv = "*"
+
+[[package]]
 name = "pillow"
 version = "11.0.0"
 description = "Python Imaging Library (Fork)"
@@ -64,6 +75,17 @@ description = "psycopg2 - Python-PostgreSQL Database Adapter"
 category = "main"
 optional = false
 python-versions = ">=3.8"
+
+[[package]]
+name = "python-dotenv"
+version = "1.0.1"
+description = "Read key-value pairs from a .env file and set them as environment variables"
+category = "main"
+optional = false
+python-versions = ">=3.8"
+
+[package.extras]
+cli = ["click (>=5.0)"]
 
 [[package]]
 name = "sqlparse"
@@ -96,14 +118,16 @@ python-versions = ">=2"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "ce624e2e7475d90b6ab3e682bc011beae1df02a82732ffb68f1af13bedfc6435"
+content-hash = "6056a23b3b6f58277d95d4a3a27a35d787dd52af9cd0c5ea562a38bc76a303c7"
 
 [metadata.files]
 asgiref = []
 django = []
 django-debug-toolbar = []
+dotenv = []
 pillow = []
 psycopg2 = []
+python-dotenv = []
 sqlparse = []
 typing-extensions = []
 tzdata = []

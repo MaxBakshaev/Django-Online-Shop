@@ -14,8 +14,8 @@ import os
 from pathlib import Path
 import sys
 
-
-env_var = os.environ
+from dotenv import load_dotenv
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -26,7 +26,7 @@ sys.path.append(str(PROJECT_ROOT / 'apps'))
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env_var.get('SECRET_KEY')
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -94,9 +94,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         
-        'NAME': env_var.get('NAME'),
-        'USER': env_var.get('USER'),
-        'PASSWORD': env_var.get('PASSWORD'),
+        'NAME': os.getenv('NAME'),
+        'USER': os.getenv('USER'),
+        'PASSWORD': os.getenv('PASSWORD'),
         
         'HOST': 'localhost',
         'PORT': '5432',
@@ -179,10 +179,10 @@ LOGIN_REDIRECT_URL = '/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-EMAIL_HOST = env_var.get('EMAIL_HOST')
+EMAIL_HOST = os.getenv('EMAIL_HOST')
 EMAIL_PORT = 465
-EMAIL_HOST_USER = env_var.get('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = env_var.get('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 EMAIL_USE_SSL = True
 
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
