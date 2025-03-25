@@ -92,7 +92,7 @@ class CreateOrderView(LoginRequiredMixin, FormView):
         return context
 
 
-class MyOrdersView(TemplateView):
+class MyOrdersView(LoginRequiredMixin, TemplateView):
     template_name = "orders/my_orders.html"
 
     def get_context_data(self, **kwargs) -> dict[str, Any]:

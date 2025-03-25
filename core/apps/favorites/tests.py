@@ -6,3 +6,4 @@ class TestFavorites(TestCase):
     def test_favorites_list(self):
         response = self.client.get('/favorites_list/')
         self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'favorites/favorites-list.html')
