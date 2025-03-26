@@ -109,9 +109,6 @@
                 <div class="col-12 pb-3">
                     {% if request.GET.q %}
                         <h3 class="mt-4">Результаты поиска по запросу {{ request.GET.q }}:</h3>
-                        {% if not goods %}
-                            <h2 class="mt-4">По запросу ничего не найдено</h2>
-                        {% endif %}
                     {% endif %}
                 </div>
                 {% if goods %}
@@ -241,7 +238,7 @@
                     </div>
                     {% endfor %}
                 {% else %}
-                    <div class="container-fluid mt-4" style="width: 700px;">
+                    <div class="container-fluid mt-4" style="width: 600px;">
                         <img class="img-fluid" src="{% static "img/Товар не найден.png" %}" style="border: 1px solid rgba(0, 0, 0, 0.125);">
                     </div>
                 {% endif %}            
