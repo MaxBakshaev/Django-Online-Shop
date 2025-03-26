@@ -50,13 +50,18 @@ EMAIL_HOST_PASSWORD='Пароль_SMTP-сервера.' <br/>
 ```
 python manage.py migrate
 ```
+8. Загрузите категории и продукты в базу данных:
+```
+python manage.py loaddata fixtures/goods/cats.json 
+python manage.py loaddata fixtures/goods/prods.json
+```
 
-8. Создайте суперпользователя:
+9. Создайте суперпользователя:
 ```
 python manage.py createsuperuser
 ```
 
-9. Запустите сервер:
+10. Запустите сервер:
 ```
 python manage.py runserver
 ```
@@ -65,7 +70,12 @@ python manage.py runserver
 Ctrl + C
 ```
 
-10. Перейдите по адресу http://127.0.0.1:8000/ для доступа к сайту:
+11. Перейдите по адресу http://127.0.0.1:8000/ для доступа к сайту:
 ```
 python manage.py runserver
+```
+
+### Запуск тестов:
+```
+python manage.py test core/apps
 ```
