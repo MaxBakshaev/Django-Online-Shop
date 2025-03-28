@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.db.models import QuerySet
 from django.http import HttpResponsePermanentRedirect, HttpResponseRedirect, JsonResponse
 from django.shortcuts import redirect
+from django.views import View
 from django.views.generic import ListView
 
 from goods.models import Products
@@ -45,12 +46,10 @@ class FavoritesListView(ListView, GoodsMixin):
         return context
     
 
-def is_ajax(request):
-    return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
+class AddToFavoritesView(View):
+    
+    def post(self, request) -> JsonResponse | HttpResponseRedirect | HttpResponsePermanentRedirect:
 
-
-def add_to_favorites(request) -> HttpResponseRedirect | HttpResponsePermanentRedirect:
-    if request.method == 'POST':
         if not request.session.get('favorites'):
             request.session['favorites'] = list()
         else:
@@ -58,7 +57,7 @@ def add_to_favorites(request) -> HttpResponseRedirect | HttpResponsePermanentRed
         
         item_id = request.POST.get('id')
         item_exist = next((item for item in request.session['favorites'] if item["id"] == item_id), False)
-    
+
         add_data = {
             'id': item_id,
         }
@@ -72,37 +71,44 @@ def add_to_favorites(request) -> HttpResponseRedirect | HttpResponsePermanentRed
             message = "Товар уже в избранном"
             success = False
         
-    if is_ajax(request=request):
-        data = {
-            'id': item_id,
-            'message': message,
-            'success': success,
-        }
-        request.session.modified = True
-        return JsonResponse(data)
+        if self.is_ajax(request):
+            data = {
+                'id': item_id,
+                'message': message,
+                'success': success,
+            }
+            request.session.modified = True
+            return JsonResponse(data)
         
-    return redirect(request.POST.get('url_from'))
-
-
-def remove_from_favorites(request, id) -> HttpResponseRedirect | HttpResponsePermanentRedirect:
-    if request.method == 'POST':
+        return redirect(request.POST.get('url_from'))
+    
+    @staticmethod
+    def is_ajax(request):
+        return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
         
-        for item in request.session['favorites']:
-            if item['id'] == id:
-                item.clear()
+
+class RemoveFromFavoritesView(View):
+    
+    def post(self, request, id) -> HttpResponseRedirect | HttpResponsePermanentRedirect:
+        if request.method == 'POST':
+            
+            if 'favorites' in request.session:
+                request.session['favorites'] = [item for item in request.session['favorites'] if item.get('id') != id]
+            item_id = request.POST.get('id')
+            for item in request.session['favorites']:
+                if item['id'] == item_id:
+                    item.clear()
                 
-        while {} in request.session['favorites']:
-            request.session['favorites'].remove({})
+            if not request.session['favorites']:
+                del request.session['favorites']
+                
+            request.session.modified = True
+            messages.success(request, "Товар удален из избранного")
             
-        if not request.session['favorites']:
-            del request.session['favorites']
-            
-        request.session.modified = True
-        messages.success(request, "Товар удален из избранного")
-    return redirect(request.POST.get('url_from'))
+        return redirect(request.POST.get('url_from'))
 
 
-def delete_favorites(request) -> HttpResponseRedirect | HttpResponsePermanentRedirect:
-    if request.session.get('favorites'):
-        del request.session['favorites']
-    return redirect(request.POST.get('url_from'))
+# def delete_favorites(request) -> HttpResponseRedirect | HttpResponsePermanentRedirect:
+#     if request.session.get('favorites'):
+#         del request.session['favorites']
+#     return redirect(request.POST.get('url_from'))
