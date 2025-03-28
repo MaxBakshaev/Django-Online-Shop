@@ -29,7 +29,7 @@ class CartAddView(CartMixin, View):
             )
 
         response_data: dict[str, str] = {
-            "message": "Товар добавлен в корзину",
+            "message2": "Товар добавлен в корзину",
             "cart_items_html": self.render_cart(request),
         }
 

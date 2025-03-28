@@ -124,12 +124,14 @@
                         {% if title == "MultiShop - Избранное" %}
                             <a href="{% url "favorites:favorites_list" %}" class="btn btn-dark btn-secondary" style="color: #FFD333;">
                                 Избранное <i class="fas fa-heart text-primary"></i>
-                                <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">{{ request.session.favorites|length }}</span>
+                                <span id="favorites-count" class="badge text-secondary border border-secondary rounded-circle" 
+                                style="padding-bottom: 2px;">{{ request.session.favorites|length }}</span>
                             </a>
                         {% else %}
                             <a href="{% url "favorites:favorites_list" %}" class="btn btn-dark btn-secondary">
                                 Избранное <i class="fas fa-heart text-primary"></i>
-                                <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">{{ request.session.favorites|length }}</span>
+                                <span id="favorites-count" class="badge text-secondary border border-secondary rounded-circle" 
+                                style="padding-bottom: 2px;">{{ request.session.favorites|length }}</span>
                             </a>
                         {% endif %}
                         <!-- Закончилась разметка Значек Избранного -->
@@ -233,7 +235,39 @@
     <script src="{% static "js/jquery-ajax.js" %}"></script>
     <script src="{% static "js/navbar.js" %}"></script>
     <script src="{% static "js/bootstrap/bootstrap.bundle.min.js" %}"></script>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        var successMessage = $("#jq-notification");
+        function addToFavorites(id) {
+            $.ajax({
+                url: "{% url 'favorites:add_to_favorites' %}",
+                type: "POST",
+                data: {
+                    'id': id,
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                },
+                success: function(response) {
+                    console.log(response);
 
+                    if (response.success) {
+                        let currentCount = parseInt($('#favorites-count').text());
+                        $('#favorites-count').text(currentCount + 1);
+                    }
+
+                    successMessage.html(response.message);
+                    successMessage.fadeIn(400);
+                    setTimeout(function () {
+                        successMessage.fadeOut(400);
+                    }, 7000);
+
+                },
+                error: function(xhr, status, error) {
+                    alert("Произошла ошибка: " + error);
+                }
+            });
+        }        
+    </script>
 
 </body>
 </html>

@@ -28,7 +28,7 @@ $(document).ready(function () {
             },
             success: function (data) {
                 // Сообщение
-                successMessage.html(data.message);
+                successMessage.html(data.message2);
                 successMessage.fadeIn(400);
                 // Через 7сек убираем сообщение
                 setTimeout(function () {

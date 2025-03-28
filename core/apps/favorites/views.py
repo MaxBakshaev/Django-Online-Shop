@@ -1,7 +1,7 @@
 from typing import Any
 from django.contrib import messages
 from django.db.models import QuerySet
-from django.http import HttpResponsePermanentRedirect, HttpResponseRedirect
+from django.http import HttpResponsePermanentRedirect, HttpResponseRedirect, JsonResponse
 from django.shortcuts import redirect
 from django.views.generic import ListView
 
@@ -45,25 +45,42 @@ class FavoritesListView(ListView, GoodsMixin):
         return context
     
 
-def add_to_favorites(request, id) -> HttpResponseRedirect | HttpResponsePermanentRedirect:
+def is_ajax(request):
+    return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
+
+
+def add_to_favorites(request) -> HttpResponseRedirect | HttpResponsePermanentRedirect:
     if request.method == 'POST':
         if not request.session.get('favorites'):
             request.session['favorites'] = list()
         else:
             request.session['favorites'] = list(request.session['favorites'])
         
-        item_exist = next((item for item in request.session['favorites'] if item["type"] == request.POST.get('type') and item["id"] == id), False)
+        item_id = request.POST.get('id')
+        item_exist = next((item for item in request.session['favorites'] if item["id"] == item_id), False)
     
         add_data = {
-            'type': request.POST.get('type'),
-            'id': id,
+            'id': item_id,
         }
         
         if not item_exist:
             request.session['favorites'].append(add_data)
             request.session.modified = True
-    
-        messages.success(request, "Товар добавлен в избранное")
+            message = "Товар добавлен в избранное"
+            success = True
+        else:
+            message = "Товар уже в избранном"
+            success = False
+        
+    if is_ajax(request=request):
+        data = {
+            'id': item_id,
+            'message': message,
+            'success': success,
+        }
+        request.session.modified = True
+        return JsonResponse(data)
+        
     return redirect(request.POST.get('url_from'))
 
 
@@ -71,7 +88,7 @@ def remove_from_favorites(request, id) -> HttpResponseRedirect | HttpResponsePer
     if request.method == 'POST':
         
         for item in request.session['favorites']:
-            if item['id'] == id and item['type'] == request.POST.get('type'):
+            if item['id'] == id:
                 item.clear()
                 
         while {} in request.session['favorites']:
@@ -89,63 +106,3 @@ def delete_favorites(request) -> HttpResponseRedirect | HttpResponsePermanentRed
     if request.session.get('favorites'):
         del request.session['favorites']
     return redirect(request.POST.get('url_from'))
-
-    
-
-# def favorite_add(request):
-    
-#     product_id = request.POST.get("product_id")
-#     product = Products.objects.get(id=product_id)
-    
-#     # Проверка корзины пользователя в БД
-#     if request.user.is_authenticated:
-#         favorites = Favorite.objects.filter(user=request.user, product=product)
-
-#         if favorites.exists():
-#             ...
-#         else:
-#             Favorite.objects.create(user=request.user, product=product)
-   
-#     else:
-#         favorites = Favorite.objects.filter(
-#             session_key=request.session.session_key, product=product)
-        
-#         if favorites.exists():
-#             favorite = favorites.first()
-#             if favorite:
-#                 ...
-#         else:
-#             Favorite.objects.create(
-#                 session_key=request.session.session_key, product=product)
-    
-#     user_favorite = get_user_favorites(request)
-#     favorite_items_html = render_to_string(
-#         "favorites.html", {"favorites": user_favorite}, request=request
-#     )
-    
-#     response_data = {
-#         "message": "Товар добавлен в избранное",
-#         "favorite_items_html": favorite_items_html,
-#     }
-    
-#     return JsonResponse(response_data)
-
-    
-# def favorite_remove(request):
-    
-#     favorite_id = request.POST.get("favorite_id")
-    
-#     favorite = Favorite.objects.get(id=favorite_id)
-#     favorite.delete()
-    
-#     user_favorite = get_user_favorites(request)
-#     favorite_items_html = render_to_string(
-#         "favorites.html", {"favorites": user_favorite}, request=request)
-    
-#     response_data = {
-#         "message": "Товар удален из избранного",
-#         "favorite_items_html": favorite_items_html,
-#     }
-       
-#     return JsonResponse(response_data)
-

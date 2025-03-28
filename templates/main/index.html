@@ -137,12 +137,11 @@
                                 {% csrf_token %}
                                 <i class="fa fa-shopping-cart"></i></a>
                                 <a class="btn btn-outline-dark btn-square">
-                                    <form action="{% url "favorites:add_to_favorites" id=popular_product.0.id %}" method="post">
-                                        {% csrf_token %}
-                                        <input type="hidden" name="type" value="{{ type }}">
-                                        <input type="hidden" name="url_from" value="{{ request.path }}">
-                                        <button class="btn btn-outline-dark btn-square" type="submit"><i class="fa fa-heart"></i></button>
-                                    </form>      
+                                    <div class="add-to-favorites" data-id="{{ popular_product.0.id }}">
+                                        <button type="button" class="btn btn-outline-dark btn-square" onclick="addToFavorites('{{ popular_product.0.id }}')">
+                                            <i class="fa fa-heart"></i>
+                                        </button>
+                                    </div>
                                 </a>
                                 <a class="btn btn-outline-dark btn-square" href="{% url "catalog:product" popular_product.0.slug %}">
                                     <i class="fa fa-arrow-right"></i>
@@ -287,12 +286,11 @@
                                 {% csrf_token %}
                                 <i class="fa fa-shopping-cart"></i></a>
                                 <a class="btn btn-outline-dark btn-square">
-                                    <form action="{% url "favorites:add_to_favorites" id=discount_product.0.id %}" method="post">
-                                        {% csrf_token %}
-                                        <input type="hidden" name="type" value="{{ type }}">
-                                        <input type="hidden" name="url_from" value="{{ request.path }}">
-                                        <button class="btn btn-outline-dark btn-square" type="submit"><i class="fa fa-heart"></i></button>
-                                    </form>      
+                                    <div class="add-to-favorites" data-id="{{ discount_product.0.id }}">
+                                        <button type="button" class="btn btn-outline-dark btn-square" onclick="addToFavorites('{{ discount_product.0.id }}')">
+                                            <i class="fa fa-heart"></i>
+                                        </button>
+                                    </div>
                                 </a>
                                 <a class="btn btn-outline-dark btn-square" href="{% url "catalog:product" discount_product.0.slug %}">
                                     <i class="fa fa-arrow-right"></i>
@@ -443,12 +441,11 @@
                                         {% csrf_token %}
                                         <i class="fa fa-shopping-cart"></i></a>
                                 <a class="btn btn-outline-dark btn-square">
-                                    <form action="{% url "favorites:add_to_favorites" id=new_product.0.id %}" method="post">
-                                        {% csrf_token %}
-                                        <input type="hidden" name="type" value="{{ type }}">
-                                        <input type="hidden" name="url_from" value="{{ request.path }}">
-                                        <button class="btn btn-outline-dark btn-square" type="submit"><i class="fa fa-heart"></i></button>
-                                    </form>      
+                                    <div class="add-to-favorites" data-id="{{ new_product.0.id }}">
+                                        <button type="button" class="btn btn-outline-dark btn-square" onclick="addToFavorites('{{ new_product.0.id }}')">
+                                            <i class="fa fa-heart"></i>
+                                        </button>
+                                    </div>
                                 </a>
                                 <a class="btn btn-outline-dark btn-square" href="{% url "catalog:product" new_product.0.slug %}">
                                     <i class="fa fa-arrow-right"></i>
