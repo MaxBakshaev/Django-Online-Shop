@@ -8,7 +8,9 @@ from goods.models import Categories, Products, Review
 class TestGoods(TestCase):
 
     def setUp(self):
-        self.test_user1 = User.objects.create_user(username='testuser1', password='12345')
+        self.test_user1 = User.objects.create_user(
+            username="testuser1", password="12345"
+        )
         self.test_user1.save()
         Categories.objects.create(name="Книги", slug="knigi", id=1)
         Categories.objects.create(name="Test Category", slug="test-category", id=3)
@@ -35,9 +37,9 @@ class TestGoods(TestCase):
             product=self.product1,
             user=self.test_user1,
             rating=4,
-            comment='Хороший продукт',
+            comment="Хороший продукт",
         )
-        
+
     def test_search_by_name(self):
         response = self.client.get("/catalog/search/?q=Лимузин/", {"q": "Лимузин"})
         self.assertEqual(len(response.context["goods"]), 1)
@@ -120,10 +122,10 @@ class TestGoods(TestCase):
                 discount=10,
                 quantity=1,
                 category_id=3,
-                id=3+i,
+                id=3 + i,
             )
         response = self.client.get(
-            '/catalog/test-category/', kwargs={'category_slug': 'Test Category'}
+            "/catalog/test-category/", kwargs={"category_slug": "Test Category"}
         )
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Product 1")
@@ -133,11 +135,12 @@ class TestGoods(TestCase):
 
     def test_goods_amount(self):
         response = self.client.get(
-            '/catalog/avtomobili/', kwargs={'category_slug': 'avtomobili'})
+            "/catalog/avtomobili/", kwargs={"category_slug": "avtomobili"}
+        )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "goods/catalog.html")
-        self.assertIn('amount', response.context)
-        self.assertEqual(response.context['amount'], 2)
+        self.assertIn("amount", response.context)
+        self.assertEqual(response.context["amount"], 2)
 
     def test_goods_ending(self):
         Products.objects.create(
@@ -149,59 +152,62 @@ class TestGoods(TestCase):
             category_id=3,
             id=3,
         )
-        
+
         response = self.client.get(
-            '/catalog/avtomobili/', kwargs={'category_slug': 'avtomobili'}
+            "/catalog/avtomobili/", kwargs={"category_slug": "avtomobili"}
         )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "goods/catalog.html")
-        self.assertIn('goods_ending', response.context)
-        self.assertEqual(response.context['goods_ending'], 'товара')
+        self.assertIn("goods_ending", response.context)
+        self.assertEqual(response.context["goods_ending"], "товара")
 
         response2 = self.client.get(
-            '/catalog/knigi/', kwargs={'category_slug': 'knigi'}
+            "/catalog/knigi/", kwargs={"category_slug": "knigi"}
         )
-        self.assertEqual(response2.context['goods_ending'], 'товаров')
-        
+        self.assertEqual(response2.context["goods_ending"], "товаров")
+
         response3 = self.client.get(
-            '/catalog/test-category/', kwargs={'category_slug': 'Test Category'}
+            "/catalog/test-category/", kwargs={"category_slug": "Test Category"}
         )
-        self.assertEqual(response3.context['goods_ending'], 'товар')
-        
+        self.assertEqual(response3.context["goods_ending"], "товар")
+
     def test_goods_name(self):
         response = self.client.get(
-            '/catalog/avtomobili/', kwargs={'category_slug': 'avtomobili'})
+            "/catalog/avtomobili/", kwargs={"category_slug": "avtomobili"}
+        )
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.context['goods'][0][0].name, 'Лимузин')
-        
+        self.assertEqual(response.context["goods"][0][0].name, "Лимузин")
+
     def test_goods_rating(self):
         response = self.client.get(
-            '/catalog/avtomobili/', kwargs={'category_slug': 'avtomobili'})
-        self.assertEqual(response.status_code, 200)    
-        self.assertEqual(response.context['goods'][0][1][0], 4)
-        
+            "/catalog/avtomobili/", kwargs={"category_slug": "avtomobili"}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context["goods"][0][1][0], 4)
+
     def test_goods_amount_reviews(self):
         response = self.client.get(
-            '/catalog/avtomobili/', kwargs={'category_slug': 'avtomobili'})
+            "/catalog/avtomobili/", kwargs={"category_slug": "avtomobili"}
+        )
         self.assertEqual(response.status_code, 200)
-        
-        self.assertEqual(response.context['goods'][0][1][1], '1 отзыв')
-        self.assertEqual(response.context['goods'][0][1][2], 1)
-        
-        self.assertEqual(response.context['goods'][1][1][1], '0 отзывов')
-        self.assertEqual(response.context['goods'][1][1][2], 0)
-        
+
+        self.assertEqual(response.context["goods"][0][1][1], "1 отзыв")
+        self.assertEqual(response.context["goods"][0][1][2], 1)
+
+        self.assertEqual(response.context["goods"][1][1][1], "0 отзывов")
+        self.assertEqual(response.context["goods"][1][1][2], 0)
+
     def test_create_review(self):
         review = Review.objects.create(
             product=self.product2,
             user=self.test_user1,
             rating=5,
-            comment='Отличный продукт',
+            comment="Отличный продукт",
         )
         self.assertIn(review, self.product2.reviews.all())
         self.assertEqual(self.product2.reviews.count(), 1)
         self.assertEqual(review.product, self.product2)
         self.assertEqual(review.user, self.test_user1)
         self.assertEqual(review.rating, 5)
-        self.assertEqual(review.comment, 'Отличный продукт')
+        self.assertEqual(review.comment, "Отличный продукт")
         self.assertIsNotNone(review.created)

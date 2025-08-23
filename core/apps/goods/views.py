@@ -1,4 +1,4 @@
-from typing import Any, Literal
+from typing import Any
 from django.contrib import messages
 from django.db.models import QuerySet
 from django.views.generic import DetailView, FormView, ListView
@@ -183,7 +183,9 @@ class CatalogView(ListView, GoodsMixin):
             self.goods = q_search(self.query)
 
         else:
-            self.goods = super().get_queryset().filter(category__slug=self.category_slug)
+            self.goods = (
+                super().get_queryset().filter(category__slug=self.category_slug)
+            )
 
         # Проверки с добавлением фильтров к запросу
         goods = self.filter_on_sale()
@@ -229,13 +231,13 @@ class ProductView(DetailView, FormView, GoodsMixin):
     def get_object(self, queryset=None) -> Products:
         self.product = Products.objects.get(slug=self.kwargs.get(self.slug_url_kwarg))
         return self.product
-    
+
     def get_success_url(self) -> str:
-        """ Возвращает URL для перенаправления на эту же страницу """
+        """Возвращает URL для перенаправления на эту же страницу"""
         return self.request.path
 
     def form_valid(self, form) -> HttpResponse:
-        """ Сохраняет отзыв о товаре """
+        """Сохраняет отзыв о товаре"""
         if form.is_valid():
             review = form.save(commit=False)
             review.product = self.get_object()
@@ -244,15 +246,15 @@ class ProductView(DetailView, FormView, GoodsMixin):
             messages.success(self.request, "Отзыв оставлен!")
         else:
             form = CreateReviewForm()
-            
+
         return super().form_valid(form)
-    
+
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
-        
+
         context: dict[str, Any] = super().get_context_data(**kwargs)
         context["title"] = self.object.name
         context["check_page"] = "MultiShop - Продукты"
-        
+
         self.reviews = self.product.reviews.all()
         self.amount_reviews = len(self.reviews)
 
