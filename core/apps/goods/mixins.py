@@ -2,9 +2,9 @@ from typing import Any, Literal
 
 
 class GoodsMixin:
-    
+
     def get_product_rating(self) -> Any | Literal[0]:
-        """ Возвращает оценку продукта """
+        """Возвращает оценку продукта"""
         rate = 0
         for review in self.reviews:
             rate += review.rating
@@ -13,31 +13,43 @@ class GoodsMixin:
         except ZeroDivisionError:
             product_rating = 0
         return product_rating
-    
-    def get_reviews_ending(self) -> Literal['отзыв'] | Literal['отзыва'] | Literal['отзывов']:
+
+    def get_reviews_ending(
+        self,
+    ) -> Literal["отзыв"] | Literal["отзыва"] | Literal["отзывов"]:
         """Возвращает слово 'отзыв' в правильном падеже"""
-        last_number_of_amount: str = (str(self.amount_reviews))[len(str(self.amount_reviews)) - 1]
+        last_number_of_amount: str = (str(self.amount_reviews))[
+            len(str(self.amount_reviews)) - 1
+        ]
         if last_number_of_amount == "1" and str(self.amount_reviews) != "11":
             reviews_ending = "отзыв"
-        elif last_number_of_amount in ["2", "3", "4"] and str(self.amount_reviews) not in ["12", "13", "14"]:
+        elif last_number_of_amount in ["2", "3", "4"] and str(
+            self.amount_reviews
+        ) not in ["12", "13", "14"]:
             reviews_ending = "отзыва"
         else:
             reviews_ending = "отзывов"
         return reviews_ending
-    
-    def get_goods_ending(self) -> Literal["товар"] | Literal["товара"] | Literal["товаров"]:
+
+    def get_goods_ending(
+        self,
+    ) -> Literal["товар"] | Literal["товара"] | Literal["товаров"]:
         """Возвращает слово 'товар' в правильном падеже"""
         last_number_of_amount: str = (str(self.amount))[len(str(self.amount)) - 1]
         if last_number_of_amount == "1" and str(self.amount) != "11":
             goods_ending = "товар"
-        elif last_number_of_amount in ["2", "3", "4"] and str(self.amount) not in ["12","13","14",]:
+        elif last_number_of_amount in ["2", "3", "4"] and str(self.amount) not in [
+            "12",
+            "13",
+            "14",
+        ]:
             goods_ending = "товара"
         else:
             goods_ending = "товаров"
         return goods_ending
-    
+
     def get_products_list(self) -> list[tuple]:
-        """ 
+        """
         Возвращает список товаров, где элементы:
         Первый кортеж - продукт (объект из queryset)
         Второй кортеж - оценка и количество отзывов о продукте

@@ -19,7 +19,7 @@ def tag_categories():
 @register.simple_tag(takes_context=True)
 def change_params(context, **kwargs) -> str:
     # получаем параметры GET-запроса, с которыми была открыта страница
-    query = context['request'].GET.dict()
+    query = context["request"].GET.dict()
     # в словарь добавляются данные какую страницу нужно открыть
     query.update(kwargs)
     # из словаря возвращаются параметры в виде строки для URL-адреса

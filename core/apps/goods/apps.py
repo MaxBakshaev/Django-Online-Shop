@@ -2,7 +2,7 @@ from django.apps import AppConfig
 
 
 class GoodsConfig(AppConfig):
-    default_auto_field = 'django.db.models.BigAutoField'
-    name = 'goods'
+    default_auto_field = "django.db.models.BigAutoField"
+    name = "goods"
     # Название в админке
-    verbose_name = 'Товары'
+    verbose_name = "Товары"
